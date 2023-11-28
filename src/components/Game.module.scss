@@ -1,0 +1,29 @@
+@import "../styles/variables";
+
+.game {
+  padding: $default_gap;
+
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-areas: "img title"
+    "img master"
+    "img system";
+  gap: $default_gap;
+
+
+  border-radius: 1rem;
+  color: $extra;
+  background-color: $background;
+
+  box-shadow: 3px 3px 0 0 $highlight;
+
+
+  img {
+    width: 100%;
+    object-fit: contain;
+    grid-area: img;
+    border-radius: 1rem;
+  }
+}

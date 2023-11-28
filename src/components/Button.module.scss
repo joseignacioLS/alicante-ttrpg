@@ -1,0 +1,21 @@
+@import "../styles/variables";
+
+.button {
+  background-color: $highlight ;
+  border: none;
+  outline: none;
+  padding: $reduced_gap $default_gap;
+  color: $background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+
+  &:disabled{
+    opacity: .5;
+    color: $main;
+    background-color: $alert;
+  }
+}

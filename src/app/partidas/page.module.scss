@@ -1,0 +1,7 @@
+@import "../../styles/variables";
+
+.gameList {
+  display: flex;
+  gap: $default_gap;
+  margin-top: $default_gap;
+}
