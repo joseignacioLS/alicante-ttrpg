@@ -1,0 +1,10 @@
+@import "../styles/variables";
+
+.carrousel {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+
+  background-color: $background;
+
+  overflow: hidden;
+}

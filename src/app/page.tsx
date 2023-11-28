@@ -1,3 +1,4 @@
+import Carrousel from "@/components/Carrousel";
 import Link from "next/link";
 import React from "react";
 
@@ -8,7 +9,7 @@ const Home = () => {
         <img src="https://media.istockphoto.com/photos/tabletop-role-playing-flat-lay-background-with-colorful-rpg-dices-and-picture-id1178549496?k=20&m=1178549496&s=170667a&w=0&h=a3AnnLdKam0fqEa8MgRO868qaj-TL4MMoKe0tWwLDd4=" />
         <h1>Alicante TTRPG</h1>
         <h2>Novedades</h2>
-        <section>carrousel</section>
+        <Carrousel slides={[]} />
         <h2>¿Buscas gente con la que jugar?</h2>
         <p>
           Ya seas una persona sin experiencia o conozcas los TTRPG como Dungeons

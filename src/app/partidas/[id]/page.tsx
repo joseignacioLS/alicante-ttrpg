@@ -34,8 +34,8 @@ const Home = () => {
               <img className={styles.background} src={gameData.image} />
               <h1 className={styles.title}>{gameData?.name}</h1>
             </header>
-            <h2>Información</h2>
             <section className={styles.stats}>
+              <h2>Información</h2>
               <h3>Máster y Sistema</h3>
               <div className={styles.row}>
                 <span>{gameData.master}</span>
@@ -67,12 +67,20 @@ const Home = () => {
                 </span>
               </div>
             </section>
-            <h2>Descripción</h2>
             <section className={styles.description}>
+              <h2>Descripción</h2>
               {gameData.description.map((text) => (
                 <p key={text}>{text}</p>
               ))}
             </section>
+            {gameData.information?.length > 0 && (
+              <section className={styles.description}>
+                <h2>Información Extra</h2>
+                {gameData.information.map((text) => (
+                  <p key={text}>{text}</p>
+                ))}
+              </section>
+            )}
             <div className={styles.cta}>
               <Button
                 onClick={handleJoin}

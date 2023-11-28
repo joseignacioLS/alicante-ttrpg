@@ -28,7 +28,7 @@ export interface IGame {
   experience: EExperience[];
   description: string[];
   duration: EDuration;
-  condiciones: string;
+  information: string[];
 }
 
 export const games = [
@@ -55,5 +55,11 @@ export const games = [
         `,
     ],
     duration: EDuration.LongCampaign,
+    information: [
+      "La campaña seguirá su curso si el grupo tiene un mínimo de 5 o 6 jugadores.",
+      "El recargo de la campaña tiene una devolución hasta 24 horas antes del inicio de la sesión prevista para la fecha.",
+      "Si un jugador tiene un comportamiento inadecuado en la campaña (fuera o dentro de rol) en la mesa puede ser expulsado de la campaña.",
+      "Puede que a lo largo de la campaña hayan otros cargos para la compra de miniaturas para ofrecer una mejor experiencia.",
+    ],
   },
 ];

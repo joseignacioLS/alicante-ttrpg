@@ -15,18 +15,25 @@
 
     font-size: 1.5rem;
 
-    color: $background;
     background-color: $highlight;
     border-radius: $border_radius_large $border_radius_large 0 0;
 
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
+
+    span {
+      color: $background;
+
+    }
 
     &.selected {
-      color: $extra;
+      span {
+        color: $extra;
+      }
+
       background-color: $main;
-      font-weight: bold;
     }
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { EExperience, ESystem, IGame, games } from "@/data/games";
+import { EDuration, EExperience, ESystem, IGame, games } from "@/data/games";
 import styles from "./page.module.scss";
 import GameCard from "@/components/GameCard";
 import Link from "next/link";
@@ -11,7 +11,8 @@ export default function Home() {
   const [filters, setFilters] = useState<{
     system: ESystem | "any";
     experience: EExperience | "any";
-  }>({ system: "any", experience: "any" });
+    duration: EDuration | "any";
+  }>({ system: "any", experience: "any", duration: "any" });
   const [gameList, setGameList] = useState<IGame[]>([]);
 
   const handleChange = (e: any) => {
@@ -29,7 +30,9 @@ export default function Home() {
       const isExperience =
         filters.experience === "any" ||
         v.experience.includes(filters.experience);
-      return isSystem && isExperience;
+      const isDuration =
+        filters.duration === "any" || v.duration === filters.duration;
+      return isSystem && isExperience && isDuration;
     }) as IGame[];
     setGameList(filterGames);
   }, [filters]);
@@ -66,6 +69,23 @@ export default function Home() {
                 value: "any",
               },
               ...Object.values(EExperience).map((v) => {
+                return {
+                  text: v,
+                  value: v,
+                };
+              }),
+            ]}
+          />
+          <Select
+            label="Duración"
+            name={"duration"}
+            onChange={handleChange}
+            options={[
+              {
+                text: "Cualquier",
+                value: "any",
+              },
+              ...Object.values(EDuration).map((v) => {
                 return {
                   text: v,
                   value: v,

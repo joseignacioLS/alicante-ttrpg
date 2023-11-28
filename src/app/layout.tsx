@@ -3,7 +3,7 @@ import "./globals.scss";
 import { Menu } from "@/core/Menu";
 import localFont from "next/font/local";
 
-const inclusiveSans = localFont({
+const UnicaOne = localFont({
   src: "../../public/fonts/UnicaOne-Regular.ttf",
 });
 
@@ -22,7 +22,7 @@ export default function RootLayout({
       <head>
         <style>font</style>
       </head>
-      <body className={inclusiveSans.className}>
+      <body className={UnicaOne.className}>
         <Menu />
         {children}
       </body>
