@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import { Button } from "@/components/Button";
 
-const page = () => {
+const Home = () => {
   const { id } = useParams();
   const router = useRouter();
   const [gameData, setGameData] = useState<IGame | undefined>(undefined);
@@ -84,4 +84,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Home;

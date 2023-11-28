@@ -1,4 +1,3 @@
-import { Menu } from "@/core/Menu";
 import React from "react";
 
 const page = () => {
