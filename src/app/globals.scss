@@ -21,7 +21,7 @@ body {
   width: 100%;
   height: 100dvh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr;
   background-color: $background;
   overflow: hidden;
 }
@@ -29,16 +29,16 @@ body {
 main {
   height: 100%;
   width: 100%;
-  padding: 0 1rem;
+  padding: 0 $gap_default $gap_default $gap_default;
   overflow-y: auto;
 }
 
 h1 {
-  margin-bottom: $default_gap;
+  margin-bottom: $gap_default;
 }
 
 h2 {
-  margin: $default_gap 0;
+  margin: $gap_default 0;
 }
 
 h3 {
@@ -48,11 +48,12 @@ h3 {
 
 p {
   color: $highlight;
+  margin-bottom: $gap_default;
 }
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: $link;
   cursor: pointer;
 }
 
@@ -63,7 +64,7 @@ a {
   padding: 1rem;
   background-color: $main;
 
-  border-radius: 0 0 2rem 2rem;
+  border-radius: 0 0 $border_radius_large $border_radius_large;
 
 }
 

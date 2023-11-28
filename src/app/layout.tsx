@@ -25,7 +25,6 @@ export default function RootLayout({
       <body className={inclusiveSans.className}>
         <Menu />
         {children}
-        <>footer</>
       </body>
     </html>
   );

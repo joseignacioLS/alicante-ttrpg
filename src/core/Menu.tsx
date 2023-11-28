@@ -2,7 +2,7 @@
 
 import { routes } from "@/routes/routes";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./Menu.module.scss";
 import { usePathname } from "next/navigation";
 

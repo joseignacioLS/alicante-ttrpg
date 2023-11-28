@@ -12,13 +12,18 @@ $_p_0_2: #445d48;
 $_p_0_3: #d6cc99;
 $_p_0_4: #fde5d4;
 $_p_0_5: #BC4749;
+$_p_0_6: #6ea0f7;
 
 $background: $_p_0_1;
 $main: $_p_0_2;
 $highlight: $_p_0_3;
 $extra: $_p_0_4;
 $alert: $_p_0_5;
+$link: $_p_0_6;
 
 
-$default_gap: .5rem;
-$reduced_gap: .25rem;
+$gap_default: .5rem;
+$gap_small: .25rem;
+
+$border_radius: .5rem;
+$border_radius_large: 1rem;

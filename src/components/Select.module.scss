@@ -1,0 +1,26 @@
+@import "../styles/variables";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.select {
+  background-color: $background;
+  padding: $gap_small $gap_default;
+  border-radius: 1000px;
+  border: none;
+  width: 150px;
+
+  &:focus {
+    border: none;
+    outline: none;
+    background-color: $highlight;
+    color: $background
+  }
+
+  &:focus-visible {
+    border: none;
+    outline: none;
+  }
+}

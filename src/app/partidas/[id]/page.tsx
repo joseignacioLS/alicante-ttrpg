@@ -17,7 +17,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const retrievedGame = games.find((v) => v.id === id);
+    const retrievedGame = games.find((v) => v.id === id) as IGame | undefined;
     if (retrievedGame === undefined) return router.push("/partidas");
     setGameData(retrievedGame);
   }, [id]);
@@ -41,6 +41,10 @@ const Home = () => {
                 <span>{gameData.master}</span>
                 <span>{gameData.system}</span>
               </div>
+              <h3>Duración Planificada</h3>
+              <div className={styles.row}>
+                <span>{gameData.duration}</span>
+              </div>
               <h3>Experiencia Requerida</h3>
               <div className={styles.row}>
                 {Object.values(EExperience).map((xp) => {
@@ -58,14 +62,16 @@ const Home = () => {
               <h3>Espacio</h3>
               <div className={styles.row}>
                 <span>
-                  Huecos Libres: {gameData.maxPlayers - gameData.currentPlayers}
+                  Huecos Libres: {gameData.maxPlayers - gameData.currentPlayers}{" "}
+                  / {gameData.maxPlayers}
                 </span>
-                <span>Huecos Totales: {gameData.maxPlayers}</span>
               </div>
             </section>
             <h2>Descripción</h2>
             <section className={styles.description}>
-              {gameData.description}
+              {gameData.description.map((text) => (
+                <p key={text}>{text}</p>
+              ))}
             </section>
             <div className={styles.cta}>
               <Button

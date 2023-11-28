@@ -1,9 +1,9 @@
 @import "../../../styles/variables";
 
 .banner {
-  margin-top: $default_gap;
+  margin-top: $gap_default;
   position: relative;
-  border-radius: 2rem 2rem 0 0;
+  border-radius: $border_radius $border_radius 0 0;
   overflow: hidden;
 
   .background {
@@ -13,8 +13,8 @@
 
   .title {
     position: absolute;
-    bottom: $default_gap;
-    right: $default_gap;
+    bottom: $gap_default;
+    right: $gap_default;
     text-shadow: 2px 2px 0 $background,
       -2px -2px 0 $background,
       2px -2px 0 $background,
@@ -27,17 +27,17 @@
 }
 
 .stats {
-  margin-bottom: $reduced_gap;
+  margin-bottom: $gap_small;
   color: $highlight;
 
   display: flex;
   flex-direction: column;
-  gap: $default_gap;
+  gap: $gap_default;
 
   .row {
     display: flex;
     justify-content: space-between;
-    gap: $default_gap;
+    gap: $gap_default;
 
     .validXp {
       opacity: 1;
@@ -54,9 +54,9 @@
 
 
 .cta {
-  margin-top: $default_gap;
+  margin-top: $gap_default;
   position: sticky;
-  bottom: $default_gap;
+  bottom: $gap_default;
   display: flex;
   justify-content: flex-end;
 }

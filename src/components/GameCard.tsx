@@ -1,16 +1,17 @@
 import { IGame } from "@/data/games";
 import React from "react";
-import styles from "./Game.module.scss";
+import styles from "./GameCard.module.scss";
 
-const Game = ({ game }: { game: IGame }) => {
+const GameCard = ({ game }: { game: IGame }) => {
   return (
     <article key={`${game.master}+${game.name}`} className={styles.game}>
       <img src={game.image} />
-      <h3>{game.name}</h3>
-      <span>{game.master}</span>
+      <h2>{game.name}</h2>
       <span>{game.system}</span>
+      <span>{game.duration}</span>
+      <span>{game.experience[0]}</span>
     </article>
   );
 };
 
-export default Game;
+export default GameCard;

@@ -1,5 +1,3 @@
-import { ReactElement } from "react";
-
 export enum ESystem {
   DnD5e = "Dungeons & Dragons 5e",
   CoC = "Call of Cthulhu 7e",
@@ -13,6 +11,12 @@ export enum EExperience {
   Veterano = "Veteranos",
 }
 
+export enum EDuration {
+  OneShot = "One Shot",
+  ShortCampaign = "Campaña Corta",
+  LongCampaign = "Campaña Larga",
+}
+
 export interface IGame {
   id: string;
   name: string;
@@ -22,7 +26,9 @@ export interface IGame {
   currentPlayers: number;
   maxPlayers: number;
   experience: EExperience[];
-  description: ReactElement | string;
+  description: string[];
+  duration: EDuration;
+  condiciones: string;
 }
 
 export const games = [
@@ -36,24 +42,18 @@ export const games = [
     currentPlayers: 6,
     maxPlayers: 6,
     experience: [EExperience.Iniciado, EExperience.Veterano],
-    description: (
-      <>
-        <p>
-          Un vórtice interdimensional amenaza con colapsar realidades.Mientras
+    description: [
+      `Un vórtice interdimensional amenaza con colapsar realidades. Mientras
           explorais tierras desconocidas y os sumergis en dimensiones paralelas,
           tendréis que desentrañar antiguos misterios, ganar aliados
           interdimensionales y evitar ser absorbidos por la caótica energía del
-          vórtice de Maná.
-        </p>
-        <p>
-          ¿Lograreis cerrar el portal antes de que todos los mundos converjan en
-          un caos inimaginable?
-        </p>
-        <p>
-          La supervivencia de la realidad misma está en juego. ¡Prepárate para
+          vórtice de Maná.`,
+      `¿Lograreis cerrar el portal antes de que todos los mundos converjan en
+          un caos inimaginable?`,
+      `La supervivencia de la realidad misma está en juego. ¡Prepárate para
           viajar entre dimensiones y descubrir lo que yace más allá del Vórtice!
-        </p>
-      </>
-    ),
+        `,
+    ],
+    duration: EDuration.LongCampaign,
   },
 ];

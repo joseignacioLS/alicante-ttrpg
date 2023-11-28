@@ -1,7 +1,13 @@
 @import "../../styles/variables";
 
+.filters {
+  display: flex;
+  gap: $gap_default;
+  flex-wrap: wrap;
+}
+
 .gameList {
   display: flex;
-  gap: $default_gap;
-  margin-top: $default_gap;
+  gap: $gap_default;
+  margin-top: $gap_default;
 }
