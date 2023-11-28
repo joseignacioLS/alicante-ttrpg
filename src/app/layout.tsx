@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.scss";
 import { Menu } from "@/core/Menu";
+import localFont from "next/font/local";
 
-const inter = Inter({ subsets: ["latin"] });
+const inclusiveSans = localFont({
+  src: "../../public/fonts/UnicaOne-Regular.ttf",
+});
 
 export const metadata: Metadata = {
   title: "Alicante TTRPG",
@@ -17,7 +19,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <head>
+        <style>font</style>
+      </head>
+      <body className={inclusiveSans.className}>
         <Menu />
         {children}
         <>footer</>
