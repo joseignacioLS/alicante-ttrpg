@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.scss";
 import { Menu } from "@/core/Menu";
-import localFont from "next/font/local";
-
-const UnicaOne = localFont({
-  src: "../../public/fonts/UnicaOne-Regular.ttf",
-});
 
 export const metadata: Metadata = {
   title: "Alicante TTRPG",
@@ -22,7 +17,7 @@ export default function RootLayout({
       <head>
         <style>font</style>
       </head>
-      <body className={UnicaOne.className}>
+      <body>
         <Menu />
         {children}
       </body>

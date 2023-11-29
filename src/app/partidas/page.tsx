@@ -12,7 +12,8 @@ export default function Home() {
     system: ESystem | "any";
     experience: EExperience | "any";
     duration: EDuration | "any";
-  }>({ system: "any", experience: "any", duration: "any" });
+    status: string;
+  }>({ system: "any", experience: "any", duration: "any", status: "any" });
   const [gameList, setGameList] = useState<IGame[]>([]);
 
   const handleChange = (e: any) => {
@@ -32,7 +33,10 @@ export default function Home() {
         v.experience.includes(filters.experience);
       const isDuration =
         filters.duration === "any" || v.duration === filters.duration;
-      return isSystem && isExperience && isDuration;
+      const isFull =
+        v.currentPlayers >= v.maxPlayers ? "Llenas" : "Disponibles";
+      const isStatus = filters.status === "any" || isFull === filters.status;
+      return isSystem && isExperience && isDuration && isStatus;
     }) as IGame[];
     setGameList(filterGames);
   }, [filters]);
@@ -48,7 +52,7 @@ export default function Home() {
             onChange={handleChange}
             options={[
               {
-                text: "Cualquier",
+                text: "Cualquiera",
                 value: "any",
               },
               ...Object.values(ESystem).map((v) => {
@@ -65,7 +69,7 @@ export default function Home() {
             onChange={handleChange}
             options={[
               {
-                text: "Cualquier",
+                text: "Cualquiera",
                 value: "any",
               },
               ...Object.values(EExperience).map((v) => {
@@ -82,10 +86,27 @@ export default function Home() {
             onChange={handleChange}
             options={[
               {
-                text: "Cualquier",
+                text: "Cualquiera",
                 value: "any",
               },
               ...Object.values(EDuration).map((v) => {
+                return {
+                  text: v,
+                  value: v,
+                };
+              }),
+            ]}
+          />
+          <Select
+            label="Estado"
+            name={"status"}
+            onChange={handleChange}
+            options={[
+              {
+                text: "Todas",
+                value: "any",
+              },
+              ...["Disponibles", "Llenas"].map((v) => {
                 return {
                   text: v,
                   value: v,

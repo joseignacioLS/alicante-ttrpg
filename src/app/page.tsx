@@ -9,7 +9,31 @@ const Home = () => {
         <img src="https://media.istockphoto.com/photos/tabletop-role-playing-flat-lay-background-with-colorful-rpg-dices-and-picture-id1178549496?k=20&m=1178549496&s=170667a&w=0&h=a3AnnLdKam0fqEa8MgRO868qaj-TL4MMoKe0tWwLDd4=" />
         <h1>Alicante TTRPG</h1>
         <h2>Novedades</h2>
-        <Carrousel slides={[]} />
+        <Carrousel
+          slides={[
+            {
+              id: "TablesManaVortex",
+              element: (
+                <div>
+                  <h2>Sesiones en Mana Vortes</h2>
+                  <p>
+                    Mesas abiertas para jugadores nuevos y veteranos, ¡apúntante
+                    ya!
+                  </p>
+                </div>
+              ),
+            },
+            {
+              id: "1",
+              element: (
+                <div>
+                  <h2>¿Quieres iniciarte como GM?</h2>
+                  <p>¡Habla con nosotros!</p>
+                </div>
+              ),
+            },
+          ]}
+        />
         <h2>¿Buscas gente con la que jugar?</h2>
         <p>
           Ya seas una persona sin experiencia o conozcas los TTRPG como Dungeons

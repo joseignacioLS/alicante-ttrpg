@@ -9,7 +9,11 @@ const Carrousel = ({ slides }: IProps) => {
   return (
     <div className={styles.carrousel}>
       {slides.map((slide) => {
-        return <article key={slide.id}>{slide.element}</article>;
+        return (
+          <article className={styles.slide} key={slide.id}>
+            {slide.element}
+          </article>
+        );
       })}
     </div>
   );

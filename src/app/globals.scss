@@ -1,11 +1,22 @@
 @import "../styles/variables";
 
+@font-face {
+  font-family: "Unica One";
+  src: url("../../public/fonts/UnicaOne-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Karla";
+  src: url("../../public/fonts/Karla-VariableFont_wght.ttf")
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
   color: inherit;
+  font-family: "Karla";
 }
 
 html {
@@ -32,12 +43,23 @@ main {
   overflow-y: auto;
 }
 
+section {
+  margin-bottom: $gap_big;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Unica One";
+}
+
 h1 {
   margin-bottom: $gap_default;
 }
 
 h2 {
-  margin: $gap_default 0;
+  margin-bottom: $gap_default;
 }
 
 h3 {

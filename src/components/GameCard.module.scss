@@ -4,6 +4,7 @@
   padding: $gap_default;
 
   width: 100%;
+  aspect-ratio: 2 / 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto auto auto;
@@ -20,6 +21,9 @@
 
   box-shadow: 3px 3px 0 0 $link;
 
+  &.full {
+    background-color: $alert;
+  }
 
   img {
     width: 100%;

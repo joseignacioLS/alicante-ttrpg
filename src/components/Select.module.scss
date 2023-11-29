@@ -3,6 +3,10 @@
 .wrapper {
   display: flex;
   flex-direction: column;
+
+  .label {
+    font-family: "Unica One";
+  }
 }
 
 .select {

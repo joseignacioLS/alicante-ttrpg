@@ -17,6 +17,13 @@ export enum EDuration {
   LongCampaign = "Campaña Larga",
 }
 
+export enum EFrequency {
+  Semanal = "Semanal",
+  Bisemanal = "Bisemanal",
+  Mensual = "Mensual",
+  Bimensual = "Bimensual",
+}
+
 export interface IGame {
   id: string;
   name: string;
@@ -29,6 +36,7 @@ export interface IGame {
   description: string[];
   duration: EDuration;
   information: string[];
+  frecuency: EFrequency;
 }
 
 export const games = [
@@ -61,5 +69,23 @@ export const games = [
       "Si un jugador tiene un comportamiento inadecuado en la campaña (fuera o dentro de rol) en la mesa puede ser expulsado de la campaña.",
       "Puede que a lo largo de la campaña hayan otros cargos para la compra de miniaturas para ofrecer una mejor experiencia.",
     ],
+    frecuency: EFrequency.Bisemanal,
+  },
+  {
+    id: "1",
+    name: "La guarida de la Bestia",
+    master: "Jose",
+    system: ESystem.CoC,
+    image: "https://blizzardwatch.com/wp-content/uploads/2020/06/cthulhu.png",
+    currentPlayers: 1,
+    maxPlayers: 4,
+    experience: [EExperience.None],
+    description: [
+      `Cuando vuestro coche dejó de funcionar en el pequeño pueblo de Tisbay pensásteis que lo más sensato era pasar la noche allí mientras os lo reparaban.`,
+      `¿Pensaréis lo mismo tras ver los horrores que la noche esconde?`,
+    ],
+    duration: EDuration.OneShot,
+    information: [],
+    frecuency: EFrequency.Semanal,
   },
 ];

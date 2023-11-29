@@ -25,9 +25,7 @@ const Home = () => {
   return (
     <main>
       <div className="content">
-        <Link href="/partidas">
-          <span>Volver al listado</span>
-        </Link>
+        <Link href="/partidas">Volver al listado</Link>
         {gameData && (
           <>
             <header className={styles.banner}>
@@ -36,35 +34,52 @@ const Home = () => {
             </header>
             <section className={styles.stats}>
               <h2>Información</h2>
-              <h3>Máster y Sistema</h3>
-              <div className={styles.row}>
-                <span>{gameData.master}</span>
-                <span>{gameData.system}</span>
+              <div>
+                <h3>Máster y Sistema</h3>
+                <div className={styles.row}>
+                  <span>{gameData.master}</span>
+                  <span>{gameData.system}</span>
+                </div>
               </div>
-              <h3>Duración Planificada</h3>
-              <div className={styles.row}>
-                <span>{gameData.duration}</span>
+              <div>
+                <h3>Duración Planificada</h3>
+                <div className={styles.row}>
+                  <span>{gameData.duration}</span>
+                </div>
               </div>
-              <h3>Experiencia Requerida</h3>
-              <div className={styles.row}>
-                {Object.values(EExperience).map((xp) => {
-                  const isValidXp = gameData.experience.includes(xp);
-                  return (
-                    <span
-                      key={xp}
-                      className={isValidXp ? styles.validXp : styles.invalidXP}
-                    >
-                      {xp}
-                    </span>
-                  );
-                })}
+              <div>
+                <h3>Experiencia Requerida</h3>
+                <div className={styles.row}>
+                  {Object.values(EExperience).map((xp) => {
+                    const isValidXp = gameData.experience.includes(xp);
+                    return (
+                      <span
+                        key={xp}
+                        className={
+                          isValidXp ? styles.validXp : styles.invalidXP
+                        }
+                      >
+                        {xp}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
-              <h3>Espacio</h3>
-              <div className={styles.row}>
-                <span>
-                  Huecos Libres: {gameData.maxPlayers - gameData.currentPlayers}{" "}
-                  / {gameData.maxPlayers}
-                </span>
+              <div>
+                <h3>Espacio</h3>
+                <div className={styles.row}>
+                  <span>
+                    Huecos Libres:{" "}
+                    {gameData.maxPlayers - gameData.currentPlayers} /{" "}
+                    {gameData.maxPlayers}
+                  </span>
+                </div>
+              </div>
+              <div>
+                <h3>Frencuencia de Juego</h3>
+                <div className={styles.row}>
+                  <span>{gameData.frecuency}</span>
+                </div>
               </div>
             </section>
             <section className={styles.description}>

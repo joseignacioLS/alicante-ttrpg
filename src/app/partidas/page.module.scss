@@ -8,6 +8,7 @@
 
 .gameList {
   display: flex;
+  flex-direction: column;
   gap: $gap_default;
   margin-top: $gap_default;
 }

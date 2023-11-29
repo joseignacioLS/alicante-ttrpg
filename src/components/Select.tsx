@@ -14,7 +14,7 @@ interface IProps {
 const Select = ({ label, name, options, onChange }: IProps) => {
   return (
     <label className={styles.wrapper}>
-      <span>{label}</span>
+      <span className={styles.label}>{label}</span>
       <select className={styles.select} name={name} onChange={onChange}>
         {options.map(({ value, text }) => {
           return (
