@@ -4,7 +4,7 @@ import FilteredList from "@/components/FilteredList";
 import { getEvents } from "@/utils/dataapi";
 import { ECardType } from "@/components/Card";
 
-export const Home = () => {
+const Home = () => {
   return (
     <main>
       <div className={`content`}>
