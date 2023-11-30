@@ -35,16 +35,22 @@ const Home = () => {
             <section className={styles.stats}>
               <h2>Información</h2>
               <div>
-                <h3>Máster y Sistema</h3>
+                <h3>General</h3>
                 <div className={styles.row}>
                   <span>{gameData.master}</span>
                   <span>{gameData.system}</span>
+                  <span>{gameData.duration}</span>
                 </div>
               </div>
               <div>
-                <h3>Duración Planificada</h3>
+                <h3>Estado</h3>
                 <div className={styles.row}>
-                  <span>{gameData.duration}</span>
+                  <span>{gameData.progress}</span>{" "}
+                  <span>
+                    Huecos Libres:{" "}
+                    {gameData.maxPlayers - gameData.currentPlayers} /{" "}
+                    {gameData.maxPlayers}
+                  </span>
                 </div>
               </div>
               <div>
@@ -66,17 +72,7 @@ const Home = () => {
                 </div>
               </div>
               <div>
-                <h3>Espacio</h3>
-                <div className={styles.row}>
-                  <span>
-                    Huecos Libres:{" "}
-                    {gameData.maxPlayers - gameData.currentPlayers} /{" "}
-                    {gameData.maxPlayers}
-                  </span>
-                </div>
-              </div>
-              <div>
-                <h3>Frencuencia de Juego</h3>
+                <h3>Frecuencia de Juego</h3>
                 <div className={styles.row}>
                   <span>{gameData.frecuency}</span>
                 </div>

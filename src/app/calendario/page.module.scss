@@ -1,0 +1,28 @@
+@import "../../styles/variables";
+
+.calendar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: $gap_default;
+}
+
+.day {
+  padding: $gap_default;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  background-color: $background;
+  border-radius: $border_radius;
+
+  &.noEvents {
+    aspect-ratio: 5 / 1;
+    background-color: rgba($background, .5);
+  }
+}
+
+.resetDate {
+  position: fixed;
+  bottom: $gap_big;
+  right: $gap_big;
+}

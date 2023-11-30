@@ -1,6 +1,6 @@
 export enum ESystem {
-  DnD5e = "Dungeons & Dragons 5e",
-  CoC = "Call of Cthulhu 7e",
+  DnD5e = "DnD5e",
+  CoC7e = "CoC7e",
   Pathfinder = "Pathfinder",
   TenCandles = "10 Candles",
 }
@@ -24,6 +24,13 @@ export enum EFrequency {
   Bimensual = "Bimensual",
 }
 
+export enum EStatus {
+  notStarted = "Sin Empezar",
+  inProgress = "En Progreso",
+  break = "En un descanso",
+  ended = "Finalizada",
+}
+
 export interface IGame {
   id: string;
   name: string;
@@ -37,9 +44,13 @@ export interface IGame {
   duration: EDuration;
   information: string[];
   frecuency: EFrequency;
+  postDate: Date;
+  postUpdate: Date;
+  startDate: Date | undefined;
+  progress: EStatus;
 }
 
-export const games = [
+export const games: IGame[] = [
   {
     id: "0",
     name: "El Vórtice de Maná",
@@ -70,16 +81,20 @@ export const games = [
       "Puede que a lo largo de la campaña hayan otros cargos para la compra de miniaturas para ofrecer una mejor experiencia.",
     ],
     frecuency: EFrequency.Bisemanal,
+    startDate: new Date("2023/12/12"),
+    postDate: new Date("2023/11/1"),
+    postUpdate: new Date("2023/11/1"),
+    progress: EStatus.notStarted,
   },
   {
     id: "1",
     name: "La guarida de la Bestia",
     master: "Jose",
-    system: ESystem.CoC,
+    system: ESystem.CoC7e,
     image: "https://blizzardwatch.com/wp-content/uploads/2020/06/cthulhu.png",
     currentPlayers: 1,
     maxPlayers: 4,
-    experience: [EExperience.None],
+    experience: [EExperience.None, EExperience.Iniciado],
     description: [
       `Cuando vuestro coche dejó de funcionar en el pequeño pueblo de Tisbay pensásteis que lo más sensato era pasar la noche allí mientras os lo reparaban.`,
       `¿Pensaréis lo mismo tras ver los horrores que la noche esconde?`,
@@ -87,5 +102,9 @@ export const games = [
     duration: EDuration.OneShot,
     information: [],
     frecuency: EFrequency.Semanal,
+    startDate: new Date("2023/12/12"),
+    postDate: new Date("2023/11/1"),
+    postUpdate: new Date("2023/11/5"),
+    progress: EStatus.notStarted,
   },
 ];

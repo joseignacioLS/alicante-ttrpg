@@ -1,11 +1,19 @@
 "use client";
 
-import { EDuration, EExperience, ESystem, IGame, games } from "@/data/games";
+import {
+  EDuration,
+  EExperience,
+  EStatus,
+  ESystem,
+  IGame,
+  games,
+} from "@/data/games";
 import styles from "./page.module.scss";
 import GameCard from "@/components/GameCard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Select from "@/components/Select";
+import { Button } from "@/components/Button";
 
 export default function Home() {
   const [filters, setFilters] = useState<{
@@ -13,8 +21,16 @@ export default function Home() {
     experience: EExperience | "any";
     duration: EDuration | "any";
     status: string;
-  }>({ system: "any", experience: "any", duration: "any", status: "any" });
+    progress: EStatus | "any";
+  }>({
+    system: "any",
+    experience: "any",
+    duration: "any",
+    status: "any",
+    progress: "any",
+  });
   const [gameList, setGameList] = useState<IGame[]>([]);
+  const [showFilters, setShowFilters] = useState(false);
 
   const handleChange = (e: any) => {
     e.preventDefault();
@@ -36,7 +52,10 @@ export default function Home() {
       const isFull =
         v.currentPlayers >= v.maxPlayers ? "Llenas" : "Disponibles";
       const isStatus = filters.status === "any" || isFull === filters.status;
-      return isSystem && isExperience && isDuration && isStatus;
+
+      const isProgress =
+        filters.progress === "any" || v.progress === filters.progress;
+      return isSystem && isExperience && isDuration && isStatus && isProgress;
     }) as IGame[];
     setGameList(filterGames);
   }, [filters]);
@@ -45,7 +64,9 @@ export default function Home() {
     <main>
       <div className={`content`}>
         <h1>Listado de Partidas</h1>
-        <section className={styles.filters}>
+        <section
+          className={`${styles.filters} ${showFilters && styles.showFilters}`}
+        >
           <Select
             label="Sistema"
             name={"system"}
@@ -114,18 +135,40 @@ export default function Home() {
               }),
             ]}
           />
+          <Select
+            label="Progreso"
+            name={"progress"}
+            onChange={handleChange}
+            options={[
+              {
+                text: "Cualquiera",
+                value: "any",
+              },
+              ...Object.values(EStatus).map((v) => {
+                return {
+                  text: v,
+                  value: v,
+                };
+              }),
+            ]}
+          />
+          <div style={{ width: "100%" }}>
+            <Button onClick={() => setShowFilters((v) => !v)}>
+              {showFilters ? "Esconder filtros" : "Mostrar filtros"}
+            </Button>
+          </div>
         </section>
         <section className={styles.gameList}>
           {gameList.length === 0 && (
             <h3>No hay partidas con estos criterios</h3>
           )}
-          {gameList.map((game) => {
-            return (
-              <Link key={game.id} href={`/partidas/${game.id}`}>
-                <GameCard game={game} />
-              </Link>
-            );
-          })}
+          {gameList
+            .sort((a, b) => {
+              return a.postUpdate < b.postUpdate ? 1 : -1;
+            })
+            .map((game) => {
+              return <GameCard key={game.id} game={game} />;
+            })}
         </section>
       </div>
     </main>
