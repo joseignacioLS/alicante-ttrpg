@@ -1,22 +1,15 @@
-@import "../../styles/variables";
+@import "../styles/variables";
 
 .filters {
   display: flex;
   gap: $gap_default;
   flex-wrap: wrap;
   align-content: flex-end;
-  max-height: 2.5rem;
+  max-height: calc(calc(2 * $gap_small) + 2ch);
   overflow: hidden;
   transition: max-height .3s;
 
   &.showFilters {
     max-height: 15rem;
   }
-}
-
-.gameList {
-  display: flex;
-  flex-direction: column;
-  gap: $gap_default;
-  margin-top: $gap_default;
 }

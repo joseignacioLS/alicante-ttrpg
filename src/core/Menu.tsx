@@ -18,6 +18,9 @@ export const Menu = () => {
         ) {
           selected = true;
         }
+        if (route.path.includes("/eventos") && pathname.includes("/eventos")) {
+          selected = true;
+        }
         return (
           <Link
             key={route.path}

@@ -1,0 +1,8 @@
+@import "../styles/variables";
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $gap_default;
+  margin-top: $gap_default;
+}

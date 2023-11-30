@@ -13,7 +13,7 @@ export const routes: IRoute[] = [
     text: "Partidas",
   },
   {
-    path: "/calendario",
-    text: "Calendario",
+    path: "/eventos",
+    text: "Eventos",
   },
 ]

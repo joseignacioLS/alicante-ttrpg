@@ -1,11 +1,12 @@
 "use client";
 
-import { EExperience, IGame, games } from "@/data/games";
+import { EExperience, IGame } from "@/data/constants";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import { Button } from "@/components/Button";
+import { games } from "@/data/games";
 
 const Home = () => {
   const { id } = useParams();

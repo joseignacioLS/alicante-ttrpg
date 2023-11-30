@@ -1,6 +1,7 @@
 @import "../styles/variables";
 
-.game {
+
+.card {
   padding: $gap_default;
 
   width: 100%;
@@ -22,7 +23,7 @@
   box-shadow: 3px 3px 0 0 $link;
 
   &.full {
-    background-color: $alert;
+    background-color: color-mix(in srgb, $background 60%, $alert);
   }
 
   img {
