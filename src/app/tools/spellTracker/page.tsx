@@ -1,15 +1,21 @@
 "use client";
 
 import Select from "@/components/Select";
-import { EClass, ELevel, spellSlots } from "@/data/spells";
+import { EClass, ELevel } from "@/data/spells";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import { Button } from "@/components/Button";
+import { getClassSpellSlots } from "@/utils/dataapi";
 
 const Home = () => {
-  const [pjInfo, setPjInfo] = useState<{ class: EClass; level: ELevel }>({
-    class: EClass.wizard,
+  const [pjInfo, setPjInfo] = useState<{
+    class: EClass;
+    level: ELevel;
+    slots: any;
+  }>({
+    class: EClass.bard,
     level: ELevel.Level1,
+    slots: { current: {}, max: {} },
   });
 
   const [slotTracker, setSlotTracker] = useState<{ [key: number]: string }>({});
@@ -34,7 +40,7 @@ const Home = () => {
     setSlotTracker((old) => {
       const newTracker: any = {};
       Object.keys(old).forEach((key: string) => {
-        newTracker[key] = spellSlots[pjInfo.class][pjInfo.level][+key];
+        newTracker[key] = pjInfo.slots.current[+key];
       });
       return newTracker;
     });
@@ -48,7 +54,9 @@ const Home = () => {
     }
 
     const parsed = JSON.parse(stored);
-    setPjInfo({ class: parsed.class, level: parsed.level });
+    setPjInfo((old) => {
+      return { ...old, class: parsed.class, level: parsed.level };
+    });
     setSlotTracker(parsed.slotTracker);
   };
 
@@ -63,18 +71,31 @@ const Home = () => {
 
   const initializeTracker = () => {
     const newSlotTracker: any = {};
-    Object.entries(spellSlots[pjInfo.class][ELevel.Level20]).forEach(
-      (entry) => {
-        const [level] = entry;
-        newSlotTracker[level] = 0;
-      }
-    );
+    Object.entries(pjInfo.slots.max).forEach((entry) => {
+      const [level] = entry;
+      newSlotTracker[level] = 0;
+    });
     setSlotTracker(newSlotTracker);
+  };
+
+  const getSlotsInfo = async () => {
+    const { currentLevel, maxLevel } = await getClassSpellSlots(
+      pjInfo.class,
+      +pjInfo.level
+    );
+    setPjInfo((old) => {
+      return { ...old, slots: { current: currentLevel, max: maxLevel } };
+    });
   };
 
   useEffect(() => {
     loadLocalStorage();
+    getSlotsInfo();
   }, []);
+
+  useEffect(() => {
+    getSlotsInfo();
+  }, [pjInfo.class, pjInfo.level]);
 
   useEffect(() => {
     if (!slotTracker["1"]) return;
@@ -89,10 +110,14 @@ const Home = () => {
             name="class"
             value={pjInfo.class}
             options={[
-              {
-                value: EClass.wizard,
-                text: "Wizard",
-              },
+              ...Object.values(EClass)
+                .filter((v) => typeof v === "string")
+                .map((v) => {
+                  return {
+                    value: v,
+                    text: v,
+                  };
+                }),
             ]}
             onChange={handleChange}
           />
@@ -111,17 +136,16 @@ const Home = () => {
           <Button onClick={resetSpells}>Descanso Largo</Button>
         </div>
         <section className={styles.tracker}>
-          {Object.entries(spellSlots[pjInfo.class][ELevel.Level20]).map(
-            (entry) => {
-              const [level, slots] = entry;
+          {pjInfo.slots?.current?.[1] !== undefined &&
+            Object.entries(pjInfo.slots.max).map((entry) => {
+              const [level, slots] = entry as number[];
               return (
                 <label key={level} className={styles.level}>
                   <span className={styles.levelTitle}>Nivel: {level}</span>
                   <div className={styles.radioWrapper}>
                     {Array.from(Array(slots + 1).keys()).map((slot) => {
                       const levelDisable = pjInfo.level < +level;
-                      const slotDisable =
-                        slot > spellSlots[pjInfo.class][pjInfo.level][+level];
+                      const slotDisable = slot > pjInfo.slots.current[+level];
                       return (
                         <input
                           className={`${styles.radioInput} ${
@@ -129,7 +153,7 @@ const Home = () => {
                           }`}
                           key={`${level}-${slot}`}
                           type="radio"
-                          name={level}
+                          name={"" + level}
                           value={slot}
                           checked={slot === +slotTracker[+level]}
                           onChange={handleTrackerChange}
@@ -141,8 +165,7 @@ const Home = () => {
                   </div>
                 </label>
               );
-            }
-          )}
+            })}
         </section>
       </div>
     </main>

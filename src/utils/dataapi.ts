@@ -87,3 +87,28 @@ export const getGames = (filters: IGameFilters) => {
 export const getEvents = (filters: any) => {
   return events;
 }
+
+export const getClassSpellSlots = async (dndClass: string, level: number) => {
+  const data = await makeRequest(`https://www.dnd5eapi.co/api/classes/${dndClass}/levels`)
+  const result: any = {
+    currentLevel: {
+
+    },
+    maxLevel: {}
+  }
+  const currentLevel = data.find((v: any) => v.level === level)?.spellcasting
+  Object.entries(currentLevel).forEach(entry => {
+    const [key, slots] = entry;
+    if (key.includes("level")) {
+      result.currentLevel[+key.replace("spell_slots_level_", "")] = slots
+    }
+  })
+  const maxLevel = data.find((v: any) => v.level === 20)?.spellcasting
+  Object.entries(maxLevel).forEach(entry => {
+    const [key, slots] = entry;
+    if (key.includes("level")) {
+      result.maxLevel[+key.replace("spell_slots_level_", "")] = slots
+    }
+  })
+  return result
+}

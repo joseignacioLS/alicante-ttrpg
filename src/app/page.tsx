@@ -48,8 +48,8 @@ const Home = () => {
           <h3>Visita nuestra página de partidas</h3>
           <p>
             En nuestra <Link href="/partidas">página de partidas</Link>{" "}
-            publicamos las partidas previstas y en marcha con posibilidad de
-            recibir jugadores
+            publicamos las partidas previstas y en marcha. Entra y busca algo
+            que se adapte a tu estilo.
           </p>
         </section>
       </div>
