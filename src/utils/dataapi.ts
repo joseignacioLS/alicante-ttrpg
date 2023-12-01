@@ -91,9 +91,7 @@ export const getEvents = (filters: any) => {
 export const getClassSpellSlots = async (dndClass: string, level: number) => {
   const data = await makeRequest(`https://www.dnd5eapi.co/api/classes/${dndClass}/levels`)
   const result: any = {
-    currentLevel: {
-
-    },
+    currentLevel: {},
     maxLevel: {}
   }
   const currentLevel = data.find((v: any) => v.level === level)?.spellcasting

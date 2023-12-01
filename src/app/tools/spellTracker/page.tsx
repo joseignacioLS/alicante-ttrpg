@@ -29,6 +29,7 @@ const Home = () => {
   };
 
   const handleTrackerChange = (e: any) => {
+    navigator.vibrate(200)
     const level = e.target.name;
     const value = e.target.value;
     setSlotTracker((old) => {

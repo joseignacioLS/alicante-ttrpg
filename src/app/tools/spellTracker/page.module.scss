@@ -8,7 +8,7 @@
 .tracker {
   display: flex;
   flex-direction: column;
-  gap: $gap_big;
+  gap: calc($gap_big + $gap_default);
 
   .level {
     display: flex;
@@ -27,7 +27,8 @@
         width: 2rem;
         height: 2rem;
         accent-color: $highlight;
-        background-color: $background;
+        
+        cursor: pointer;
 
         &.outOfSlots {
           accent-color: $alert;
@@ -35,6 +36,7 @@
 
         &:disabled {
           background-color: $alert;
+          opacity: .25;
         }
 
         &::after {
@@ -51,6 +53,6 @@
 
 .actions {
   position: fixed;
-  bottom: $gap_default;
-  right: $gap_default;
+  bottom: calc($gap_big * 2);
+  right: calc($gap_big * 2);
 }
