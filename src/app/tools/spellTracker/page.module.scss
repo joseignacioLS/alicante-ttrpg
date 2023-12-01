@@ -48,3 +48,9 @@
     }
   }
 }
+
+.actions {
+  position: fixed;
+  bottom: $gap_default;
+  right: $gap_default;
+}

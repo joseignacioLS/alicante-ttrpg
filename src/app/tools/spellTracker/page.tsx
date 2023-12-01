@@ -4,6 +4,7 @@ import Select from "@/components/Select";
 import { EClass, ELevel, spellSlots } from "@/data/spells";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
+import { Button } from "@/components/Button";
 
 const Home = () => {
   const [pjInfo, setPjInfo] = useState<{ class: EClass; level: ELevel }>({
@@ -29,6 +30,16 @@ const Home = () => {
     });
   };
 
+  const resetSpells = () => {
+    setSlotTracker((old) => {
+      const newTracker: any = {};
+      Object.keys(old).forEach((key: string) => {
+        newTracker[key] = spellSlots[pjInfo.class][pjInfo.level][+key];
+      });
+      return newTracker;
+    });
+  };
+
   const loadLocalStorage = () => {
     const stored = window.localStorage.getItem("slotTracker");
     if (!stored) {
@@ -37,7 +48,6 @@ const Home = () => {
     }
 
     const parsed = JSON.parse(stored);
-    console.log(parsed.level);
     setPjInfo({ class: parsed.class, level: parsed.level });
     setSlotTracker(parsed.slotTracker);
   };
@@ -53,15 +63,12 @@ const Home = () => {
 
   const initializeTracker = () => {
     const newSlotTracker: any = {};
-    Object.entries(spellSlots[pjInfo.class][ELevel.Level20]).forEach((entry) => {
-      const [level, slots] = entry;
-      const trackedSlots = +slotTracker[+level];
-      if (trackedSlots < slots) {
-        newSlotTracker[level] = trackedSlots;
-      } else {
-        newSlotTracker[level] = slots;
+    Object.entries(spellSlots[pjInfo.class][ELevel.Level20]).forEach(
+      (entry) => {
+        const [level] = entry;
+        newSlotTracker[level] = 0;
       }
-    });
+    );
     setSlotTracker(newSlotTracker);
   };
 
@@ -100,6 +107,9 @@ const Home = () => {
             onChange={handleChange}
           />
         </section>
+        <div className={styles.actions}>
+          <Button onClick={resetSpells}>Descanso Largo</Button>
+        </div>
         <section className={styles.tracker}>
           {Object.entries(spellSlots[pjInfo.class][ELevel.Level20]).map(
             (entry) => {
