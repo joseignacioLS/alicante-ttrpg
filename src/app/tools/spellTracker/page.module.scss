@@ -1,0 +1,50 @@
+@import "../../../styles/variables";
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tracker {
+  display: flex;
+  flex-direction: column;
+  gap: $gap_big;
+
+  .level {
+    display: flex;
+    flex-direction: column;
+    gap: $gap_small;
+
+    .levelTitle {}
+
+    .radioWrapper {
+      display: flex;
+
+      gap: $gap_small;
+
+      .radioInput {
+        position: relative;
+        width: 2rem;
+        height: 2rem;
+        accent-color: $highlight;
+        background-color: $background;
+
+        &.outOfSlots {
+          accent-color: $alert;
+        }
+
+        &:disabled {
+          background-color: $alert;
+        }
+
+        &::after {
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          content: attr(data-label);
+          transform: translateX(-50%)
+        }
+      }
+    }
+  }
+}

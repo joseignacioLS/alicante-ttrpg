@@ -5,6 +5,7 @@ import { Button } from "./Button";
 
 interface IProps {
   filterOptions: IFilterOption[];
+  values: { [key: string]: string | number };
   handleChange: (e: any) => void;
 }
 
@@ -13,11 +14,11 @@ export interface IFilterOption {
   name: string;
   options: {
     text: string;
-    value: string;
+    value: string | number;
   }[];
 }
 
-const Filters = ({ filterOptions, handleChange }: IProps) => {
+const Filters = ({ filterOptions, values, handleChange }: IProps) => {
   const [showFilters, setShowFilters] = useState(false);
   return (
     <section
@@ -29,6 +30,7 @@ const Filters = ({ filterOptions, handleChange }: IProps) => {
             key={name}
             label={label}
             name={name}
+            value={values[name]}
             options={options}
             onChange={handleChange}
           />

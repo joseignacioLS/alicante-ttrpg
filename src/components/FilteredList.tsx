@@ -36,7 +36,11 @@ const FilteredList = ({
   return (
     <>
       {filterOptions.length > 0 && (
-        <Filters filterOptions={filterOptions} handleChange={handleChange} />
+        <Filters
+          filterOptions={filterOptions}
+          values={filters}
+          handleChange={handleChange}
+        />
       )}
       <CardList>
         {items.length === 0 ? (
