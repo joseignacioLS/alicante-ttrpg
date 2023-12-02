@@ -6,7 +6,7 @@ import { getSpellInfo, getSpellList } from "@/utils/dataapi";
 import Input from "@/components/Input";
 import { Button } from "@/components/Button";
 
-const page = () => {
+const Home = () => {
   const [spellList, setSpellList] = useState<any[]>([]);
   const [input, setInput] = useState<string>("");
   const [spellInfo, setSpellInfo] = useState<any>(undefined);
@@ -143,4 +143,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Home;
