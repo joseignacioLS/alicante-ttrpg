@@ -1,0 +1,8 @@
+@import "../styles/variables";
+
+.input {
+  padding: $gap_default $gap_big;
+  border-radius: $border_radius;
+  background-color: $background;
+  text-transform: uppercase;
+}

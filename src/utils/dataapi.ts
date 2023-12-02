@@ -110,3 +110,14 @@ export const getClassSpellSlots = async (dndClass: string, level: number) => {
   })
   return result
 }
+
+export const getSpellList = async () => {
+  const data = await makeRequest(`https://www.dnd5eapi.co/api/spells`)
+  return data
+}
+
+export const getSpellInfo = async (name: string) => {
+  const data = await makeRequest(`https://www.dnd5eapi.co/api/spells/${name}`)
+  return data
+
+}

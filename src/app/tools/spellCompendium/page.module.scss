@@ -1,0 +1,49 @@
+@import "../../../styles/variables";
+
+.wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+
+.spellList {
+  padding: $gap_default;
+  width: 100%;
+  height: fit-content;
+  min-height: 2ch;
+  overflow-y: auto;
+  background-color: $highlight;
+  border-radius: $border_radius;
+  font-size: 125%;
+  display: flex;
+  flex-direction: column;
+  gap: $gap_default;
+
+  p {
+    margin: 0;
+    color: $background;
+    font-weight: bold;
+  }
+}
+
+.spellInfo {
+  position: relative;
+  padding: $gap_default;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  .spellDesc {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .closeButton {
+    position: absolute;
+    top: $gap_default;
+    right: $gap_default;
+  }
+}
