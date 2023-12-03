@@ -2,10 +2,10 @@
 
 .wrapper {
   position: fixed;
-  top: $gap_big;
-  width: fit-content;
-  max-width: 50vw;
-  left: 100%;
+  top: 100%;
+  width: calc(100% - calc(2* $gap_big));
+  left: 50%;
+  transform: translate(-50%, 0);
   padding: $gap_default;
   border-radius: $border_radius;
   border: 0;
@@ -14,7 +14,7 @@
 
   &.show {
     display: block;
-    transform: translateX(calc(-100% - $gap_big));
+    transform: translate(-50%, calc(-100% - $gap_big));
   }
 }
 
