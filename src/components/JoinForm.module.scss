@@ -1,0 +1,14 @@
+@import "../styles/variables";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $gap_default;
+
+  label {
+    display: flex;
+    gap: $gap_small;
+    align-items: flex-start;
+  }
+}

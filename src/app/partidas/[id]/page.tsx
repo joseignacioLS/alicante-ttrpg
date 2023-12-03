@@ -5,18 +5,14 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
-import { Button } from "@/components/Button";
 import { games } from "@/data/games";
 import CollapsableSection from "@/components/CollapsableSection";
+import JoinForm from "@/components/JoinForm";
 
 const Home = () => {
   const { id } = useParams();
   const router = useRouter();
   const [gameData, setGameData] = useState<IGame | undefined>(undefined);
-
-  const handleJoin = () => {
-    console.log(`Request Join Game ${id}`);
-  };
 
   useEffect(() => {
     const retrievedGame = games.find((v) => v.id === id) as IGame | undefined;
@@ -81,6 +77,11 @@ const Home = () => {
               </div>
             </section>
             <CollapsableSection
+              title={"Solicitar Unirse"}
+              defaultState={false}
+              content={<JoinForm gameId={gameData.id} />}
+            />
+            <CollapsableSection
               title={"Descripción"}
               defaultState={true}
               content={
@@ -102,17 +103,6 @@ const Home = () => {
                 </>
               }
             />
-
-            <div className={styles.cta}>
-              <Button
-                onClick={handleJoin}
-                disabled={gameData?.maxPlayers <= gameData?.currentPlayers}
-              >
-                {gameData?.maxPlayers <= gameData?.currentPlayers
-                  ? "Plazas Llenas"
-                  : "Solicitar Unirse"}
-              </Button>
-            </div>
           </>
         )}
       </div>

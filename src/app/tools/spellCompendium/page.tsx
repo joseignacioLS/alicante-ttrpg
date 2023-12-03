@@ -24,7 +24,6 @@ const Home = () => {
   const updateSpellInfo = async (name: string) => {
     const newSpell = await getSpellInfo(name);
     setSpellInfo(newSpell);
-    console.log(newSpell);
   };
 
   useEffect(() => {
