@@ -16,8 +16,8 @@ export const routes: IRoute[] = [
   //   path: "/eventos",
   //   text: "Eventos",
   // },
-  {
-    path: "/tools/spellTracker",
-    text: "SpellTracker"
-  }
+  // {
+  //   path: "/tools/spellTracker",
+  //   text: "SpellTracker"
+  // }
 ]

@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import { Button } from "@/components/Button";
 import { games } from "@/data/games";
+import CollapsableSection from "@/components/CollapsableSection";
 
 const Home = () => {
   const { id } = useParams();
@@ -79,20 +80,29 @@ const Home = () => {
                 </div>
               </div>
             </section>
-            <section className={styles.description}>
-              <h2>Descripción</h2>
-              {gameData.description.map((text) => (
-                <p key={text}>{text}</p>
-              ))}
-            </section>
-            {gameData.information?.length > 0 && (
-              <section className={styles.description}>
-                <h2>Información Extra</h2>
-                {gameData.information.map((text) => (
-                  <p key={text}>{text}</p>
-                ))}
-              </section>
-            )}
+            <CollapsableSection
+              title={"Descripción"}
+              defaultState={true}
+              content={
+                <>
+                  {gameData.description.map((text) => (
+                    <p key={text}>{text}</p>
+                  ))}
+                </>
+              }
+            />
+            <CollapsableSection
+              title={"Información Extra"}
+              defaultState={true}
+              content={
+                <>
+                  {gameData.information.map((text) => (
+                    <p key={text}>{text}</p>
+                  ))}
+                </>
+              }
+            />
+
             <div className={styles.cta}>
               <Button
                 onClick={handleJoin}

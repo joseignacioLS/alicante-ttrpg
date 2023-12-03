@@ -5,7 +5,7 @@
   gap: $gap_default;
   flex-wrap: wrap;
   align-content: flex-end;
-  max-height: calc(calc(2 * $gap_small) + 2ch);
+  max-height: calc(calc(2 * $gap_small) + 2.5ch);
   overflow: hidden;
   transition: max-height .3s;
 

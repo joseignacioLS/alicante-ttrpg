@@ -4,7 +4,7 @@
   background-color: $highlight ;
   border: none;
   outline: none;
-  padding: $gap_small $gap_default;
+  padding: $gap_small $gap_big;
   color: $background;
   display: flex;
   justify-content: center;
@@ -15,7 +15,7 @@
 
   &.small {
     font-size: 1rem;
-    padding: $gap_small;
+    padding: $gap_small $gap_default;
   }
 
   &:disabled {

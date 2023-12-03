@@ -1,8 +1,28 @@
+@import "../styles/variables";
+
 .wrapper {
   height: 100%;
   width: 100%;
 }
 
+.title {
+  display: flex;
+  gap: $gap_small;
+  align-items: center;
+
+  img {
+    width: 3rem;
+    fill: $highlight;
+  }
+}
+
 .content {
-  
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s;
+
+  &.show {
+    max-height: 100vh;
+  }
+
 }
