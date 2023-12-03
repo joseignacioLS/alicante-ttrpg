@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./JoinForm.module.scss";
 import { Button } from "./Button";
 import Input from "./Input";
+import { ETypes, alertContext } from "@/context/alertContext";
 
 interface IProps {
   gameId: string;
@@ -15,6 +16,8 @@ const JoinForm = ({ gameId }: IProps) => {
 
   const [checks, setChecks] = useState<boolean[]>([false, false]);
 
+  const { updateAlert } = useContext(alertContext);
+
   const handleInput = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -26,18 +29,26 @@ const JoinForm = ({ gameId }: IProps) => {
   };
 
   const checkInputs = (inputs: any) => {
-    const nameCheck = inputs.name.match(/^[A-Záéíóúüï ]{4,}$/i);
-    const emailCheck = inputs.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/i);
+    const nameCheck = inputs.name.match(/^[A-Záéíóúüï ]{4,}$/i) !== null;
+    const emailCheck =
+      inputs.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/i) !== null;
     setChecks((old) => {
-      return [old[1], nameCheck && emailCheck];
+      return [old[0], nameCheck && emailCheck];
     });
+  };
+
+  const resetForm = () => {
+    setInput({ name: "", email: "" });
+    setChecks([false, false]);
   };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(
-      `User ${input.name} (${input.email}) request joining game ${gameId}`
+    updateAlert(
+      `Has solicitado unirte al game:${gameId} como ${input.name} (${input.email})`,
+      ETypes.inform
     );
+    resetForm();
   };
 
   return (
@@ -57,6 +68,7 @@ const JoinForm = ({ gameId }: IProps) => {
       <label>
         <input
           type="checkbox"
+          checked={checks[0]}
           onChange={(e: any) => {
             setChecks((old) => {
               return [e.target.checked, old[1]];

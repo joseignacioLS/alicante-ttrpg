@@ -1,0 +1,29 @@
+@import "../styles/variables";
+
+.wrapper {
+  position: fixed;
+  top: $gap_big;
+  width: fit-content;
+  max-width: 50vw;
+  left: 100%;
+  padding: $gap_default;
+  border-radius: $border_radius;
+  border: 0;
+  transition: transform .3s, width .3s;
+  z-index: 5;
+
+  &.show {
+    display: block;
+    transform: translateX(calc(-100% - $gap_big));
+  }
+}
+
+.inform {
+  background-color: $extra;
+  color: $background;
+}
+
+.alert {
+  background-color: $alert;
+  color: $extra;
+}
