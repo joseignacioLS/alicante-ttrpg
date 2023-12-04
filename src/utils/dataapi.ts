@@ -66,7 +66,7 @@ export const gameFilters = [
   },
 ]
 
-export const getGames = async (filters: IGameFilters) => {
+export const getGames = async (filters: IGameFilters): Promise<IGame[]> => {
   const response = await makeRequest(`${apiUrl}games/?system=${filters.system
     }&experience=${filters.experience
     }&duration=${filters.duration
@@ -76,13 +76,15 @@ export const getGames = async (filters: IGameFilters) => {
   return response.data as IGame[];
 }
 
-export const getGame = async (id: string) => {
+export const getGame = async (id: string): Promise<IGame> => {
   const response = await makeRequest(`${apiUrl}games/${id}`);
   return response.data as IGame
 }
 
-export const getEvents = (filters: any) => {
-  return events;
+export const getEvents = (filters: any): Promise<any[]> => {
+  return new Promise((resolve, reject) => {
+    resolve(events)
+  });
 }
 
 export const getClassSpellSlots = async (dndClass: string, level: number) => {
