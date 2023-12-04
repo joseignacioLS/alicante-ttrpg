@@ -15,9 +15,14 @@
   gap: $gap_small;
   align-items: center;
 
-  img {
+  .caret {
     width: 3rem;
-    fill: $highlight;
+    fill: $extra;
+    transition: rotate .3s;
+
+    &.rotate180 {
+      rotate: 180deg;
+    }
   }
 }
 

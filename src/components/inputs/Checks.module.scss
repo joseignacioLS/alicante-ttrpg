@@ -1,0 +1,14 @@
+@import "../../styles/variables";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $gap_default;
+}
+
+.checkWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: $gap_default;
+
+}

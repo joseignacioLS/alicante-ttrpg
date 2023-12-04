@@ -77,17 +77,17 @@ const Home = () => {
               <div>
                 <h3>Frecuencia de Juego</h3>
                 <div className={styles.row}>
-                  <span>{gameData.frecuency}</span>
+                  <span>{gameData.frequency}</span>
                 </div>
               </div>
             </section>
             <CollapsableSection
-              title={"Solicitar Unirse"}
+              title={<h2>Solicitar Unirse</h2>}
               defaultState={false}
               content={<JoinForm gameId={gameData.id} />}
             />
             <CollapsableSection
-              title={"Descripción"}
+              title={<h2>Descripción</h2>}
               defaultState={true}
               content={
                 <>
@@ -98,7 +98,7 @@ const Home = () => {
               }
             />
             <CollapsableSection
-              title={"Información Extra"}
+              title={<h2>Información Extra</h2>}
               defaultState={true}
               content={
                 <>

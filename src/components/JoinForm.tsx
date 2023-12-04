@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import styles from "./JoinForm.module.scss";
 import { Button } from "./Button";
-import Input from "./Input";
+import Input from "./inputs/Input";
 import { ETypes, alertContext } from "@/context/alertContext";
 
 interface IProps {

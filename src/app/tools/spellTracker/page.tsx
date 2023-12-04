@@ -1,6 +1,6 @@
 "use client";
 
-import Select from "@/components/Select";
+import Select from "@/components/inputs/Select";
 import { EClass, ELevel } from "@/data/spells";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";

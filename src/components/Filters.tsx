@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Filters.module.scss";
-import Select from "./Select";
+import Select from "./inputs/Select";
 import { Button } from "./Button";
 
 interface IProps {

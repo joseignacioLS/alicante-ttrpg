@@ -6,7 +6,7 @@
   align-items: flex-start;
   gap: $gap_default;
 
-  label {
+  > label {
     display: flex;
     gap: $gap_small;
     align-items: flex-start;

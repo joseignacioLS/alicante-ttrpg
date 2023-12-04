@@ -98,6 +98,12 @@ img {
 }
 
 input,
-select {
+select,
+textarea {
+  font-size: 1rem;
   font-family: inherit;
+}
+
+input, select {
+  width: fit-content;
 }

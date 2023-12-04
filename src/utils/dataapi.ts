@@ -1,5 +1,5 @@
 import { EDuration, EExperience, EStatus, ESystem, IGame } from "@/data/constants"
-import { makeRequest } from "./request";
+import { ERequestMethods, makeRequest } from "./request";
 import { events } from "@/data/events";
 
 const apiUrl = process.env.NODE_ENV === "development" ? "http://localhost:3500/" : process.env.NEXT_PUBLIC_API_URL
@@ -79,6 +79,17 @@ export const getGames = async (filters: IGameFilters): Promise<IGame[]> => {
 export const getGame = async (id: string): Promise<IGame> => {
   const response = await makeRequest(`${apiUrl}games/${id}`);
   return response.data as IGame
+}
+
+export const createGame = async (data: any): Promise<any> => {
+  const response = await makeRequest(
+    `${apiUrl}games/new-game`,
+    {
+      method: ERequestMethods.POST,
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
+    })
+  return response
 }
 
 export const getEvents = (filters: any): Promise<any[]> => {

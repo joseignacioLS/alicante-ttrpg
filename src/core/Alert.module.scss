@@ -4,16 +4,24 @@
   position: fixed;
   top: 100%;
   width: calc(100% - calc(2* $gap_big));
+  min-height: 6ch;
   left: 50%;
   transform: translate(-50%, 0);
   padding: $gap_default;
   border-radius: $border_radius;
   border: 0;
-  transition: transform .3s, width .3s;
+  transition: transform .3s, opacity .3s;
+  opacity: 0;
   z-index: 5;
 
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+
   &.show {
-    display: block;
+
+    opacity: 1;
     transform: translate(-50%, calc(-100% - $gap_big));
   }
 }

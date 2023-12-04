@@ -1,0 +1,15 @@
+@import "../../styles/variables";
+
+.textarea {
+  background-color: $background;
+  min-height: 10ch;
+  padding: $gap_default;
+  width: 100%;
+  border: 0;
+  outline: 0;
+
+  &.error {
+    background-color: $alert;
+    color: $highlight;
+  }
+}

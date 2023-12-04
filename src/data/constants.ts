@@ -46,7 +46,7 @@ export interface IGame extends IItem {
   description: string[];
   duration: EDuration;
   information: string[];
-  frecuency: EFrequency;
+  frequency: EFrequency;
   postDate: Date;
   postUpdate: Date;
   startDate: Date | undefined;

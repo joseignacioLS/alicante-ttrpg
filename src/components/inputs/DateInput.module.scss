@@ -1,0 +1,9 @@
+@import "../../styles/variables";
+
+.dateInput {
+  background-color: $background;
+  padding: $gap_small;
+  border: 0;
+  outline: 0;
+  border-radius: $border_radius;
+}
