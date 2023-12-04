@@ -46,7 +46,7 @@ const FilteredList = ({
         />
       )}
       <CardList>
-        {items.length === 0 ? (
+        {!items || items.length === 0 ? (
           <h3>No hay partidas con estos criterios</h3>
         ) : (
           items
@@ -56,9 +56,9 @@ const FilteredList = ({
             .map((item) => {
               return (
                 <Card
-                  key={item.id}
+                  key={item._id}
                   item={item}
-                  href={`/${cardType}/${item.id}`}
+                  href={`/${cardType}/${item._id}`}
                   cardType={cardType}
                 />
               );

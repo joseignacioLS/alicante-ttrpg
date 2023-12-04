@@ -8,7 +8,6 @@ import Select from "./inputs/Select";
 import Textarea from "./inputs/Textarea";
 import { Button } from "./Button";
 import DateInput from "./inputs/DateInput";
-import Checks from "./inputs/Checks";
 import { createGame } from "@/utils/dataapi";
 import { ETypes, alertContext } from "@/context/alertContext";
 
@@ -43,9 +42,7 @@ const NewGameForm = () => {
     system: ESystem.DnD5e,
     maxPlayers: 1,
     image: "",
-    experience: Object.values(EExperience).reduce((acc, key) => {
-      return { ...acc, [key]: true };
-    }, {}),
+    experience: EExperience.None,
     description: "",
     duration: EDuration.OneShot,
     information: "",
@@ -72,18 +69,9 @@ const NewGameForm = () => {
   const handleChange = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
-    if (name.includes("experience")) {
-      const key = name.split(";")[1];
-      setInput((old: any) => {
-        const experience = { ...old.experience };
-        experience[key] = e.target.checked;
-        return { ...old, experience };
-      });
-    } else {
-      setInput((old: any) => {
-        return { ...old, [name]: value };
-      });
-    }
+    setInput((old: any) => {
+      return { ...old, [name]: value };
+    });
 
     setInputCheck((old: any) => {
       return {
@@ -96,13 +84,6 @@ const NewGameForm = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const objectToSend = { ...input };
-    objectToSend.experience = Object.values(EExperience).reduce(
-      (acc: string[], v: string) => {
-        if (input.experience[v]) return [...acc, v];
-        return acc;
-      },
-      []
-    );
     objectToSend.description = input.description.split("\n");
     objectToSend.information = input.information.split("\n");
     const response = await createGame(objectToSend);
@@ -194,11 +175,14 @@ const NewGameForm = () => {
         </label>
         <label style={{ gridArea: "experience" }}>
           <h3>Experiencia Necesaria</h3>
-          <Checks
+          <Select
             name={"experience"}
-            values={Object.values(input.experience).map((v) => v) as boolean[]}
-            keys={Object.values(EExperience).map((v) => v)}
-            options={Object.values(EExperience).map((v) => v)}
+            value={input.experience}
+            options={[
+              ...Object.values(EExperience).map((experience) => {
+                return { text: experience, value: experience };
+              }),
+            ]}
             onChange={handleChange}
           />
         </label>

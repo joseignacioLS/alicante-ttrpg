@@ -11,7 +11,7 @@ interface IProps {
     name: string;
     system?: ESystem;
     duration?: EDuration;
-    experience?: EExperience[];
+    experience?: EExperience;
     date?: Date;
     location?: string;
   };
@@ -33,7 +33,7 @@ const Card = ({ item, href, cardType }: IProps) => {
           <>
             <span>{item.system}</span>
             <span>{item.duration}</span>
-            <span>{item.experience?.[0]}</span>
+            <span>{item.experience}</span>
           </>
         )}
         {cardType === ECardType.event && (

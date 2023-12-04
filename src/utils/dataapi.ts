@@ -72,7 +72,7 @@ export const getGames = async (filters: IGameFilters): Promise<IGame[]> => {
     }&duration=${filters.duration
     }&status=${filters.status
     }&progress=${filters.progress
-    }`);
+    }&approved=${true}`);
   return response.data as IGame[];
 }
 
@@ -90,6 +90,18 @@ export const createGame = async (data: any): Promise<any> => {
       headers: { "Content-Type": "application/json" }
     })
   return response
+}
+
+export const joinGame = async (id: string, name: string, email: string): Promise<any> => {
+  const response = await makeRequest(
+    `${apiUrl}games/join/${id}`,
+    {
+      method: ERequestMethods.POST,
+      body: JSON.stringify({ name, email }),
+      headers: { "Content-Type": "application/json" }
+    })
+  return response
+
 }
 
 export const getEvents = (filters: any): Promise<any[]> => {

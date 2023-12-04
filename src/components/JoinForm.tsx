@@ -3,6 +3,7 @@ import styles from "./JoinForm.module.scss";
 import { Button } from "./Button";
 import Input from "./inputs/Input";
 import { ETypes, alertContext } from "@/context/alertContext";
+import { joinGame } from "@/utils/dataapi";
 
 interface IProps {
   gameId: string;
@@ -44,6 +45,7 @@ const JoinForm = ({ gameId }: IProps) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    joinGame(gameId, input.name, input.email);
     updateAlert(
       `Has solicitado unirte al game:${gameId} como ${input.name} (${input.email})`,
       ETypes.inform

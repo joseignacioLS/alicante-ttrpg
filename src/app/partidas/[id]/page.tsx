@@ -59,19 +59,7 @@ const Home = () => {
               <div>
                 <h3>Experiencia Requerida</h3>
                 <div className={styles.row}>
-                  {Object.values(EExperience).map((xp) => {
-                    const isValidXp = gameData.experience.includes(xp);
-                    return (
-                      <span
-                        key={xp}
-                        className={
-                          isValidXp ? styles.validXp : styles.invalidXP
-                        }
-                      >
-                        {xp}
-                      </span>
-                    );
-                  })}
+                  <span>{gameData.experience}</span>
                 </div>
               </div>
               <div>
@@ -84,7 +72,7 @@ const Home = () => {
             <CollapsableSection
               title={<h2>Solicitar Unirse</h2>}
               defaultState={false}
-              content={<JoinForm gameId={gameData.id} />}
+              content={<JoinForm gameId={gameData._id} />}
             />
             <CollapsableSection
               title={<h2>Descripción</h2>}
