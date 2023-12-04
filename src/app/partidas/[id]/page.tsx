@@ -5,19 +5,24 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
-import { games } from "@/data/games";
 import CollapsableSection from "@/components/CollapsableSection";
 import JoinForm from "@/components/JoinForm";
+import { getGame } from "@/utils/dataapi";
 
 const Home = () => {
   const { id } = useParams();
   const router = useRouter();
   const [gameData, setGameData] = useState<IGame | undefined>(undefined);
 
-  useEffect(() => {
-    const retrievedGame = games.find((v) => v.id === id) as IGame | undefined;
+  const getGameData = async (id: string) => {
+    const retrievedGame = await getGame(id);
     if (retrievedGame === undefined) return router.push("/partidas");
     setGameData(retrievedGame);
+  };
+
+  useEffect(() => {
+    if (Array.isArray(id)) return;
+    getGameData(id);
   }, [id]);
 
   return (

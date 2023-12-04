@@ -7,7 +7,7 @@ interface IProps {
   filterOptions: IFilterOption[];
   cardType: ECardType;
   filterDefaults: any;
-  getItemsFunction: (filters: any) => any[];
+  getItemsFunction: (filters: any) => Promise<any[]>;
 }
 
 const FilteredList = ({
@@ -24,15 +24,18 @@ const FilteredList = ({
     const value = e.currentTarget.value;
     setFilters((old: any) => {
       const newValues = { ...old, [name]: value };
-      setItems(newValues);
       return newValues;
     });
   };
 
-  useEffect(() => {
-    const newList = getItemsFunction(filters);
+  const getItems = async () => {
+    const newList = await getItemsFunction(filters);
     setItems(newList);
-  }, []);
+  };
+
+  useEffect(() => {
+    getItems();
+  }, [filters]);
   return (
     <>
       {filterOptions.length > 0 && (
