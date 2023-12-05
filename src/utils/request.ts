@@ -9,7 +9,7 @@ export const makeRequest = async (url: string, { method, headers, body }: {
   method: ERequestMethods,
   headers?: any,
   body?: any
-} = { method: ERequestMethods.GET }) => {
+} = { method: ERequestMethods.GET, body: {}, headers: {} }) => {
   let res = undefined;
   if (method === ERequestMethods.GET) {
     res = await fetch(url, {
@@ -20,7 +20,6 @@ export const makeRequest = async (url: string, { method, headers, body }: {
     });
   }
   else {
-
     res = await fetch(url, {
       method,
       headers: {
