@@ -4,7 +4,7 @@ import Select from "@/components/inputs/Select";
 import { EClass, ELevel } from "@/data/spells";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
-import { Button } from "@/components/Button";
+import { Button } from "@/components/blocks/Button";
 import { getClassSpellSlots } from "@/utils/dataapi";
 
 const Home = () => {

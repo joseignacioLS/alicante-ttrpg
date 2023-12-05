@@ -6,11 +6,17 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { IGame } from "@/data/constants";
 import { getGame } from "@/utils/dataapi";
-import CollapsableSection from "./CollapsableSection";
-import JoinForm from "./JoinForm";
+import CollapsableSection from "./blocks/CollapsableSection";
+import JoinForm from "./forms/JoinForm";
 import { ETypes, alertContext } from "@/context/alertContext";
+import ManageGame from "./ManageGame";
+import Image from "./blocks/Image";
 
-const GamePage = () => {
+interface IProps {
+  managerMode?: boolean;
+}
+
+const GamePage = ({ managerMode = false }: IProps) => {
   const { id } = useParams();
   const router = useRouter();
   const [gameData, setGameData] = useState<IGame | undefined>(undefined);
@@ -37,10 +43,7 @@ const GamePage = () => {
   return (
     <>
       <header className={styles.banner}>
-        <img
-          className={styles.background}
-          src={gameData.image || "/placeholder.png"}
-        />
+        <Image src={gameData.image} className={styles.background} />
         <h1 className={styles.title}>{gameData.name}</h1>
       </header>
       <section className={styles.stats}>
@@ -98,10 +101,13 @@ const GamePage = () => {
           </>
         }
       />
-      <section id="unete">
-        <h2>Unete a la partida</h2>
-        <JoinForm gameId={gameData._id} />
-      </section>
+      {!managerMode && (
+        <section id="unete">
+          <h2>Unete a la partida</h2>
+          <JoinForm gameId={gameData._id} />
+        </section>
+      )}
+      {managerMode && <ManageGame id={gameData._id} />}
     </>
   );
 };

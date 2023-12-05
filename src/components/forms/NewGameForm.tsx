@@ -2,7 +2,7 @@
 
 import React, { useContext, useState } from "react";
 import styles from "./NewGameForm.module.scss";
-import Input from "./inputs/Input";
+import Input from "../inputs/Input";
 import {
   EDuration,
   EExperience,
@@ -10,23 +10,16 @@ import {
   ESystem,
   IGame,
 } from "@/data/constants";
-import Select from "./inputs/Select";
-import Textarea from "./inputs/Textarea";
-import { Button } from "./Button";
-import DateInput from "./inputs/DateInput";
+import Select from "../inputs/Select";
+import Textarea from "../inputs/Textarea";
+import { Button } from "../blocks/Button";
+import DateInput from "../inputs/DateInput";
 import { createGame } from "@/utils/dataapi";
 import { ETypes, alertContext } from "@/context/alertContext";
+import Image from "../blocks/Image";
 
 const nameCheck = (value: string): boolean => {
   return value.match(/^[a-z ]+$/i) !== null;
-};
-
-const urlCheck = (value: string): boolean => {
-  return (
-    value.match(
-      /^(?:https?:\/\/)?(?:www\.)?([a-zA-Z0-9-]+\.)([a-zA-Z]{2,})(?:\/[\w-]*)*\/?$/
-    ) !== null
-  );
 };
 
 const textCheck = (value: string): boolean => {
@@ -36,7 +29,6 @@ const textCheck = (value: string): boolean => {
 const checkFunctions: { [key: string]: (value: any) => boolean } = {
   name: nameCheck,
   master: nameCheck,
-  image: urlCheck,
   description: textCheck,
   information: textCheck,
 };
@@ -99,17 +91,6 @@ const NewGameForm = () => {
         [name]: checkFunctions[name] ? checkFunctions[name](value) : true,
       };
     });
-
-    if (name === "image" && value !== "") {
-      const tempImg = document.createElement("img");
-      tempImg.onerror = () => {
-        updateAlert("No se puede cargar la imagen proporcionada", ETypes.alert);
-        setInput((old) => {
-          return { ...old, image: "" };
-        });
-      };
-      tempImg.src = value;
-    }
   };
 
   const handleSubmit = async (e: any) => {
@@ -165,7 +146,7 @@ const NewGameForm = () => {
       <h2 style={{ gridArea: "tInfo" }}>Presentación</h2>
       <section>
         <label style={{ gridArea: "image" }}>
-          <img src={input.image || "/placeholder.png"} />
+          <Image src={input.image} />
           <h3>Imagen de portada</h3>
           <Input
             value={input.image}

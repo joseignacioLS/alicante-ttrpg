@@ -4,15 +4,15 @@ import CardList from "./CardList";
 import Card, { ECardType } from "./Card";
 
 interface IProps {
-  filterOptions: IFilterOption[];
+  filterOptions?: IFilterOption[];
   cardType: ECardType;
-  filterDefaults: any;
+  filterDefaults?: any;
   getItemsFunction: (filters: any) => Promise<any[]>;
 }
 
 const FilteredList = ({
-  filterOptions,
-  filterDefaults,
+  filterOptions = [],
+  filterDefaults = {},
   getItemsFunction,
   cardType,
 }: IProps) => {

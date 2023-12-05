@@ -1,4 +1,4 @@
-import NewGameForm from "@/components/NewGameForm";
+import NewGameForm from "@/components/forms/NewGameForm";
 import React from "react";
 
 const Home = () => {

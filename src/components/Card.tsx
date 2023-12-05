@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Card.module.scss";
 import Link from "next/link";
 import { EDuration, EExperience, ESystem } from "@/data/constants";
+import Image from "./blocks/Image";
 
 interface IProps {
   href?: string;
@@ -21,15 +22,16 @@ interface IProps {
 export enum ECardType {
   game = "partidas",
   event = "eventos",
+  management = "manager",
 }
 
 const Card = ({ item, href, cardType }: IProps) => {
   return (
     <Link href={href || "#"}>
       <article className={`${styles.card}`}>
-        <img src={item.image || "/placeholder.png"} />
+        <Image src={item.image} />
         <h2>{item.name}</h2>
-        {cardType === ECardType.game && (
+        {[ECardType.game, ECardType.management].includes(cardType) && (
           <>
             <span>{item.system}</span>
             <span>{item.duration}</span>

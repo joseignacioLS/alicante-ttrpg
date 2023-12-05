@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Filters.module.scss";
 import Select from "./inputs/Select";
-import { Button } from "./Button";
+import { Button } from "./blocks/Button";
 
 interface IProps {
   filterOptions: IFilterOption[];

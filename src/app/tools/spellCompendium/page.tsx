@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import { getSpellInfo, getSpellList } from "@/utils/dataapi";
 import Input from "@/components/inputs/Input";
-import { Button } from "@/components/Button";
+import { Button } from "@/components/blocks/Button";
 
 const Home = () => {
   const [spellList, setSpellList] = useState<any[]>([]);

@@ -10,6 +10,7 @@ export interface IGameFilters {
   duration: EDuration | "any";
   status: string;
   progress: EStatus | "any";
+  approved?: boolean;
 }
 
 export const gameFilters = [
@@ -67,13 +68,17 @@ export const gameFilters = [
 ]
 
 export const getGames = async (filters: IGameFilters): Promise<IGame[]> => {
-  const response = await makeRequest(`${apiUrl}games/?system=${filters.system
-    }&experience=${filters.experience
-    }&duration=${filters.duration
-    }&status=${filters.status
-    }&progress=${filters.progress
-    }&approved=${true}`);
+  const response = await makeRequest(`${apiUrl}games/?system=${filters.system || "any"
+    }&experience=${filters.experience || "any"
+    }&duration=${filters.duration || "any"
+    }&status=${filters.status || "any"
+    }&progress=${filters.progress || "any"
+    }&approved=${filters.approved !== undefined ? filters.approved : "any"}`);
   return response.data as IGame[];
+}
+
+export const getNotApprovedGames = async () => {
+  return await getGames({ experience: "any", duration: "any", system: "any", status: "any", progress: "any", approved: false })
 }
 
 export const getGame = async (id: string): Promise<IGame> => {
@@ -86,8 +91,7 @@ export const createGame = async (data: IGame): Promise<any> => {
     `${apiUrl}games/new-game`,
     {
       method: ERequestMethods.POST,
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
+      body: { data },
     })
   return response
 }
@@ -97,11 +101,29 @@ export const joinGame = async (id: string, name: string, email: string): Promise
     `${apiUrl}games/join/${id}`,
     {
       method: ERequestMethods.POST,
-      body: JSON.stringify({ name, email }),
-      headers: { "Content-Type": "application/json" }
+      body: { name, email },
     })
   return response
 
+}
+
+export const approveGame = async (id: string) => {
+  const response = await makeRequest(
+    `${apiUrl}games/approve/${id}`,
+    {
+      method: ERequestMethods.PUT,
+    })
+  return response
+}
+
+
+export const rejectGame = async (id: string) => {
+  const response = await makeRequest(
+    `${apiUrl}games/${id}`,
+    {
+      method: ERequestMethods.DELETE,
+    })
+  return response
 }
 
 export const getEvents = (filters: any): Promise<any[]> => {

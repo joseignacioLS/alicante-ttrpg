@@ -16,6 +16,7 @@ const Home = () => {
           duration: "any",
           status: "any",
           progress: "any",
+          approved: true,
         }}
         cardType={ECardType.game}
         getItemsFunction={getGames}
