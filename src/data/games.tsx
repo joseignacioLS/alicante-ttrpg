@@ -9,7 +9,7 @@ import {
 
 export const games: IGame[] = [
   {
-    id: "0",
+    _id: "0",
     name: "El Vórtice de Maná",
     master: "Gabriel",
     system: ESystem.DnD5e,
@@ -44,7 +44,7 @@ export const games: IGame[] = [
     progress: EStatus.notStarted,
   },
   {
-    id: "1",
+    _id: "1",
     name: "La guarida de la Bestia",
     master: "Jose",
     system: ESystem.CoC7e,
