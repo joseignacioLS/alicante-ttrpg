@@ -32,13 +32,12 @@ export enum EStatus {
 }
 
 export interface IItem {
-  id: string;
+  _id: string;
   name: string;
   image: string;
 }
 
 export interface IGame extends IItem {
-  _id: string;
   master: string;
   system: ESystem;
   currentPlayers: number;
