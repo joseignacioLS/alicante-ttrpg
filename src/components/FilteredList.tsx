@@ -51,7 +51,7 @@ const FilteredList = ({
         ) : (
           items
             .sort((a: any, b: any) => {
-              return a.updateDate < b.updateDate ? 1 : -1;
+              return new Date(a.postUpdate) < new Date(b.postUpdate) ? 1 : -1;
             })
             .map((item) => {
               return (

@@ -5,11 +5,11 @@ import { getGame } from "@/utils/dataapi";
 
 export const generateMetadata = async ({ params }: any) => {
   const id = params.id;
-  console.log(id);
   const game = await getGame(id);
   return {
     title: game?.name,
     description: game?.description,
+    icons: "/placeholder.ico",
     openGraph: {
       title: game?.name,
       images: [
