@@ -2,18 +2,17 @@ import React from "react";
 import styles from "./DateInput.module.scss";
 
 interface IProps {
-  value: string;
+  value: Date;
   onChange: any;
   name: string;
 }
 
 const DateInput = ({ value, onChange, name }: IProps) => {
   return (
-
     <input
       className={styles.dateInput}
       type="date"
-      value={value}
+      value={value as any}
       onChange={onChange}
       name={name}
     />

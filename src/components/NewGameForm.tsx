@@ -3,7 +3,13 @@
 import React, { useContext, useState } from "react";
 import styles from "./NewGameForm.module.scss";
 import Input from "./inputs/Input";
-import { EDuration, EExperience, EFrequency, ESystem } from "@/data/constants";
+import {
+  EDuration,
+  EExperience,
+  EFrequency,
+  ESystem,
+  IGame,
+} from "@/data/constants";
 import Select from "./inputs/Select";
 import Textarea from "./inputs/Textarea";
 import { Button } from "./Button";
@@ -35,8 +41,22 @@ const checkFunctions: { [key: string]: (value: any) => boolean } = {
   information: textCheck,
 };
 
+interface IInputs {
+  name: string;
+  master: string;
+  system: ESystem;
+  maxPlayers: number;
+  image: string;
+  experience: EExperience;
+  description: string;
+  duration: EDuration;
+  information: string;
+  frequency: EFrequency;
+  startDate: Date;
+}
+
 const NewGameForm = () => {
-  const [input, setInput] = useState<any>({
+  const [input, setInput] = useState<IInputs>({
     name: "",
     master: "",
     system: ESystem.DnD5e,
@@ -69,7 +89,7 @@ const NewGameForm = () => {
   const handleChange = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
-    setInput((old: any) => {
+    setInput((old) => {
       return { ...old, [name]: value };
     });
 
@@ -79,14 +99,25 @@ const NewGameForm = () => {
         [name]: checkFunctions[name] ? checkFunctions[name](value) : true,
       };
     });
+
+    if (name === "image" && value !== "") {
+      const tempImg = document.createElement("img");
+      tempImg.onerror = () => {
+        updateAlert("No se puede cargar la imagen proporcionada", ETypes.alert);
+        setInput((old) => {
+          return { ...old, image: "" };
+        });
+      };
+      tempImg.src = value;
+    }
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const objectToSend = { ...input };
+    const objectToSend = { ...input } as any;
     objectToSend.description = input.description.split("\n");
     objectToSend.information = input.information.split("\n");
-    const response = await createGame(objectToSend);
+    const response = await createGame(objectToSend as IGame);
     if (response.status === 200) {
       updateAlert("Partida registrada correctamente", ETypes.inform);
     } else {
@@ -134,7 +165,7 @@ const NewGameForm = () => {
       <h2 style={{ gridArea: "tInfo" }}>Presentación</h2>
       <section>
         <label style={{ gridArea: "image" }}>
-          <img src={input.image} />
+          <img src={input.image || "/placeholder.png"} />
           <h3>Imagen de portada</h3>
           <Input
             value={input.image}

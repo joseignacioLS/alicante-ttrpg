@@ -27,7 +27,7 @@ const Card = ({ item, href, cardType }: IProps) => {
   return (
     <Link href={href || "#"}>
       <article className={`${styles.card}`}>
-        <img src={item.image} />
+        <img src={item.image || "/placeholder.png"} />
         <h2>{item.name}</h2>
         {cardType === ECardType.game && (
           <>

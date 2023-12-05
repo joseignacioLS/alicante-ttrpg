@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Input.module.scss";
 interface IProps {
-  value: string;
+  value: string | number;
   name?: string;
   type?: string;
   onChange: any;

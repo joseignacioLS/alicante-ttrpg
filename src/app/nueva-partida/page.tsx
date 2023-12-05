@@ -3,14 +3,12 @@ import React from "react";
 
 const Home = () => {
   return (
-    <main>
-      <div className="content">
-        <h1>Nueva partida</h1>
-        <section>
-          <NewGameForm />
-        </section>
-      </div>
-    </main>
+    <>
+      <h1>Nueva partida</h1>
+      <section>
+        <NewGameForm />
+      </section>
+    </>
   );
 };
 

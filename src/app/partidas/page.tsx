@@ -6,23 +6,21 @@ import { ECardType } from "@/components/Card";
 
 const Home = () => {
   return (
-    <main>
-      <div className={`content`}>
-        <h1>Listado de Partidas</h1>
-        <FilteredList
-          filterOptions={gameFilters}
-          filterDefaults={{
-            system: "any",
-            experience: "any",
-            duration: "any",
-            status: "any",
-            progress: "any",
-          }}
-          cardType={ECardType.game}
-          getItemsFunction={getGames}
-        />
-      </div>
-    </main>
+    <>
+      <h1>Listado de Partidas</h1>
+      <FilteredList
+        filterOptions={gameFilters}
+        filterDefaults={{
+          system: "any",
+          experience: "any",
+          duration: "any",
+          status: "any",
+          progress: "any",
+        }}
+        cardType={ECardType.game}
+        getItemsFunction={getGames}
+      />
+    </>
   );
 };
 

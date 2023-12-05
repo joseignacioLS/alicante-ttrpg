@@ -22,7 +22,9 @@ export default function RootLayout({
         <ContextWrapper>
           <>
             <Menu />
-            {children}
+            <main>
+              <div className="content">{children}</div>
+            </main>
             <Alert />
           </>
         </ContextWrapper>

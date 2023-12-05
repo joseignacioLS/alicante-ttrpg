@@ -81,7 +81,7 @@ export const getGame = async (id: string): Promise<IGame> => {
   return response.data as IGame
 }
 
-export const createGame = async (data: any): Promise<any> => {
+export const createGame = async (data: IGame): Promise<any> => {
   const response = await makeRequest(
     `${apiUrl}games/new-game`,
     {

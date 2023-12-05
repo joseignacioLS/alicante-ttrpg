@@ -39,12 +39,31 @@ body {
 main {
   height: 100%;
   width: 100%;
-  padding: 0 $gap_default $gap_default $gap_default;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 section {
   margin-bottom: $gap_big;
+  view-timeline-name: --section;
+  view-timeline-axis: block;
+
+  animation-timeline: --section;
+  animation-name: show;
+  animation-range: entry 0% cover 20%;
+  animation-fill-mode: both;
+}
+
+@keyframes show {
+  from {
+    opacity: 0.5;
+    scale: 90%;
+  }
+
+  to {
+    opacity: 1;
+    scale: 100%;
+  }
 }
 
 h1,
@@ -86,10 +105,8 @@ a {
   position: relative;
   width: 100%;
   min-height: 100%;
-  padding: 1rem;
+  padding: $gap_big;
   background-color: $main;
-
-  border-radius: 0 0 $border_radius_large $border_radius_large;
 
 }
 
@@ -104,6 +121,7 @@ textarea {
   font-family: inherit;
 }
 
-input, select {
+input,
+select {
   width: fit-content;
 }
