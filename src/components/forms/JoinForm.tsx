@@ -43,14 +43,15 @@ const JoinForm = ({ gameId }: IProps) => {
     setChecks([false, false]);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    joinGame(gameId, input.name, input.email);
-    updateAlert(
-      `Has solicitado unirte al game:${gameId} como ${input.name} (${input.email})`,
-      ETypes.inform
-    );
-    resetForm();
+    const response = await joinGame(gameId, input.name, input.email);
+    if (response.status === 200) {
+      updateAlert(`¡Te hemos registrado en la partida!`, ETypes.inform);
+      resetForm();
+    } else {
+      updateAlert(`Lo sentimos, hay algún error con el registro`, ETypes.alert);
+    }
   };
 
   return (

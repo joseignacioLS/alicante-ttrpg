@@ -107,7 +107,9 @@ const GamePage = ({ managerMode = false }: IProps) => {
           <JoinForm gameId={gameData._id} />
         </section>
       )}
-      {managerMode && <ManageGame id={gameData._id} />}
+      {managerMode && (
+        <ManageGame id={gameData._id} playerList={gameData.playerList || []} />
+      )}
     </>
   );
 };

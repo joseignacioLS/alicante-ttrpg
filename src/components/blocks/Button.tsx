@@ -6,17 +6,21 @@ interface IProps {
   disabled?: boolean;
   onClick?: any;
   small?: boolean;
+  alert?: boolean;
 }
 export const Button = ({
   children,
   disabled = false,
   small = false,
   onClick = () => {},
+  alert = false,
 }: IProps) => {
   return (
     <button
       onClick={onClick}
-      className={`${styles.button} ${small && styles.small}`}
+      className={`${styles.button} ${small && styles.small} ${
+        alert && styles.alert
+      }`}
       disabled={disabled}
     >
       {children}

@@ -17,6 +17,7 @@ import DateInput from "../inputs/DateInput";
 import { createGame } from "@/utils/dataapi";
 import { ETypes, alertContext } from "@/context/alertContext";
 import Image from "../blocks/Image";
+import { useRouter } from "next/navigation";
 
 const nameCheck = (value: string): boolean => {
   return value.match(/^[a-z ]+$/i) !== null;
@@ -77,6 +78,7 @@ const NewGameForm = () => {
   });
 
   const { updateAlert } = useContext(alertContext);
+  const router = useRouter();
 
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -100,7 +102,13 @@ const NewGameForm = () => {
     objectToSend.information = input.information.split("\n");
     const response = await createGame(objectToSend as IGame);
     if (response.status === 200) {
-      updateAlert("Partida registrada correctamente", ETypes.inform);
+      router.push("/partidas");
+      setTimeout(() => {
+        updateAlert(
+          "Partida registrada correctamente, te avisaremos cuando sea publicada",
+          ETypes.inform
+        );
+      }, 100);
     } else {
       updateAlert("Ha habido un error con el registro", ETypes.alert);
     }

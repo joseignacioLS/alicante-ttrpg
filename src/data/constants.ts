@@ -51,6 +51,11 @@ export interface IGame extends IItem {
   postUpdate: Date;
   startDate: Date | undefined;
   progress: EStatus;
+  playerList?: {
+    name: string;
+    email: string;
+    approved: boolean;
+  }[];
 }
 
 export interface IEvent extends IItem {

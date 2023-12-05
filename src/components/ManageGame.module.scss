@@ -1,5 +1,16 @@
+@import "../styles/variables";
+
 .wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.table {
+  width: 100%;
+  tr {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
