@@ -6,6 +6,7 @@ import React from "react";
 
 const carouselSlides = [
   <CarouselCard
+    key="card-0"
     backgroundImage="/placeholder.png"
     title={<h2>Sesiones en Mana Vortex</h2>}
     content={
@@ -13,6 +14,7 @@ const carouselSlides = [
     }
   />,
   <CarouselCard
+    key="card-0"
     title={<h2>¿Quieres iniciarte como GM?</h2>}
     content={<p>¡Habla con nosotros!</p>}
   />,
