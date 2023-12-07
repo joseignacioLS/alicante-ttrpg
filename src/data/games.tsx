@@ -15,7 +15,7 @@ export const games: IGame[] = [
     system: ESystem.DnD5e,
     image:
       "https://cdn.openart.ai/stable_diffusion/aa8f04004a467922dac32e8922cb6c91b1eff373_2000x2000.webp",
-    currentPlayers: 6,
+    wantedPlayers: 6,
     maxPlayers: 6,
     experience: [EExperience.Iniciado, EExperience.Veterano],
     description: [
@@ -42,6 +42,8 @@ export const games: IGame[] = [
     postDate: new Date("2023/11/1"),
     postUpdate: new Date("2023/11/1"),
     progress: EStatus.notStarted,
+    approved: false,
+    playerList: [],
   },
   {
     _id: "1",
@@ -49,7 +51,7 @@ export const games: IGame[] = [
     master: "Jose",
     system: ESystem.CoC7e,
     image: "https://blizzardwatch.com/wp-content/uploads/2020/06/cthulhu.png",
-    currentPlayers: 1,
+    wantedPlayers: 1,
     maxPlayers: 4,
     experience: [EExperience.None, EExperience.Iniciado],
     description: [
@@ -63,5 +65,7 @@ export const games: IGame[] = [
     postDate: new Date("2023/11/1"),
     postUpdate: new Date("2023/11/5"),
     progress: EStatus.notStarted,
+    approved: false,
+    playerList: [],
   },
 ];
