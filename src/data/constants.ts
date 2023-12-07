@@ -40,7 +40,7 @@ export interface IItem {
 export interface IGame extends IItem {
   master: string;
   system: ESystem;
-  currentPlayers: number;
+  wantedPlayers: number;
   maxPlayers: number;
   experience: EExperience[];
   description: string[];
@@ -51,7 +51,8 @@ export interface IGame extends IItem {
   postUpdate: Date;
   startDate: Date | undefined;
   progress: EStatus;
-  playerList?: {
+  approved: boolean;
+  playerList: {
     name: string;
     email: string;
     approved: boolean;

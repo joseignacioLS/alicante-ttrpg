@@ -11,12 +11,15 @@ import JoinForm from "./forms/JoinForm";
 import { ETypes, alertContext } from "@/context/alertContext";
 import ManageGame from "./ManageGame";
 import Image from "./blocks/Image";
+import Link from "next/link";
+import { Button } from "./blocks/Button";
 
 interface IProps {
+  backRoute: string;
   managerMode?: boolean;
 }
 
-const GamePage = ({ managerMode = false }: IProps) => {
+const GamePage = ({ backRoute, managerMode = false }: IProps) => {
   const { id } = useParams();
   const router = useRouter();
   const [gameData, setGameData] = useState<IGame | undefined>(undefined);
@@ -40,41 +43,45 @@ const GamePage = ({ managerMode = false }: IProps) => {
     return <p>Loading</p>;
   }
 
+  const ocuppedPositions: number = gameData.playerList.filter(
+    (v) => v.approved
+  ).length;
+
+  console.log(gameData.playerList, ocuppedPositions);
+
   return (
     <>
-      <header className={styles.banner}>
+      <section className={`wholeW ${styles.banner}`}>
+        <Link href={backRoute} className={styles.back}>
+          <Button small={true}>Atras</Button>
+        </Link>
         <Image src={gameData.image} className={styles.background} />
         <h1 className={styles.title}>{gameData.name}</h1>
-      </header>
+      </section>
+      <h2>Información</h2>
       <section className={styles.stats}>
-        <h2>Información</h2>
         <div>
           <h3>General</h3>
           <div className={styles.row}>
             <span>{gameData.master}</span>
             <span>{gameData.system}</span>
-            <span>{gameData.duration}</span>
-          </div>
-        </div>
-        <div>
-          <h3>Estado</h3>
-          <div className={styles.row}>
             <span>{gameData.progress}</span>{" "}
-            <span>
-              Huecos Libres: {gameData.maxPlayers - gameData.currentPlayers} /{" "}
-              {gameData.maxPlayers}
-            </span>
           </div>
         </div>
         <div>
-          <h3>Experiencia Requerida</h3>
+          <h3>Jugadores</h3>
           <div className={styles.row}>
+            <span>Jugadores Totales: {gameData.maxPlayers}</span>
+            <span>
+              Huecos Libres: {gameData.wantedPlayers - ocuppedPositions}
+            </span>
             <span>{gameData.experience}</span>
           </div>
         </div>
         <div>
           <h3>Frecuencia de Juego</h3>
           <div className={styles.row}>
+            <span>{gameData.duration}</span>
             <span>{gameData.frequency}</span>
           </div>
         </div>
@@ -108,7 +115,11 @@ const GamePage = ({ managerMode = false }: IProps) => {
         </section>
       )}
       {managerMode && (
-        <ManageGame id={gameData._id} playerList={gameData.playerList || []} />
+        <ManageGame
+          id={gameData._id}
+          approved={gameData.approved}
+          playerList={gameData.playerList || []}
+        />
       )}
     </>
   );

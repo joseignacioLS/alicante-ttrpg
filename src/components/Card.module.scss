@@ -8,11 +8,8 @@
   aspect-ratio: 2 / 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto auto;
-  grid-template-areas: "img ."
-    "img ."
-    "img ."
-    "img .";
+  grid-template-rows: auto;
+  grid-template-areas: "img .";
   gap: $gap_default;
 
 
@@ -22,35 +19,36 @@
 
   box-shadow: 3px 3px 0 0 $link;
 
-  view-timeline-name: --card;
-  view-timeline-axis: block;
-
-  animation-timeline: --card;
-  animation-name: show;
-  animation-range: entry 0% cover 35%;
-  animation-fill-mode: both;
-
-  &.full {
-    background-color: color-mix(in srgb, $background 60%, $alert);
-  }
-
-  img {
+  .image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     grid-area: img;
     border-radius: $border_radius;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      min-height: 100%;
+      min-width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .data {
+    display: flex;
+    flex-direction: column;
+    gap: $gap_small;
   }
 }
 
-@keyframes show {
-  from {
-    opacity: 0.5;
-    scale: 50%;
-  }
 
-  to {
-    opacity: 1;
-    scale: 100%;
+@media (min-width: $mobile) {
+  .card {
+    aspect-ratio: unset;
+    grid-template-columns: 2fr 3fr;
+    height: 250px;
   }
 }

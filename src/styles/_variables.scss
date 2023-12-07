@@ -28,3 +28,14 @@ $gap_small: .25rem;
 
 $border_radius: .5rem;
 $border_radius_large: 1rem;
+
+$mobile: 800px;
+
+$text_shadow_all: 2px 2px 0 $background,
+  -2px -2px 0 $background,
+  2px -2px 0 $background,
+  -2px 2px 0 $background,
+  -2px 0 0 $background,
+  2px 0 0 $background,
+  0 -2px 0 $background,
+  0 2px 0 $background;

@@ -24,12 +24,7 @@ export const generateMetadata = async ({ params }: any) => {
 };
 
 const Home = () => {
-  return (
-    <>
-      <Link href="/partidas">Volver al listado</Link>
-      <GamePage />
-    </>
-  );
+  return <GamePage backRoute="/partidas" />;
 };
 
 export default Home;

@@ -1,7 +1,9 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 
 interface IProps {
-  src: string;
+  src: string | undefined;
   alt?: string;
   className?: string;
   style?: {};
@@ -18,7 +20,7 @@ const Image = ({ src, alt, className, style }: IProps) => {
     imgDummy.onload = () => {
       setDisplaySrc(src);
     };
-    imgDummy.src = src;
+    imgDummy.src = src || "";
   };
   useEffect(() => {
     checkSrc();

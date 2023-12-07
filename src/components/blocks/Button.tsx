@@ -1,3 +1,5 @@
+"use client";
+
 import React, { ReactElement } from "react";
 import styles from "./Button.module.scss";
 

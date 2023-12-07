@@ -6,3 +6,11 @@
   gap: $gap_default;
   margin-top: $gap_default;
 }
+
+@media (min-width: $mobile) {
+  .list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-rows: 1fr;
+  }
+}

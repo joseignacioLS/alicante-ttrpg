@@ -7,10 +7,11 @@ import CollapsableSection from "./blocks/CollapsableSection";
 
 interface IProps {
   id: string;
+  approved: boolean;
   playerList: { name: string; email: string; approved: boolean }[];
 }
 
-const ManageGame = ({ id, playerList = [] }: IProps) => {
+const ManageGame = ({ id, approved, playerList = [] }: IProps) => {
   const router = useRouter();
   const handleAccept = async () => {
     approveGame(id);

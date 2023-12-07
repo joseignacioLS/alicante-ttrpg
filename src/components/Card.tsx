@@ -29,21 +29,25 @@ const Card = ({ item, href, cardType }: IProps) => {
   return (
     <Link href={href || "#"}>
       <article className={`${styles.card}`}>
-        <Image src={item.image} />
-        <h2>{item.name}</h2>
-        {[ECardType.game, ECardType.management].includes(cardType) && (
-          <>
-            <span>{item.system}</span>
-            <span>{item.duration}</span>
-            <span>{item.experience}</span>
-          </>
-        )}
-        {cardType === ECardType.event && (
-          <>
-            <span>{item.date?.toDateString()}</span>
-            <span>{item.location}</span>
-          </>
-        )}
+        <div className={styles.image}>
+          <Image src={item.image} />
+        </div>
+        <div className={styles.data}>
+          <h2>{item.name}</h2>
+          {[ECardType.game, ECardType.management].includes(cardType) && (
+            <>
+              <span>{item.system}</span>
+              <span>{item.duration}</span>
+              <span>{item.experience}</span>
+            </>
+          )}
+          {cardType === ECardType.event && (
+            <>
+              <span>{item.date?.toDateString()}</span>
+              <span>{item.location}</span>
+            </>
+          )}
+        </div>
       </article>
     </Link>
   );

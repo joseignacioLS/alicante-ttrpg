@@ -1,10 +1,17 @@
 @import "../styles/variables";
 
 .banner {
-  margin-top: $gap_default;
   position: relative;
-  border-radius: $border_radius $border_radius 0 0;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  .back {
+    position: absolute;
+    top: $gap_default;
+    left: $gap_default;
+  }
 
   .background {
     object-fit: cover;
@@ -15,14 +22,7 @@
     position: absolute;
     bottom: $gap_default;
     right: $gap_default;
-    text-shadow: 2px 2px 0 $background,
-      -2px -2px 0 $background,
-      2px -2px 0 $background,
-      -2px 2px 0 $background,
-      -2px 0 0 $background,
-      2px 0 0 $background,
-      0 -2px 0 $background,
-      0 2px 0 $background;
+    text-shadow: $text_shadow_all;
   }
 }
 
@@ -54,4 +54,25 @@
   position: fixed;
   bottom: $gap_big;
   right: $gap_big;
+}
+
+@media (min-width: $mobile) {
+  .banner {
+    max-height: 400px;
+  }
+
+  .stats {
+    width: 100%;
+    flex-direction: row;
+    gap: 5%;
+
+    >div {
+      width: fit-content;
+      flex-shrink: 0;
+    }
+
+    .row {
+      flex-direction: column;
+    }
+  }
 }

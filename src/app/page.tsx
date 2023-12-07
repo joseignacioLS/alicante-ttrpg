@@ -1,38 +1,30 @@
-import Carrousel from "@/components/blocks/Carrousel";
+import HomeBanner from "@/components/HomeBanner";
+import CarouselCard from "@/components/blocks/CarouselCard";
+import Carousel from "@/components/blocks/Carousel";
 import Link from "next/link";
 import React from "react";
 
-const carrouselItems = [
-  {
-    id: "TablesManaVortex",
-    element: (
-      <div>
-        <h2>Sesiones en Mana Vortex</h2>
-        <p>Mesas abiertas para jugadores nuevos y veteranos, ¡apúntante ya!</p>
-      </div>
-    ),
-  },
-  {
-    id: "1",
-    element: (
-      <div>
-        <h2>¿Quieres iniciarte como GM?</h2>
-        <p>¡Habla con nosotros!</p>
-      </div>
-    ),
-  },
+const carouselSlides = [
+  <CarouselCard
+    backgroundImage="/placeholder.png"
+    title={<h2>Sesiones en Mana Vortex</h2>}
+    content={
+      <p>Mesas abiertas para jugadores nuevos y veteranos, ¡apúntante ya!</p>
+    }
+  />,
+  <CarouselCard
+    title={<h2>¿Quieres iniciarte como GM?</h2>}
+    content={<p>¡Habla con nosotros!</p>}
+  />,
 ];
 
 const Home = () => {
   return (
     <>
-      <section>
-        <img src="/placeholder.png" />
-      </section>
-      <h1>Alicante TTRPG</h1>
-      <section>
-        <h2>Novedades</h2>
-        <Carrousel slides={carrouselItems} />
+      <HomeBanner />
+      <h2>Novedades</h2>
+      <section className="wholeW">
+        <Carousel slides={carouselSlides} />
       </section>
       <section>
         <h2>¿Buscas gente con la que jugar?</h2>

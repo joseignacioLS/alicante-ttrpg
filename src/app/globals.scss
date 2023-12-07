@@ -41,17 +41,20 @@ main {
   width: 100%;
   overflow-y: auto;
   scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 section {
   margin-bottom: $gap_big;
-  // view-timeline-name: --section;
-  // view-timeline-axis: block;
+}
 
-  // animation-timeline: --section;
-  // animation-name: show;
-  // animation-range: entry 0% cover 20%;
-  // animation-fill-mode: both;
+section {
+  &.wholeW {
+    margin: $gap_default calc(0px - $gap_big) $gap_big calc(0px - $gap_big);
+  }
 }
 
 @keyframes show {
@@ -72,14 +75,18 @@ h4 {
 }
 
 h1 {
+  font-size: 2em;
   margin-bottom: $gap_default;
+  text-shadow: $text_shadow_all;
 }
 
 h2 {
+  font-size: 1.5em;
   margin-bottom: $gap_default;
 }
 
 h3 {
+  font-size: 1em;
   color: $highlight;
   margin: 0;
 }
@@ -104,6 +111,7 @@ a {
   width: 100%;
   min-height: 100%;
   padding: $gap_big;
+  padding-top: 0;
   background-color: $main;
 
 }

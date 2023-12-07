@@ -1,0 +1,25 @@
+@import "../../styles/variables";
+
+.card {
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+
+
+  padding: $gap_big 15%;
+
+  width: 100vw;
+  min-height: 250px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $gap_default;
+
+  scroll-snap-align: center;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,23 @@
+@import "../styles/variables";
+
+
+.wrapper {
+  position: relative;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+  }
+
+  h1 {
+    z-index: 1;
+  }
+}

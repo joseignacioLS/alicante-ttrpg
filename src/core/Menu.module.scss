@@ -37,3 +37,13 @@
     }
   }
 }
+
+@media (min-width: $mobile) {
+  .navbar {
+    justify-content: flex-end;
+
+    &Item {
+      width: 100px;
+    }
+  }
+}
