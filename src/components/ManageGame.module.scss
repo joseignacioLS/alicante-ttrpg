@@ -7,10 +7,23 @@
 }
 
 .table {
-  width: 100%;
+  text-align: center;
+  margin: auto;
+
+  thead {
+    color: $extra;
+
+    th {
+      border-bottom: 1px solid $extra;
+    }
+  }
+
   tr {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: $gap_default;
+  }
+
+  td,
+  th {
+    padding-left: $gap_big;
   }
 }

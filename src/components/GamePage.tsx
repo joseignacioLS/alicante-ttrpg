@@ -13,6 +13,7 @@ import ManageGame from "./ManageGame";
 import Image from "./blocks/Image";
 import Link from "next/link";
 import { Button } from "./blocks/Button";
+import ClickAlertItem from "./blocks/ClickAlertItem";
 
 interface IProps {
   backRoute: string;
@@ -62,26 +63,48 @@ const GamePage = ({ backRoute, managerMode = false }: IProps) => {
         <div>
           <h3>General</h3>
           <div className={styles.row}>
-            <span>{gameData.master}</span>
-            <span>{gameData.system}</span>
-            <span>{gameData.progress}</span>{" "}
+            <ClickAlertItem message="Esta persona es el máster de la pártida. Gestionará a los participantes y dirigirá la partida.">
+              <span>Master: {gameData.master}</span>
+            </ClickAlertItem>
+            <ClickAlertItem message="Este es el sistema de juego elegido para esta partida.">
+              <span>Sistema: {gameData.system}</span>
+            </ClickAlertItem>
+            <ClickAlertItem message="Este es el estado de la partida">
+              <span>Estado: {gameData.progress}</span>
+            </ClickAlertItem>
           </div>
         </div>
         <div>
           <h3>Jugadores</h3>
           <div className={styles.row}>
-            <span>Jugadores Totales: {gameData.maxPlayers}</span>
-            <span>
-              Huecos Libres: {gameData.wantedPlayers - ocuppedPositions}
-            </span>
-            <span>{gameData.experience}</span>
+            <ClickAlertItem message="Este es el número máximo de jugadores que habrá en la partida.">
+              <span>Plazas Totales: {gameData.maxPlayers}</span>
+            </ClickAlertItem>
+            <ClickAlertItem message="Este es el número de plazas disponibles.">
+              <span>
+                Plazas Libres: {gameData.wantedPlayers - ocuppedPositions}
+              </span>
+            </ClickAlertItem>
+            <ClickAlertItem message="Esta es la experiencia mínima requerida para unirse a esta partida.">
+              <span>Experiencia: {gameData.experience}</span>
+            </ClickAlertItem>
           </div>
         </div>
         <div>
-          <h3>Frecuencia de Juego</h3>
+          <h3>Horario</h3>
           <div className={styles.row}>
-            <span>{gameData.duration}</span>
-            <span>{gameData.frequency}</span>
+            <ClickAlertItem message="Esta es la fecha de inicio propuesta para la partida">
+              <span>
+                Inicio:{" "}
+                {new Date(gameData.startDate).toLocaleDateString("es-ES")}
+              </span>
+            </ClickAlertItem>
+            <ClickAlertItem message="Esta es la duración esperada de la partida">
+              <span>Duracion: {gameData.duration}</span>
+            </ClickAlertItem>
+            <ClickAlertItem message="Esta es la frecuencia de juego deseada">
+              <span>Frecuencia: {gameData.frequency}</span>
+            </ClickAlertItem>
           </div>
         </div>
       </section>
@@ -109,7 +132,7 @@ const GamePage = ({ backRoute, managerMode = false }: IProps) => {
       />
       {!managerMode && (
         <section id="unete">
-          <h2>Unete a la partida</h2>
+          <h2>Únete a la partida</h2>
           <JoinForm gameId={gameData._id} playerList={gameData.playerList} />
         </section>
       )}

@@ -27,13 +27,21 @@
 }
 
 .stats {
-  display: flex;
-  flex-direction: column;
+  width: fit-content;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, auto);
   gap: $gap_default;
 
+  >div {
+    width: 100%;
+  }
+
   .row {
-    display: flex;
-    justify-content: space-between;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, auto);
     gap: $gap_default;
 
     .validXp {
@@ -49,7 +57,6 @@
   }
 }
 
-
 .cta {
   position: fixed;
   bottom: $gap_big;
@@ -62,17 +69,18 @@
   }
 
   .stats {
-    width: 100%;
-    flex-direction: row;
-    gap: 5%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
 
     >div {
-      width: fit-content;
-      flex-shrink: 0;
+      border-left: 1px solid $extra;
+      padding-left: $gap_default;
     }
+  }
 
-    .row {
-      flex-direction: column;
-    }
+  .row {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
   }
 }

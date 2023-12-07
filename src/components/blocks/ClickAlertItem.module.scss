@@ -1,0 +1,17 @@
+@import "../../styles/variables";
+
+.wrapper {
+  display: flex;
+  justify-content: flex-start;
+  gap: $gap_small;
+  cursor: pointer;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 2ch;
+
+  path {
+    fill: $link;
+  }
+}

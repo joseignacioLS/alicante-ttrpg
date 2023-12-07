@@ -49,7 +49,7 @@ export interface IGame extends IItem {
   frequency: EFrequency;
   postDate: Date;
   postUpdate: Date;
-  startDate: Date | undefined;
+  startDate: Date;
   progress: EStatus;
   approved: boolean;
   playerList: {

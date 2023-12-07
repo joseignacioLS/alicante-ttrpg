@@ -9,7 +9,7 @@ interface IOutput {
   message: string;
   type: ETypes;
   show: boolean;
-  updateAlert: (message: string, type: ETypes) => void;
+  updateAlert: (message: string, type?: ETypes) => void;
 }
 
 export const alertContext = createContext<IOutput>({
@@ -32,7 +32,7 @@ export const AlertProvider = ({ children }: { children: ReactElement }) => {
 
   const [alertTimeout, setAlertTimeout] = useState<any>(undefined);
 
-  const updateAlert = (message: string, type: ETypes) => {
+  const updateAlert = (message: string, type: ETypes = ETypes.inform) => {
     setMessageData({ message, type, show: true });
     if (alertTimeout) clearTimeout(alertTimeout);
     const timeout = setTimeout(() => {

@@ -1,6 +1,5 @@
 import { EDuration, EExperience, EStatus, ESystem, IGame } from "@/data/constants"
 import { ERequestMethods, makeRequest } from "./request";
-import { events } from "@/data/events";
 
 const apiUrl = process.env.NODE_ENV === "development" ? "http://localhost:3500/" : process.env.NEXT_PUBLIC_API_URL
 
@@ -67,6 +66,12 @@ export const gameFilters = [
   },
 ]
 
+interface IDefaultServerResponse {
+  status: number;
+  message: string;
+  data: any;
+}
+
 export const getGames = async (filters: IGameFilters): Promise<IGame[]> => {
   const response = await makeRequest(`${apiUrl}games/?system=${filters.system || "any"
     }&experience=${filters.experience || "any"
@@ -77,7 +82,7 @@ export const getGames = async (filters: IGameFilters): Promise<IGame[]> => {
   return response.data as IGame[];
 }
 
-export const getNotApprovedGames = async () => {
+export const getNotApprovedGames = async (): Promise<IGame[]> => {
   return await getGames({ experience: "any", duration: "any", system: "any", status: "any", progress: "any", approved: false })
 }
 
@@ -86,7 +91,7 @@ export const getGame = async (id: string): Promise<IGame> => {
   return response.data as IGame
 }
 
-export const createGame = async (data: IGame): Promise<any> => {
+export const createGame = async (data: IGame): Promise<IDefaultServerResponse> => {
   const response = await makeRequest(
     `${apiUrl}games/new-game`,
     {
@@ -96,7 +101,7 @@ export const createGame = async (data: IGame): Promise<any> => {
   return response
 }
 
-export const joinGame = async (id: string, name: string, email: string): Promise<any> => {
+export const joinGame = async (id: string, name: string, email: string): Promise<IDefaultServerResponse> => {
   const response = await makeRequest(
     `${apiUrl}games/join/${id}`,
     {
@@ -107,7 +112,7 @@ export const joinGame = async (id: string, name: string, email: string): Promise
 
 }
 
-export const approveGame = async (id: string) => {
+export const approveGame = async (id: string): Promise<IDefaultServerResponse> => {
   const response = await makeRequest(
     `${apiUrl}games/approve/${id}`,
     {
@@ -117,7 +122,7 @@ export const approveGame = async (id: string) => {
 }
 
 
-export const rejectGame = async (id: string) => {
+export const rejectGame = async (id: string): Promise<IDefaultServerResponse> => {
   const response = await makeRequest(
     `${apiUrl}games/${id}`,
     {
@@ -126,16 +131,10 @@ export const rejectGame = async (id: string) => {
   return response
 }
 
-export const acceptPlayer = async (id: string, email: string) => {
+export const acceptPlayer = async (id: string, email: string): Promise<IDefaultServerResponse> => {
   const response = await makeRequest(`${apiUrl}games/accept-player/${id}`,
     { method: ERequestMethods.PUT, body: { email } })
   return response
-}
-
-export const getEvents = (filters: any): Promise<any[]> => {
-  return new Promise((resolve, reject) => {
-    resolve(events)
-  });
 }
 
 export const getClassSpellSlots = async (dndClass: string, level: number) => {

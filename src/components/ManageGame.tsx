@@ -64,48 +64,52 @@ const ManageGame = ({ id }: IProps) => {
           Rechazar
         </Button>
       </section>
-      <CollapsableSection
-        title={<h2>Lista de jugadores inscritos</h2>}
-        defaultState={true}
-        content={
-          <table className={styles.table}>
-            <tbody>
-              <tr>
-                <td>Estado</td>
-                <td>Nombre</td>
-                <td>Email</td>
-              </tr>
-              {gameData.playerList.map(
-                ({
-                  name,
-                  email,
-                  approved,
-                }: {
-                  name: string;
-                  email: string;
-                  approved: boolean;
-                }) => {
-                  return (
-                    <tr key={email}>
-                      <td>
-                        <Button
-                          small={true}
-                          disabled={approved}
-                          onClick={() => handleAcceptPlayer(email)}
-                        >
-                          {approved ? "Aceptado" : "Aceptar"}
-                        </Button>
-                      </td>
-                      <td>{name}</td>
-                      <td>{email}</td>
-                    </tr>
-                  );
-                }
-              )}
-            </tbody>
-          </table>
-        }
-      />
+      {gameData.approved && (
+        <CollapsableSection
+          title={<h2>Lista de jugadores inscritos</h2>}
+          defaultState={true}
+          content={
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Estado</th>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                {gameData.playerList.map(
+                  ({
+                    name,
+                    email,
+                    approved,
+                  }: {
+                    name: string;
+                    email: string;
+                    approved: boolean;
+                  }) => {
+                    return (
+                      <tr key={email}>
+                        <td>
+                          <Button
+                            small={true}
+                            disabled={approved}
+                            onClick={() => handleAcceptPlayer(email)}
+                          >
+                            {approved ? "Aceptado" : "Aceptar"}
+                          </Button>
+                        </td>
+                        <td>{name}</td>
+                        <td>{email}</td>
+                      </tr>
+                    );
+                  }
+                )}
+              </tbody>
+            </table>
+          }
+        />
+      )}
     </>
   );
 };

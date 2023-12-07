@@ -32,8 +32,8 @@ body {
   height: 100dvh;
   display: grid;
   grid-template-rows: auto 1fr;
-  background-color: $background;
   overflow: hidden;
+  background-color: $background;
 }
 
 main {
@@ -41,10 +41,12 @@ main {
   width: 100%;
   overflow-y: auto;
   scroll-behavior: smooth;
+  background-color: $main;
 
   &::-webkit-scrollbar {
     display: none;
   }
+
 }
 
 section {
@@ -53,7 +55,7 @@ section {
 
 section {
   &.wholeW {
-    margin: $gap_default calc(0px - $gap_big) $gap_big calc(0px - $gap_big);
+    margin: 0 calc(0px - $gap_big) $gap_big calc(0px - $gap_big);
   }
 }
 
@@ -112,7 +114,6 @@ a {
   min-height: 100%;
   padding: $gap_big;
   padding-top: 0;
-  background-color: $main;
 
 }
 
