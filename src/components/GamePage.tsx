@@ -43,11 +43,10 @@ const GamePage = ({ backRoute, managerMode = false }: IProps) => {
     return <p>Loading</p>;
   }
 
-  const ocuppedPositions: number = gameData.playerList.filter(
-    (v) => v.approved
-  ).length;
-
-  console.log(gameData.playerList, ocuppedPositions);
+  const ocuppedPositions: number = Math.min(
+    gameData.playerList.filter((v) => v.approved).length,
+    gameData.wantedPlayers
+  );
 
   return (
     <>
@@ -88,7 +87,7 @@ const GamePage = ({ backRoute, managerMode = false }: IProps) => {
       </section>
       <CollapsableSection
         title={<h2>Descripción</h2>}
-        defaultState={true}
+        defaultState={!managerMode}
         content={
           <>
             {gameData.description.map((text) => (
@@ -99,7 +98,7 @@ const GamePage = ({ backRoute, managerMode = false }: IProps) => {
       />
       <CollapsableSection
         title={<h2>Información Extra</h2>}
-        defaultState={true}
+        defaultState={!managerMode}
         content={
           <>
             {gameData.information.map((text) => (
@@ -111,16 +110,10 @@ const GamePage = ({ backRoute, managerMode = false }: IProps) => {
       {!managerMode && (
         <section id="unete">
           <h2>Unete a la partida</h2>
-          <JoinForm gameId={gameData._id} />
+          <JoinForm gameId={gameData._id} playerList={gameData.playerList} />
         </section>
       )}
-      {managerMode && (
-        <ManageGame
-          id={gameData._id}
-          approved={gameData.approved}
-          playerList={gameData.playerList || []}
-        />
-      )}
+      {managerMode && <ManageGame id={gameData._id} />}
     </>
   );
 };

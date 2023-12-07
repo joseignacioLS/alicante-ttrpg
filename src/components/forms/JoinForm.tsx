@@ -7,9 +7,10 @@ import { joinGame } from "@/utils/dataapi";
 
 interface IProps {
   gameId: string;
+  playerList: any[];
 }
 
-const JoinForm = ({ gameId }: IProps) => {
+const JoinForm = ({ gameId, playerList }: IProps) => {
   const [input, setInput] = useState<any>({
     name: "",
     email: "",
@@ -45,6 +46,15 @@ const JoinForm = ({ gameId }: IProps) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    const joinedEmails = playerList.map((v) => v.email);
+    const isAlreadyRegistered = joinedEmails.includes(input.email);
+    if (isAlreadyRegistered) {
+      updateAlert(`Este email ya ha sido registrado`, ETypes.alert);
+      setChecks((old) => {
+        return [old[0], false];
+      });
+      return;
+    }
     const response = await joinGame(gameId, input.name, input.email);
     if (response.status === 200) {
       updateAlert(`¡Te hemos registrado en la partida!`, ETypes.inform);

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import GamePage from "@/components/GamePage";
 import { getGame } from "@/utils/dataapi";
@@ -14,7 +13,7 @@ export const generateMetadata = async ({ params }: any) => {
       title: game?.name,
       images: [
         {
-          url: "https://alicantettrpg.netlify.app/placeholder.png",
+          url: game.image,
           width: 600,
           height: 600,
         },

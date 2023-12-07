@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import Filters, { IFilterOption } from "./Filters";
 import CardList from "./CardList";

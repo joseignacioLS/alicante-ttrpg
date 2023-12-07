@@ -126,6 +126,12 @@ export const rejectGame = async (id: string) => {
   return response
 }
 
+export const acceptPlayer = async (id: string, email: string) => {
+  const response = await makeRequest(`${apiUrl}games/accept-player/${id}`,
+    { method: ERequestMethods.PUT, body: { email } })
+  return response
+}
+
 export const getEvents = (filters: any): Promise<any[]> => {
   return new Promise((resolve, reject) => {
     resolve(events)
