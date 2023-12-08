@@ -5,25 +5,3 @@
   flex-direction: row;
   justify-content: space-between;
 }
-
-.table {
-  text-align: center;
-  margin: auto;
-
-  thead {
-    color: $extra;
-
-    th {
-      border-bottom: 1px solid $extra;
-    }
-  }
-
-  tr {
-    margin-bottom: $gap_default;
-  }
-
-  td,
-  th {
-    padding-left: $gap_big;
-  }
-}

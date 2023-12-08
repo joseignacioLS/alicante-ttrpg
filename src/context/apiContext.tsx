@@ -7,6 +7,7 @@ import {
 import { requestContext } from "./requestContext";
 import { IGame, IGameFilters } from "@/data/constants";
 import { userContext } from "./userContext";
+import { ETypes, alertContext } from "./alertContext";
 
 interface IOutput {
   login: any;
@@ -36,27 +37,34 @@ export const apiContext = createContext<IOutput>({
 
 export const ApiProvider = ({ children }: { children: ReactElement }) => {
   const { request } = useContext(requestContext);
-  const { name, setName, token, setToken } = useContext(userContext);
+  const { name, email, setName, token, setEmail, setToken, setAdmin } =
+    useContext(userContext);
+  const { updateAlert } = useContext(alertContext);
 
   const login = async (name: string, password: string) => {
     const response = await request(`${apiUrl}users/login`, {
       method: ERequestMethods.POST,
       body: { name, password },
     });
-    console.log(response);
     if (response.status === 200) {
       setName(name);
+      setEmail(response.data.email);
       setToken(response.data.token);
+      setAdmin(response.data.admin);
+      updateAlert(`Login con éxito. Hola de nuevo ${name}`);
+    } else {
+      updateAlert("Error en el login", ETypes.alert);
     }
   };
 
   const logout = async () => {
     if (!name) return;
     setName(undefined);
+    setEmail(undefined);
     setToken(undefined);
   };
 
-  const getGames = async (filters: IGameFilters): Promise<IGame[]> => {
+  const getGames = async (filters: IGameFilters) => {
     const response = await request(
       `${apiUrl}games/?system=${filters.system || "any"}&experience=${
         filters.experience || "any"
@@ -93,15 +101,16 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
     return response;
   };
 
-  const joinGame = async (
-    id: string,
-    name: string,
-    email: string
-  ): Promise<IDefaultServerResponse> => {
+  const joinGame = async (id: string): Promise<IDefaultServerResponse> => {
     const response = await request(`${apiUrl}games/join/${id}`, {
       method: ERequestMethods.POST,
       body: { name, email },
     });
+    if (response.status === 200) {
+      updateAlert(`¡Te hemos registrado en la partida!`, ETypes.inform);
+    } else {
+      updateAlert(`Lo sentimos, hay algún error con el registro`, ETypes.alert);
+    }
     return response;
   };
 

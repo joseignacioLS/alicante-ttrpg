@@ -1,24 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button } from "./blocks/Button";
 import styles from "./ManageGame.module.scss";
 import { useRouter } from "next/navigation";
-import CollapsableSection from "./blocks/CollapsableSection";
 import { IGame } from "@/data/constants";
-import { ETypes, alertContext } from "@/context/alertContext";
 import { apiContext } from "@/context/apiContext";
+import { useManager } from "@/hooks/useManager";
 
 interface IProps {
   id: string;
+  gameData: IGame;
+  updateGameData: any;
 }
 
-const ManageGame = ({ id }: IProps) => {
+const ManageGame = ({ id, gameData, updateGameData }: IProps) => {
   const router = useRouter();
 
-  const [gameData, setGameData] = useState<IGame | undefined>(undefined);
-  const { updateAlert } = useContext(alertContext);
+  const managerMode = useManager();
 
-  const { acceptPlayer, approveGame, getGame, rejectGame } =
-    useContext(apiContext);
+  const { approveGame, getGame, rejectGame } = useContext(apiContext);
 
   const handleAccept = async () => {
     approveGame(id);
@@ -30,21 +29,6 @@ const ManageGame = ({ id }: IProps) => {
     router.push("/manager");
   };
 
-  const handleAcceptPlayer = async (email: string) => {
-    const response = await acceptPlayer(id, email);
-    if (response.status === 200) {
-      updateAlert("Jugador Aceptado", ETypes.inform);
-      updateGameData();
-    } else {
-      updateAlert("Error", ETypes.alert);
-    }
-  };
-
-  const updateGameData = async () => {
-    const newGameData = await getGame(id);
-    setGameData(newGameData);
-  };
-
   useEffect(() => {
     updateGameData();
   }, [id]);
@@ -53,60 +37,19 @@ const ManageGame = ({ id }: IProps) => {
 
   return (
     <>
-      <h2>Publicar o Rechazar</h2>
-      <section className={styles.wrapper}>
-        <Button onClick={handleAccept} disabled={gameData.approved}>
-          Publicar
-        </Button>
-        <Button onClick={handleReject} alert={true}>
-          Rechazar
-        </Button>
-      </section>
-      {gameData.approved && (
-        <CollapsableSection
-          title={<h2>Lista de jugadores inscritos</h2>}
-          defaultState={true}
-          content={
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Estado</th>
-                  <th>Nombre</th>
-                  <th>Email</th>
-                </tr>
-              </thead>
-              <tbody>
-                {gameData.playerList.map(
-                  ({
-                    name,
-                    email,
-                    approved,
-                  }: {
-                    name: string;
-                    email: string;
-                    approved: boolean;
-                  }) => {
-                    return (
-                      <tr key={email}>
-                        <td>
-                          <Button
-                            small={true}
-                            disabled={approved}
-                            onClick={() => handleAcceptPlayer(email)}
-                          >
-                            {approved ? "Aceptado" : "Aceptar"}
-                          </Button>
-                        </td>
-                        <td>{name}</td>
-                        <td>{email}</td>
-                      </tr>
-                    );
-                  }
-                )}
-              </tbody>
-            </table>
-          }
-        />
+      {managerMode && (
+        <>
+          <h2>Gestión de la partida</h2>
+          <h3>Publicar o elimnar partida</h3>
+          <section className={styles.wrapper}>
+            <Button onClick={handleAccept} disabled={gameData.approved}>
+              Publicar
+            </Button>
+            <Button onClick={handleReject} alert={true}>
+              Rechazar
+            </Button>
+          </section>
+        </>
       )}
     </>
   );

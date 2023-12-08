@@ -2,9 +2,11 @@
 
 import FilteredList from "@/components/FilteredList";
 import { apiContext } from "@/context/apiContext";
+import { useAdmin } from "@/hooks/useAdmin";
 import React, { useContext } from "react";
 
 const Home = () => {
+  useAdmin();
   const { getGames, getNotApprovedGames } = useContext(apiContext);
   return (
     <>

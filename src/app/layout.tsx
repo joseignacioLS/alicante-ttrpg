@@ -3,6 +3,8 @@ import "./globals.scss";
 import { Menu } from "@/core/Menu";
 import Alert from "@/core/Alert";
 import ContextWrapper from "@/core/ContextWrapper";
+import Modal from "@/core/Modal";
+import { LoginCTA } from "@/core/LoginCTA";
 
 export const metadata: Metadata = {
   title: "Alicante TTRPG",
@@ -26,6 +28,8 @@ export default function RootLayout({
               <div className="content">{children}</div>
             </main>
             <Alert />
+            <Modal />
+            <LoginCTA />
           </>
         </ContextWrapper>
       </body>
