@@ -2,11 +2,10 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./GamePage.module.scss";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { IGame } from "@/data/constants";
 import CollapsableSection from "./blocks/CollapsableSection";
-import JoinForm from "./forms/JoinForm";
 import { ETypes, alertContext } from "@/context/alertContext";
 import ManageGame from "./ManageGame";
 import Image from "./blocks/Image";
@@ -14,20 +13,27 @@ import Link from "next/link";
 import { Button } from "./blocks/Button";
 import ClickAlertItem from "./blocks/ClickAlertItem";
 import { apiContext } from "@/context/apiContext";
+import { userContext } from "@/context/userContext";
+import UserJoinGame from "./UserJoinGame";
+import ManagePlayers from "./ManagePlayers";
 
 interface IProps {
   backRoute: string;
-  managerMode?: boolean;
 }
 
-const GamePage = ({ backRoute, managerMode = false }: IProps) => {
+const GamePage = ({ backRoute }: IProps) => {
   const { id } = useParams();
   const router = useRouter();
   const [gameData, setGameData] = useState<IGame | undefined>(undefined);
+  const { name, admin } = useContext(userContext);
   const { updateAlert } = useContext(alertContext);
   const { getGame } = useContext(apiContext);
 
-  const getGameData = async (id: string) => {
+  const pathname = usePathname();
+
+  const managerMode = pathname.includes("/manager/");
+
+  const getGameData = async () => {
     const retrievedGame = await getGame(id);
     if (retrievedGame === undefined) {
       updateAlert("Partida no encontrada", ETypes.alert);
@@ -38,8 +44,16 @@ const GamePage = ({ backRoute, managerMode = false }: IProps) => {
 
   useEffect(() => {
     if (Array.isArray(id)) return;
-    getGameData(id);
+    getGameData();
   }, [id]);
+
+  useEffect(() => {
+    if (!managerMode) return;
+    if (!gameData) return;
+    if (admin) return;
+    if (name !== undefined && name !== gameData.master) return;
+    router.push("/");
+  }, [managerMode, name, admin, gameData]);
 
   if (!gameData) {
     return <p>Loading</p>;
@@ -131,13 +145,22 @@ const GamePage = ({ backRoute, managerMode = false }: IProps) => {
           </>
         }
       />
-      {!managerMode && (
-        <section id="unete">
-          <h2>Únete a la partida</h2>
-          <JoinForm gameId={gameData._id} playerList={gameData.playerList} />
-        </section>
+      {!managerMode && gameData.master !== name && (
+        <UserJoinGame gameData={gameData} name={name} />
       )}
-      {managerMode && <ManageGame id={gameData._id} />}
+
+      <ManagePlayers
+        name={name}
+        id={gameData._id}
+        gameData={gameData}
+        updateGameData={getGameData}
+      />
+
+      <ManageGame
+        id={gameData._id}
+        gameData={gameData}
+        updateGameData={getGameData}
+      />
     </>
   );
 };

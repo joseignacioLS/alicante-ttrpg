@@ -5,6 +5,7 @@ import Link from "next/link";
 import React from "react";
 import styles from "./Menu.module.scss";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/blocks/Button";
 
 export const Menu = () => {
   const pathname = usePathname();
