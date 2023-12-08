@@ -3,20 +3,20 @@
 import React, { useEffect, useState } from "react";
 import Filters, { IFilterOption } from "./Filters";
 import CardList from "./CardList";
-import Card, { ECardType } from "./Card";
+import Card from "./Card";
 
 interface IProps {
   filterOptions?: IFilterOption[];
-  cardType: ECardType;
   filterDefaults?: any;
   getItemsFunction: (filters: any) => Promise<any[]>;
+  managerMode?: boolean;
 }
 
 const FilteredList = ({
   filterOptions = [],
   filterDefaults = {},
   getItemsFunction,
-  cardType,
+  managerMode = false,
 }: IProps) => {
   const [items, setItems] = useState<any[]>([]);
   const [filters, setFilters] = useState<any>(filterDefaults);
@@ -60,8 +60,7 @@ const FilteredList = ({
                 <Card
                   key={item._id}
                   item={item}
-                  href={`/${cardType}/${item._id}`}
-                  cardType={cardType}
+                  href={`/${managerMode ? "manager" : "partidas"}/${item._id}`}
                 />
               );
             })

@@ -1,10 +1,12 @@
 "use client";
 
-import { gameFilters, getGames } from "@/utils/dataapi";
 import FilteredList from "@/components/FilteredList";
-import { ECardType } from "@/components/Card";
+import { apiContext } from "@/context/apiContext";
+import { gameFilters } from "@/data/constants";
+import { useContext } from "react";
 
 const Home = () => {
+  const { getGames } = useContext(apiContext);
   return (
     <>
       <h1>Listado de Partidas</h1>
@@ -18,7 +20,6 @@ const Home = () => {
           progress: "any",
           approved: true,
         }}
-        cardType={ECardType.game}
         getItemsFunction={getGames}
       />
     </>

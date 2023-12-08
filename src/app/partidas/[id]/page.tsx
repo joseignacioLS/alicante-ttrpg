@@ -1,10 +1,13 @@
 import React from "react";
 import GamePage from "@/components/GamePage";
-import { getGame } from "@/utils/dataapi";
+import { apiUrl, makeRequest } from "@/utils/request";
+import { IGame } from "@/data/constants";
 
 export const generateMetadata = async ({ params }: any) => {
   const id = params.id;
-  const game = await getGame(id);
+  const response = await makeRequest(`${apiUrl}games/${id}`);
+  const game = response.data as IGame;
+
   return {
     title: game?.name,
     description: game?.description,

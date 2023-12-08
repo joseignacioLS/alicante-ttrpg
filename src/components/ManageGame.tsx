@@ -1,16 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button } from "./blocks/Button";
 import styles from "./ManageGame.module.scss";
-import {
-  acceptPlayer,
-  approveGame,
-  getGame,
-  rejectGame,
-} from "@/utils/dataapi";
 import { useRouter } from "next/navigation";
 import CollapsableSection from "./blocks/CollapsableSection";
 import { IGame } from "@/data/constants";
 import { ETypes, alertContext } from "@/context/alertContext";
+import { apiContext } from "@/context/apiContext";
 
 interface IProps {
   id: string;
@@ -21,6 +16,9 @@ const ManageGame = ({ id }: IProps) => {
 
   const [gameData, setGameData] = useState<IGame | undefined>(undefined);
   const { updateAlert } = useContext(alertContext);
+
+  const { acceptPlayer, approveGame, getGame, rejectGame } =
+    useContext(apiContext);
 
   const handleAccept = async () => {
     approveGame(id);

@@ -8,7 +8,6 @@ interface IProps {
 }
 
 const CarouselCard = ({ title, content, backgroundImage }: IProps) => {
-  console.log(backgroundImage)
   return (
     <article
       className={styles.card}

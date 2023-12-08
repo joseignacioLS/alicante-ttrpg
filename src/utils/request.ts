@@ -2,38 +2,55 @@ export enum ERequestMethods {
   GET = "GET",
   POST = "POST",
   PUT = "PUT",
-  DELETE = "DELETE"
+  DELETE = "DELETE",
 }
 
-export const makeRequest = async (url: string, { method, headers, body }: {
-  method: ERequestMethods,
-  headers?: any,
-  body?: any
-} = { method: ERequestMethods.GET, body: {}, headers: {} }) => {
+export interface IDefaultServerResponse {
+  status: number;
+  message: string;
+  data: any;
+}
+
+export const apiUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3500/"
+    : process.env.NEXT_PUBLIC_API_URL;
+
+export const makeRequest = async (
+  url: string,
+  {
+    method,
+    headers,
+    body,
+  }: {
+    method: ERequestMethods;
+    headers?: any;
+    body?: any;
+  } = { method: ERequestMethods.GET, body: {}, headers: {} }
+) => {
   let res = undefined;
   if (method === ERequestMethods.GET) {
     res = await fetch(url, {
       method,
       headers: {
-        ...headers
+        ...headers,
       },
     });
-  }
-  else {
+  } else {
     res = await fetch(url, {
       method,
       headers: {
         "Content-Type": "application/json",
-        ...headers
+        ...headers,
       },
-      body: JSON.stringify({ ...body, apiToken: process.env.NEXT_PUBLIC_API_TOKEN })
+      body: JSON.stringify(body),
     });
   }
-  if (!res?.ok) return {
-    status: 500,
-    message: "unknown error"
-  }
-  const data = await res.json()
-  return data
-}
-
+  if (!res?.ok)
+    return {
+      status: 500,
+      message: "unknown error",
+    };
+  const data = await res.json();
+  return data;
+};

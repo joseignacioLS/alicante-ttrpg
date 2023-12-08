@@ -1,27 +1,24 @@
 "use client";
 
-import { ECardType } from "@/components/Card";
 import FilteredList from "@/components/FilteredList";
-import { getGames, getNotApprovedGames } from "@/utils/dataapi";
-import React from "react";
+import { apiContext } from "@/context/apiContext";
+import React, { useContext } from "react";
 
 const Home = () => {
+  const { getGames, getNotApprovedGames } = useContext(apiContext);
   return (
     <>
       <h1>Manager</h1>
       <section>
         <h2>Partidas por Aprobar</h2>
         <FilteredList
-          cardType={ECardType.management}
           getItemsFunction={getNotApprovedGames}
+          managerMode={true}
         />
       </section>
       <section>
         <h2>Partidas en marcha</h2>
-        <FilteredList
-          cardType={ECardType.management}
-          getItemsFunction={getGames}
-        />
+        <FilteredList getItemsFunction={getGames} managerMode={true} />
       </section>
     </>
   );

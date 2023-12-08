@@ -14,10 +14,11 @@ import Select from "../inputs/Select";
 import Textarea from "../inputs/Textarea";
 import { Button } from "../blocks/Button";
 import DateInput from "../inputs/DateInput";
-import { createGame } from "@/utils/dataapi";
 import { ETypes, alertContext } from "@/context/alertContext";
 import Image from "../blocks/Image";
 import { useRouter } from "next/navigation";
+import { userContext } from "@/context/userContext";
+import { apiContext } from "@/context/apiContext";
 
 const nameCheck = (value: string): boolean => {
   return value.match(/^[a-z ]+$/i) !== null;
@@ -78,7 +79,11 @@ const NewGameForm = () => {
   });
 
   const { updateAlert } = useContext(alertContext);
+
+  const { createGame } = useContext(apiContext);
   const router = useRouter();
+
+  const { name, token } = useContext(userContext);
 
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -100,7 +105,7 @@ const NewGameForm = () => {
     const objectToSend = { ...input } as any;
     objectToSend.description = input.description.split("\n");
     objectToSend.information = input.information.split("\n");
-    const response = await createGame(objectToSend as IGame);
+    const response = await createGame(objectToSend as IGame, name, token);
     if (response.status === 200) {
       router.push("/partidas");
       setTimeout(() => {

@@ -63,3 +63,78 @@ export interface IEvent extends IItem {
   date: Date;
   location: string;
 }
+
+
+export interface IGameFilters {
+  system: ESystem | "any";
+  experience: EExperience | "any";
+  duration: EDuration | "any";
+  status: string;
+  progress: EStatus | "any";
+  approved?: boolean;
+}
+
+export const gameFilters = [
+  {
+    label: "Sistema",
+    name: "system",
+    options: [
+      {
+        text: "Cualquiera",
+        value: "any",
+      },
+      ...Object.values(ESystem).map((v) => ({ text: v, value: v })),
+    ],
+  },
+  {
+    label: "Experiencia",
+    name: "experience",
+    options: [
+      {
+        text: "Cualquiera",
+        value: "any",
+      },
+      ...Object.values(EExperience).map((v) => ({ text: v, value: v })),
+    ],
+  },
+  {
+    label: "Duración",
+    name: "duration",
+    options: [
+      {
+        text: "Cualquiera",
+        value: "any",
+      },
+      ...Object.values(EDuration).map((v) => ({ text: v, value: v })),
+    ],
+  },
+  {
+    label: "Estado",
+    name: "status",
+    options: [
+      {
+        text: "Todas",
+        value: "any",
+      },
+      {
+        text: "Disponibles",
+        value: "Disponibles",
+      },
+      {
+        text: "Llenas",
+        value: "Llenas",
+      },
+    ],
+  },
+  {
+    label: "Progreso",
+    name: "progress",
+    options: [
+      {
+        text: "Cualquiera",
+        value: "any",
+      },
+      ...Object.values(EStatus).map((v) => ({ text: v, value: v })),
+    ],
+  },
+];

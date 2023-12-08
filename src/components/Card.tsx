@@ -7,16 +7,9 @@ import Image from "./blocks/Image";
 interface IProps {
   href?: string;
   item: IGame;
-  cardType: ECardType;
 }
 
-export enum ECardType {
-  game = "partidas",
-  event = "eventos",
-  management = "manager",
-}
-
-const Card = ({ item, href, cardType }: IProps) => {
+const Card = ({ item, href }: IProps) => {
   return (
     <Link href={href || "#"}>
       <article className={`${styles.card}`}>

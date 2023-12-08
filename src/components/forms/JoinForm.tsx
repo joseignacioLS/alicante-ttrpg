@@ -3,7 +3,7 @@ import styles from "./JoinForm.module.scss";
 import { Button } from "../blocks/Button";
 import Input from "../inputs/Input";
 import { ETypes, alertContext } from "@/context/alertContext";
-import { joinGame } from "@/utils/dataapi";
+import { apiContext } from "@/context/apiContext";
 
 interface IProps {
   gameId: string;
@@ -19,6 +19,8 @@ const JoinForm = ({ gameId, playerList }: IProps) => {
   const [checks, setChecks] = useState<boolean[]>([false, false]);
 
   const { updateAlert } = useContext(alertContext);
+
+  const { joinGame } = useContext(apiContext);
 
   const handleInput = (e: any) => {
     const name = e.target.name;

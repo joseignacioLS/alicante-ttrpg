@@ -5,7 +5,6 @@ import styles from "./GamePage.module.scss";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { IGame } from "@/data/constants";
-import { getGame } from "@/utils/dataapi";
 import CollapsableSection from "./blocks/CollapsableSection";
 import JoinForm from "./forms/JoinForm";
 import { ETypes, alertContext } from "@/context/alertContext";
@@ -14,6 +13,7 @@ import Image from "./blocks/Image";
 import Link from "next/link";
 import { Button } from "./blocks/Button";
 import ClickAlertItem from "./blocks/ClickAlertItem";
+import { apiContext } from "@/context/apiContext";
 
 interface IProps {
   backRoute: string;
@@ -25,6 +25,7 @@ const GamePage = ({ backRoute, managerMode = false }: IProps) => {
   const router = useRouter();
   const [gameData, setGameData] = useState<IGame | undefined>(undefined);
   const { updateAlert } = useContext(alertContext);
+  const { getGame } = useContext(apiContext);
 
   const getGameData = async (id: string) => {
     const retrievedGame = await getGame(id);
