@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   keywords: [
     "TTRPG",
     "RolePlaying",
+    "Juegos de Rol",
+    "Jugar Rol",
     "Dungeons and Dragons",
     "D&D",
     "DnD",
