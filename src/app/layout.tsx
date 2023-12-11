@@ -10,6 +10,21 @@ export const metadata: Metadata = {
   title: "Alicante TTRPG",
   description: "Lugar de encuentro para aficionad@s de los TTRPG en Alicante",
   icons: "/placeholder.ico",
+  creator: "Jose Ignacio LS",
+  authors: [
+    {
+      name: "Jose",
+    },
+  ],
+  keywords: [
+    "TTRPG",
+    "RolePlaying",
+    "Dungeons and Dragons",
+    "D&D",
+    "DnD",
+    "Alicante",
+    "Alacant",
+  ],
 };
 
 export default function RootLayout({
