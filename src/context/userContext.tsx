@@ -8,7 +8,7 @@ interface IOutput {
   setEmail: any;
   token: string | undefined;
   setToken: any;
-  admin: boolean;
+  admin: boolean | undefined;
   setAdmin: any;
 }
 
@@ -26,7 +26,7 @@ export const userContext = createContext<IOutput>({
 export const UserProvider = ({ children }: { children: ReactElement }) => {
   const [name, setName] = useState<string | undefined>(undefined);
   const [email, setEmail] = useState<string | undefined>(undefined);
-  const [admin, setAdmin] = useState<boolean>(false);
+  const [admin, setAdmin] = useState<boolean | undefined>(undefined);
   const [token, setToken] = useState<string | undefined>(undefined);
 
   const getStoredUser = async () => {
@@ -43,6 +43,8 @@ export const UserProvider = ({ children }: { children: ReactElement }) => {
       setEmail(response.data.email);
       setAdmin(response.data.admin);
       setToken(response.data.token);
+    } else {
+      setAdmin(false);
     }
   };
 

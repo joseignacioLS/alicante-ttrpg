@@ -7,6 +7,6 @@ export const useAdmin = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!admin) router.push("/");
+    if (admin === false) router.push("/");
   }, [admin]);
 };
