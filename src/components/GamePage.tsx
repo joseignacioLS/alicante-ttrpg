@@ -31,7 +31,9 @@ const GamePage = ({ backRoute }: IProps) => {
 
   const pathname = usePathname();
 
-  const managerMode = pathname.includes("/manager/");
+  console.log(id, pathname);
+
+  const managerMode = pathname?.includes("/manager/");
 
   const getGameData = async () => {
     const retrievedGame = await getGame(id);

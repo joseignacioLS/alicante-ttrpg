@@ -7,8 +7,8 @@ export enum ERequestMethods {
 
 export interface IDefaultServerResponse {
   status: number;
-  message: string;
-  data: any;
+  message?: string;
+  data?: any;
 }
 
 export const apiUrl =
@@ -27,7 +27,7 @@ export const makeRequest = async (
     headers?: any;
     body?: any;
   } = { method: ERequestMethods.GET, body: {}, headers: {} }
-) => {
+): Promise<IDefaultServerResponse> => {
   let res = undefined;
   if (method === ERequestMethods.GET) {
     res = await fetch(url, {
