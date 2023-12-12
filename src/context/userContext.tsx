@@ -49,12 +49,6 @@ export const UserProvider = ({ children }: { children: ReactElement }) => {
   useEffect(() => {
     getStoredUser();
   }, []);
-  useEffect(() => {
-    window.localStorage.setItem(
-      "userData",
-      JSON.stringify({ name, email, admin, token })
-    );
-  }, [name, email, admin, token]);
 
   return (
     <userContext.Provider

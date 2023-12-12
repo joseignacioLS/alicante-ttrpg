@@ -31,7 +31,6 @@ const GamePage = ({ backRoute }: IProps) => {
 
   const pathname = usePathname();
 
-  console.log(id, pathname);
 
   const managerMode = pathname?.includes("/manager/");
 

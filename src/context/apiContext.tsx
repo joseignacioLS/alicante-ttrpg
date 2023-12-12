@@ -52,6 +52,16 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
       setToken(response.data.token);
       setAdmin(response.data.admin);
       updateAlert(`Login con éxito. Hola de nuevo ${name}`);
+
+      window.localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          name,
+          email: response.data.email,
+          admin: response.data.admin,
+          token: response.data.token,
+        })
+      );
     } else {
       updateAlert("Error en el login", ETypes.alert);
     }
