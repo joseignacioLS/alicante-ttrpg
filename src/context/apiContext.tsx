@@ -1,4 +1,4 @@
-import { ReactElement, createContext, useContext, useEffect } from "react";
+import { ReactElement, createContext, useContext } from "react";
 import {
   ERequestMethods,
   IDefaultServerResponse,
@@ -10,27 +10,31 @@ import { userContext } from "./userContext";
 import { ETypes, alertContext } from "./alertContext";
 
 interface IOutput {
-  login: any;
-  logout: any;
-  getGames: any;
-  getGame: any;
-  createGame: any;
-  joinGame: any;
-  approveGame: any;
-  rejectGame: any;
-  acceptPlayer: any;
+  login: (name: string, password: string) => void;
+  logout: () => void;
+  getGames: (filter: IGameFilters) => Promise<IGame[]>;
+  getGame: (id: string) => Promise<IGame>;
+  createGame: (data: IGame) => Promise<IDefaultServerResponse>;
+  joinGame: (id: string) => Promise<IDefaultServerResponse>;
+  approveGame: (id: string) => Promise<IDefaultServerResponse>;
+  rejectGame: (id: string) => Promise<IDefaultServerResponse>;
+  acceptPlayer: (id: string, email: string) => Promise<IDefaultServerResponse>;
 }
 
 export const apiContext = createContext<IOutput>({
-  login: () => {},
+  login: (name, password) => {},
   logout: () => {},
-  getGames: () => {},
-  getGame: () => {},
-  createGame: () => {},
-  joinGame: () => {},
-  approveGame: () => {},
-  rejectGame: () => {},
-  acceptPlayer: () => {},
+  getGames: (filter) => new Promise((resolve, reject) => resolve([])),
+  getGame: (id) => new Promise((resolve, reject) => resolve({} as IGame)),
+  createGame: (data) =>
+    new Promise((resolve, reject) => resolve({ status: 400 })),
+  joinGame: (id) => new Promise((resolve, reject) => resolve({ status: 400 })),
+  approveGame: (id) =>
+    new Promise((resolve, reject) => resolve({ status: 400 })),
+  rejectGame: (id) =>
+    new Promise((resolve, reject) => resolve({ status: 400 })),
+  acceptPlayer: (id, email) =>
+    new Promise((resolve, reject) => resolve({ status: 400 })),
 });
 
 export const ApiProvider = ({ children }: { children: ReactElement }) => {
@@ -80,6 +84,11 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
     window.localStorage.removeItem("userData");
   };
 
+  const getGame = async (id: string): Promise<IGame> => {
+    const response = await request(`${apiUrl}games/${id}`);
+    return response.data as IGame;
+  };
+
   const getGames = async (filters: IGameFilters) => {
     const response = await request(
       `${apiUrl}games/?system=${filters.system || "any"}&master=${
@@ -93,11 +102,6 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
       }`
     );
     return response.data as IGame[];
-  };
-
-  const getGame = async (id: string): Promise<IGame> => {
-    const response = await request(`${apiUrl}games/${id}`);
-    return response.data as IGame;
   };
 
   const createGame = async (data: IGame): Promise<IDefaultServerResponse> => {
