@@ -25,7 +25,6 @@ export const RequestProvider = ({ children }: { children: ReactElement }) => {
       body?: any;
     } = { method: ERequestMethods.GET, body: {}, headers: {} }
   ) => {
-    console.log(name, token,"lest go")
     return await makeRequest(url, {
       method,
       headers,

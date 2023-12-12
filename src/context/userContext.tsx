@@ -39,7 +39,6 @@ export const UserProvider = ({ children }: { children: ReactElement }) => {
     });
 
     if (response.status === 200) {
-      console.log(response.data)
       setName(response.data.name);
       setEmail(response.data.email);
       setAdmin(response.data.admin);
@@ -57,7 +56,6 @@ export const UserProvider = ({ children }: { children: ReactElement }) => {
   };
 
   useEffect(() => {
-    console.log("user context up");
     getStoredUser();
   }, []);
 
