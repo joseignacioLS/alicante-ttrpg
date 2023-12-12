@@ -7,20 +7,17 @@ import React, { useContext } from "react";
 
 const Home = () => {
   useAdmin();
-  const { getGames, getNotApprovedGames } = useContext(apiContext);
+  const { getGames } = useContext(apiContext);
   return (
     <>
       <h1>Manager</h1>
       <section>
         <h2>Partidas por Aprobar</h2>
-        <FilteredList
-          getItemsFunction={getNotApprovedGames}
-          managerMode={true}
-        />
+        <FilteredList fixedFilters={{ approved: false }} managerMode={true} />
       </section>
       <section>
         <h2>Partidas en marcha</h2>
-        <FilteredList getItemsFunction={getGames} managerMode={true} />
+        <FilteredList fixedFilters={{ approved: true }} managerMode={true} />
       </section>
     </>
   );

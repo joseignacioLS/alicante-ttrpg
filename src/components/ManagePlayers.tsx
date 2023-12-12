@@ -10,7 +10,7 @@ interface IProps {
   gameData: IGame;
   id: string;
   updateGameData: any;
-  name: string | undefined;
+  name: string | undefined | null;
 }
 
 const ManagePlayers = ({ gameData, id, updateGameData, name }: IProps) => {

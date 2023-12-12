@@ -1,37 +1,42 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Filters, { IFilterOption } from "./Filters";
 import CardList from "./CardList";
 import Card from "./Card";
+import { apiContext } from "@/context/apiContext";
 
 interface IProps {
   filterOptions?: IFilterOption[];
   filterDefaults?: any;
-  getItemsFunction: (filters: any) => Promise<any[]>;
+  fixedFilters?: {};
   managerMode?: boolean;
 }
 
 const FilteredList = ({
   filterOptions = [],
   filterDefaults = {},
-  getItemsFunction,
+  fixedFilters = {},
   managerMode = false,
 }: IProps) => {
   const [items, setItems] = useState<any[]>([]);
-  const [filters, setFilters] = useState<any>(filterDefaults);
+  const [filters, setFilters] = useState<any>({
+    filterDefaults,
+    ...fixedFilters,
+  });
+  const { getGames } = useContext(apiContext);
   const handleChange = (e: any) => {
     e.preventDefault();
     const name = e.currentTarget.name;
     const value = e.currentTarget.value;
     setFilters((old: any) => {
-      const newValues = { ...old, [name]: value };
+      const newValues = { ...old, [name]: value, ...fixedFilters };
       return newValues;
     });
   };
 
   const getItems = async () => {
-    const newList = await getItemsFunction(filters);
+    const newList = await getGames(filters);
     setItems(newList);
   };
 

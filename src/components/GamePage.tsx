@@ -22,7 +22,6 @@ interface IProps {
 }
 
 const GamePage = ({ backRoute }: IProps) => {
-  const { id } = useParams();
   const router = useRouter();
   const [gameData, setGameData] = useState<IGame | undefined>(undefined);
   const { name, admin } = useContext(userContext);
@@ -30,7 +29,7 @@ const GamePage = ({ backRoute }: IProps) => {
   const { getGame } = useContext(apiContext);
 
   const pathname = usePathname();
-
+  const id = pathname?.split("/").at(-1);
 
   const managerMode = pathname?.includes("/manager/");
 
@@ -52,7 +51,7 @@ const GamePage = ({ backRoute }: IProps) => {
     if (!managerMode) return;
     if (!gameData) return;
     if (admin) return;
-    if (name !== undefined && name !== gameData.master) return;
+    if (name !== undefined && name !== null && name !== gameData.master) return;
     router.push("/");
   }, [managerMode, name, admin, gameData]);
 

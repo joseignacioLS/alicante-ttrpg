@@ -2,11 +2,11 @@ import { ERequestMethods, apiUrl, makeRequest } from "@/utils/request";
 import { ReactElement, createContext, useEffect, useState } from "react";
 
 interface IOutput {
-  name: string | undefined;
+  name: string | undefined | null;
   setName: any;
-  email: string | undefined;
+  email: string | undefined | null;
   setEmail: any;
-  token: string | undefined;
+  token: string | undefined | null;
   setToken: any;
   admin: boolean | undefined;
   setAdmin: any;
@@ -24,14 +24,14 @@ export const userContext = createContext<IOutput>({
 });
 
 export const UserProvider = ({ children }: { children: ReactElement }) => {
-  const [name, setName] = useState<string | undefined>(undefined);
-  const [email, setEmail] = useState<string | undefined>(undefined);
+  const [name, setName] = useState<string | undefined | null>(null);
+  const [email, setEmail] = useState<string | undefined | null>(null);
   const [admin, setAdmin] = useState<boolean | undefined>(undefined);
-  const [token, setToken] = useState<string | undefined>(undefined);
+  const [token, setToken] = useState<string | undefined | null>(null);
 
   const getStoredUser = async () => {
     const userData = window.localStorage.getItem("userData");
-    if (!userData) return;
+    if (!userData) return initializeData();
     const parsed = JSON.parse(userData);
     const response = await makeRequest(`${apiUrl}users/refresh`, {
       method: ERequestMethods.POST,
@@ -39,16 +39,25 @@ export const UserProvider = ({ children }: { children: ReactElement }) => {
     });
 
     if (response.status === 200) {
+      console.log(response.data)
       setName(response.data.name);
       setEmail(response.data.email);
       setAdmin(response.data.admin);
       setToken(response.data.token);
     } else {
-      setAdmin(false);
+      initializeData();
     }
   };
 
+  const initializeData = () => {
+    setName(undefined);
+    setEmail(undefined);
+    setAdmin(false);
+    setToken(undefined);
+  };
+
   useEffect(() => {
+    console.log("user context up");
     getStoredUser();
   }, []);
 

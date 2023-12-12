@@ -8,7 +8,7 @@ const Modal = () => {
   return (
     <>
       {show && (
-        <div className={styles.wrapper} onClick={closeModal}>
+        <div className={styles.wrapper} onClick={() => closeModal(false)}>
           <div className={styles.content} onClick={(e) => e.stopPropagation()}>
             {content}
           </div>

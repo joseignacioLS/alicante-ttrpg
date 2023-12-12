@@ -66,11 +66,13 @@ export interface IEvent extends IItem {
 
 
 export interface IGameFilters {
-  system: ESystem | "any";
-  experience: EExperience | "any";
-  duration: EDuration | "any";
-  status: string;
-  progress: EStatus | "any";
+  system?: ESystem | "any";
+  experience?: EExperience | "any";
+  duration?: EDuration | "any";
+  status?: string;
+  progress?: EStatus | "any";
+  master?: string;
+  player?: string;
   approved?: boolean;
 }
 

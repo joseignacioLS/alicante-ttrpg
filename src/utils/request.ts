@@ -47,10 +47,7 @@ export const makeRequest = async (
     });
   }
   if (!res?.ok)
-    return {
-      status: 500,
-      message: "unknown error",
-    };
+    return await res.json()
   const data = await res.json();
   return data;
 };

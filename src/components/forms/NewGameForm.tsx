@@ -30,14 +30,12 @@ const textCheck = (value: string): boolean => {
 
 const checkFunctions: { [key: string]: (value: any) => boolean } = {
   name: nameCheck,
-  master: nameCheck,
   description: textCheck,
   information: textCheck,
 };
 
 interface IInputs {
   name: string;
-  master: string;
   system: ESystem;
   maxPlayers: number;
   image: string;
@@ -52,7 +50,6 @@ interface IInputs {
 const NewGameForm = () => {
   const [input, setInput] = useState<IInputs>({
     name: "",
-    master: "",
     system: ESystem.DnD5e,
     maxPlayers: 1,
     image: "",
@@ -63,10 +60,10 @@ const NewGameForm = () => {
     frequency: EFrequency.Semanal,
     startDate: new Date(),
   });
+  const { name, token } = useContext(userContext);
 
   const [inputCheck, setInputCheck] = useState<any>({
     name: false,
-    master: false,
     system: true,
     image: true,
     description: true,
@@ -82,8 +79,6 @@ const NewGameForm = () => {
 
   const { createGame } = useContext(apiContext);
   const router = useRouter();
-
-  const { name, token } = useContext(userContext);
 
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -102,7 +97,7 @@ const NewGameForm = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const objectToSend = { ...input } as any;
+    const objectToSend = { ...input, master: name } as any;
     objectToSend.description = input.description.split("\n");
     objectToSend.information = input.information.split("\n");
     const response = await createGame(objectToSend as IGame, name, token);
@@ -135,11 +130,11 @@ const NewGameForm = () => {
         <label style={{ gridArea: "master" }}>
           <h3>Nombre del Máster</h3>
           <Input
-            value={input.master}
+            value={name || ""}
             name={"master"}
-            onChange={handleChange}
+            onChange={undefined}
             placeholder="Master"
-            error={!inputCheck.master}
+            disabled={true}
           />
         </label>
         <label style={{ gridArea: "system" }}>

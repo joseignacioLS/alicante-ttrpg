@@ -13,6 +13,8 @@ interface IOutput {
   login: any;
   logout: any;
   getGames: any;
+  getUserGames: any;
+  getApprovedGames: any;
   getNotApprovedGames: any;
   getGame: any;
   createGame: any;
@@ -26,6 +28,8 @@ export const apiContext = createContext<IOutput>({
   login: () => {},
   logout: () => {},
   getGames: () => {},
+  getUserGames: () => {},
+  getApprovedGames: () => {},
   getNotApprovedGames: () => {},
   getGame: () => {},
   createGame: () => {},
@@ -37,9 +41,15 @@ export const apiContext = createContext<IOutput>({
 
 export const ApiProvider = ({ children }: { children: ReactElement }) => {
   const { request } = useContext(requestContext);
-  const { name, email, setName, token, setEmail, setToken, setAdmin } =
+  const { name, email, setName, setEmail, setToken, setAdmin } =
     useContext(userContext);
   const { updateAlert } = useContext(alertContext);
+
+  const handleInvalidToken = (response: IDefaultServerResponse) => {
+    if (response.message === "Invalid Token") {
+      logout();
+    }
+  };
 
   const login = async (name: string, password: string) => {
     const response = await request(`${apiUrl}users/login`, {
@@ -72,11 +82,15 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
     setName(undefined);
     setEmail(undefined);
     setToken(undefined);
+    setAdmin(undefined);
+    window.localStorage.removeItem("userData");
   };
 
   const getGames = async (filters: IGameFilters) => {
     const response = await request(
-      `${apiUrl}games/?system=${filters.system || "any"}&experience=${
+      `${apiUrl}games/?system=${filters.system || "any"}&master=${
+        filters.master || "any"
+      }&player=${filters.player || "any"}&experience=${
         filters.experience || "any"
       }&duration=${filters.duration || "any"}&status=${
         filters.status || "any"
@@ -85,6 +99,27 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
       }`
     );
     return response.data as IGame[];
+  };
+
+  const getUserGames = async (
+    name: string
+  ): Promise<{ player: IGame[]; master: IGame[] }> => {
+    const response = await request(`${apiUrl}games/user-games/`, {
+      method: ERequestMethods.POST,
+      body: { name },
+    });
+    return response.data as { player: IGame[]; master: IGame[] };
+  };
+
+  const getApprovedGames = async (): Promise<IGame[]> => {
+    return await getGames({
+      experience: "any",
+      duration: "any",
+      system: "any",
+      status: "any",
+      progress: "any",
+      approved: true,
+    });
   };
 
   const getNotApprovedGames = async (): Promise<IGame[]> => {
@@ -108,6 +143,7 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
       method: ERequestMethods.POST,
       body: { data },
     });
+    handleInvalidToken(response);
     return response;
   };
 
@@ -116,6 +152,7 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
       method: ERequestMethods.POST,
       body: { name, email },
     });
+    handleInvalidToken(response);
     if (response.status === 200) {
       updateAlert(`¡Te hemos registrado en la partida!`, ETypes.inform);
     } else {
@@ -129,6 +166,7 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
       method: ERequestMethods.PUT,
       body: { name },
     });
+    handleInvalidToken(response);
     return response;
   };
 
@@ -137,6 +175,7 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
       method: ERequestMethods.DELETE,
       body: { name },
     });
+    handleInvalidToken(response);
     return response;
   };
 
@@ -148,6 +187,7 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
       method: ERequestMethods.PUT,
       body: { name, email },
     });
+    handleInvalidToken(response);
     return response;
   };
 
@@ -157,7 +197,9 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
         login,
         logout,
         getGames,
+        getUserGames,
         getGame,
+        getApprovedGames,
         getNotApprovedGames,
         createGame,
         joinGame,
