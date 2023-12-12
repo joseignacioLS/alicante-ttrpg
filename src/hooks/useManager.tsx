@@ -6,7 +6,7 @@ export const useManager = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    setIsManager(pathname.includes("/manager/"));
+    setIsManager(pathname?.includes("/manager/") || false);
   }, [pathname]);
   return isManager;
 };

@@ -100,7 +100,7 @@ const NewGameForm = () => {
     const objectToSend = { ...input, master: name } as any;
     objectToSend.description = input.description.split("\n");
     objectToSend.information = input.information.split("\n");
-    const response = await createGame(objectToSend as IGame, name, token);
+    const response = await createGame(objectToSend as IGame);
     if (response.status === 200) {
       router.push("/partidas");
       setTimeout(() => {
