@@ -2,7 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./GamePage.module.scss";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { IGame } from "@/data/constants";
 import CollapsableSection from "./blocks/CollapsableSection";
@@ -34,6 +34,7 @@ const GamePage = ({ backRoute }: IProps) => {
   const managerMode = pathname?.includes("/manager/");
 
   const getGameData = async () => {
+    if (!id) return;
     const retrievedGame = await getGame(id);
     if (retrievedGame === undefined) {
       updateAlert("Partida no encontrada", ETypes.alert);

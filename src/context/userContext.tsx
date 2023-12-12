@@ -37,7 +37,6 @@ export const UserProvider = ({ children }: { children: ReactElement }) => {
       method: ERequestMethods.POST,
       body: { email: parsed.email, token: parsed.token },
     });
-
     if (response.status === 200) {
       setName(response.data.name);
       setEmail(response.data.email);

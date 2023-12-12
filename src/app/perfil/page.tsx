@@ -7,6 +7,8 @@ import { apiContext } from "@/context/apiContext";
 import { userContext } from "@/context/userContext";
 import Link from "next/link";
 import React, { useContext } from "react";
+import styles from "./page.module.scss";
+import CollapsableSection from "@/components/blocks/CollapsableSection";
 
 const Home = () => {
   const { name, email, admin } = useContext(userContext);
@@ -18,7 +20,7 @@ const Home = () => {
 
   if (!name) {
     return (
-      <section>
+      <section className={styles.login}>
         <LoginForm />
       </section>
     );
@@ -26,19 +28,31 @@ const Home = () => {
 
   return (
     <>
-      <section>
-        <p>Name: {name}</p>
-        <p>Email: {email}</p>
-        <p>
-          Admin:{" "}
-          <input
-            type="checkbox"
-            checked={admin as boolean}
-            onChange={undefined}
-          />
-        </p>
+      <section className={styles.userInfo}>
+        <table>
+          <tbody>
+            <tr>
+              <td>Name:</td>
+              <td>{name}</td>
+            </tr>
+            <tr>
+              <td>Email:</td>
+              <td>{email}</td>
+            </tr>
+            <tr>
+              <td>Admin:</td>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={admin as boolean}
+                  onChange={undefined}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
-      <section>
+      <section className={styles.actions}>
         <Link href="nueva-partida">
           <Button small={true}>Crear Partida</Button>
         </Link>
@@ -51,14 +65,18 @@ const Home = () => {
           Logout
         </Button>
       </section>
-      <section>
-        <h2>Mastered Games</h2>
-        <FilteredList fixedFilters={{ master: name }} />
-      </section>
-      <section>
-        <h2>Joined Games</h2>
-        <FilteredList fixedFilters={{ player: name, approved: true }} />
-      </section>
+      <CollapsableSection
+        title={<h2>Partidas como Master</h2>}
+        content={<FilteredList fixedFilters={{ master: name }} />}
+        defaultState={true}
+      />
+      <CollapsableSection
+        title={<h2>Partidas como Player</h2>}
+        content={
+          <FilteredList fixedFilters={{ player: name, approved: true }} />
+        }
+        defaultState={true}
+      />
     </>
   );
 };

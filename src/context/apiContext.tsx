@@ -19,6 +19,7 @@ interface IOutput {
   approveGame: (id: string) => Promise<IDefaultServerResponse>;
   rejectGame: (id: string) => Promise<IDefaultServerResponse>;
   acceptPlayer: (id: string, email: string) => Promise<IDefaultServerResponse>;
+  rejectPlayer: (id: string, email: string) => Promise<IDefaultServerResponse>;
 }
 
 export const apiContext = createContext<IOutput>({
@@ -34,6 +35,8 @@ export const apiContext = createContext<IOutput>({
   rejectGame: (id) =>
     new Promise((resolve, reject) => resolve({ status: 400 })),
   acceptPlayer: (id, email) =>
+    new Promise((resolve, reject) => resolve({ status: 400 })),
+  rejectPlayer: (id, email) =>
     new Promise((resolve, reject) => resolve({ status: 400 })),
 });
 
@@ -156,6 +159,17 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
     handleInvalidToken(response);
     return response;
   };
+  const rejectPlayer = async (
+    id: string,
+    email: string
+  ): Promise<IDefaultServerResponse> => {
+    const response = await request(`${apiUrl}games/reject-player/${id}`, {
+      method: ERequestMethods.PUT,
+      body: { name, email },
+    });
+    handleInvalidToken(response);
+    return response;
+  };
 
   return (
     <apiContext.Provider
@@ -169,6 +183,7 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
         approveGame,
         rejectGame,
         acceptPlayer,
+        rejectPlayer,
       }}
     >
       {children}

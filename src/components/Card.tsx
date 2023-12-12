@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./Card.module.scss";
 import Link from "next/link";
 import { IGame } from "@/data/constants";
 import Image from "./blocks/Image";
+import { userContext } from "@/context/userContext";
 
 interface IProps {
   href?: string;
@@ -10,9 +11,24 @@ interface IProps {
 }
 
 const Card = ({ item, href }: IProps) => {
+  const [status, setStatus] = useState<"Aceptado" | "Rechazado" | undefined>(
+    undefined
+  );
+  const { name } = useContext(userContext);
+
+  useEffect(() => {
+    const isJoined = item?.playerList.find((v) => v.name === name);
+    if (!isJoined) setStatus(undefined);
+    if (isJoined?.approved === true) setStatus("Aceptado");
+    if (isJoined?.approved === false) setStatus("Rechazado");
+  }, [name]);
   return (
     <Link href={href || "#"}>
-      <article className={`${styles.card}`}>
+      <article
+        className={`${styles.card} 
+        ${status === "Aceptado" && styles.approved}
+        ${status === "Rechazado" && styles.rejected}`}
+      >
         <div className={styles.image}>
           <Image src={item.image} />
         </div>

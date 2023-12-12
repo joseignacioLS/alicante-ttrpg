@@ -1,13 +1,11 @@
 "use client";
 
 import FilteredList from "@/components/FilteredList";
-import { apiContext } from "@/context/apiContext";
 import { useAdmin } from "@/hooks/useAdmin";
-import React, { useContext } from "react";
+import React from "react";
 
 const Home = () => {
   useAdmin();
-  const { getGames } = useContext(apiContext);
   return (
     <>
       <h1>Manager</h1>

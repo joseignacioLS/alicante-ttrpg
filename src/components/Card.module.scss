@@ -19,6 +19,15 @@
 
   box-shadow: 3px 3px 0 0 $link;
 
+  &.approved {
+    background-image: linear-gradient(-45deg, $link, $link 16px, transparent 16px);
+  }
+
+  &.rejected {
+    background-image: linear-gradient(-45deg, $alert, $alert 16px, transparent 16px);
+    box-shadow: 3px 3px 0 0 $alert;
+  }
+
   .image {
     width: 100%;
     height: 100%;

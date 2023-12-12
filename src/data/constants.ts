@@ -55,7 +55,7 @@ export interface IGame extends IItem {
   playerList: {
     name: string;
     email: string;
-    approved: boolean;
+    approved: boolean | undefined;
   }[];
 }
 

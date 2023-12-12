@@ -16,7 +16,7 @@ interface IProps {
 const ManagePlayers = ({ gameData, id, updateGameData, name }: IProps) => {
   const { updateAlert } = useContext(alertContext);
 
-  const { acceptPlayer } = useContext(apiContext);
+  const { acceptPlayer, rejectPlayer } = useContext(apiContext);
 
   const handleAcceptPlayer = async (email: string) => {
     const response = await acceptPlayer(id, email);
@@ -27,6 +27,17 @@ const ManagePlayers = ({ gameData, id, updateGameData, name }: IProps) => {
       updateAlert("Error", ETypes.alert);
     }
   };
+
+  const handleRejectPlayer = async (email: string) => {
+    const response = await rejectPlayer(id, email);
+    if (response.status === 200) {
+      updateAlert("Jugador Declinado", ETypes.inform);
+      updateGameData();
+    } else {
+      updateAlert("Error", ETypes.alert);
+    }
+  };
+
   return (
     <>
       {name !== undefined && gameData.master === name && (
@@ -37,6 +48,7 @@ const ManagePlayers = ({ gameData, id, updateGameData, name }: IProps) => {
             <table className={styles.table}>
               <thead>
                 <tr>
+                  <th>Acciones</th>
                   <th>Estado</th>
                   <th>Nombre</th>
                   <th>Email</th>
@@ -51,8 +63,14 @@ const ManagePlayers = ({ gameData, id, updateGameData, name }: IProps) => {
                   }: {
                     name: string;
                     email: string;
-                    approved: boolean;
+                    approved: boolean | undefined;
                   }) => {
+                    let status = "Pendiente";
+                    if (approved === true) {
+                      status = "Aceptado";
+                    } else if (approved === false) {
+                      status = "Declinado";
+                    }
                     return (
                       <tr key={email}>
                         <td>
@@ -61,9 +79,17 @@ const ManagePlayers = ({ gameData, id, updateGameData, name }: IProps) => {
                             disabled={approved}
                             onClick={() => handleAcceptPlayer(email)}
                           >
-                            {approved ? "Aceptado" : "Aceptar"}
+                            Aceptar
+                          </Button>
+                          <Button
+                            small={true}
+                            disabled={approved === false}
+                            onClick={() => handleRejectPlayer(email)}
+                          >
+                            Declinar
                           </Button>
                         </td>
+                        <td>{status}</td>
                         <td>{name}</td>
                         <td>{email}</td>
                       </tr>

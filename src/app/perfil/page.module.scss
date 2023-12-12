@@ -1,0 +1,22 @@
+@import "../../styles/variables";
+
+.login {
+  margin-top: $gap_default;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userInfo {
+  margin-top: $gap_default;
+
+  td {
+    padding-right: $gap_default;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: $gap_default;
+}
