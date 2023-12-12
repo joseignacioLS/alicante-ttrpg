@@ -13,9 +13,6 @@ interface IOutput {
   login: any;
   logout: any;
   getGames: any;
-  getUserGames: any;
-  getApprovedGames: any;
-  getNotApprovedGames: any;
   getGame: any;
   createGame: any;
   joinGame: any;
@@ -28,9 +25,6 @@ export const apiContext = createContext<IOutput>({
   login: () => {},
   logout: () => {},
   getGames: () => {},
-  getUserGames: () => {},
-  getApprovedGames: () => {},
-  getNotApprovedGames: () => {},
   getGame: () => {},
   createGame: () => {},
   joinGame: () => {},
@@ -101,38 +95,6 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
     return response.data as IGame[];
   };
 
-  const getUserGames = async (
-    name: string
-  ): Promise<{ player: IGame[]; master: IGame[] }> => {
-    const response = await request(`${apiUrl}games/user-games/`, {
-      method: ERequestMethods.POST,
-      body: { name },
-    });
-    return response.data as { player: IGame[]; master: IGame[] };
-  };
-
-  const getApprovedGames = async (): Promise<IGame[]> => {
-    return await getGames({
-      experience: "any",
-      duration: "any",
-      system: "any",
-      status: "any",
-      progress: "any",
-      approved: true,
-    });
-  };
-
-  const getNotApprovedGames = async (): Promise<IGame[]> => {
-    return await getGames({
-      experience: "any",
-      duration: "any",
-      system: "any",
-      status: "any",
-      progress: "any",
-      approved: false,
-    });
-  };
-
   const getGame = async (id: string): Promise<IGame> => {
     const response = await request(`${apiUrl}games/${id}`);
     return response.data as IGame;
@@ -197,10 +159,7 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
         login,
         logout,
         getGames,
-        getUserGames,
         getGame,
-        getApprovedGames,
-        getNotApprovedGames,
         createGame,
         joinGame,
         approveGame,
