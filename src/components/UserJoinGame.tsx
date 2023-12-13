@@ -6,6 +6,7 @@ import { IGame } from "@/data/constants";
 import { Button } from "./blocks/Button";
 import { modalContext } from "@/context/modalContext";
 import LoginForm from "./forms/LoginForm";
+import useProperty from "@/hooks/useProperty";
 
 interface IProps {
   gameData: IGame;
@@ -17,7 +18,6 @@ const UserJoinGame = ({ gameData, name }: IProps) => {
   const alreadyJoin =
     logged &&
     gameData.playerList.filter((v: any) => v.name === name).length > 0;
-  const isMaster = logged && name === gameData.master;
 
   const { openModal, closeModal } = useContext(modalContext);
 
@@ -36,7 +36,7 @@ const UserJoinGame = ({ gameData, name }: IProps) => {
           </Button>
         )}
       </h2>
-      {logged && !isMaster && !alreadyJoin && (
+      {logged && !alreadyJoin && (
         <JoinForm gameId={gameData._id} playerList={gameData.playerList} />
       )}
     </section>

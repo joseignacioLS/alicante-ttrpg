@@ -4,7 +4,7 @@ import styles from "./ManageGame.module.scss";
 import { useRouter } from "next/navigation";
 import { IGame } from "@/data/constants";
 import { apiContext } from "@/context/apiContext";
-import { useManager } from "@/hooks/useManager";
+import useUser from "@/hooks/useUser";
 
 interface IProps {
   id: string;
@@ -15,9 +15,9 @@ interface IProps {
 const ManageGame = ({ id, gameData, updateGameData }: IProps) => {
   const router = useRouter();
 
-  const managerMode = useManager();
+  const { isManager } = useUser();
 
-  const { approveGame, getGame, rejectGame } = useContext(apiContext);
+  const { approveGame, rejectGame } = useContext(apiContext);
 
   const handleAccept = async () => {
     approveGame(id);
@@ -37,7 +37,7 @@ const ManageGame = ({ id, gameData, updateGameData }: IProps) => {
 
   return (
     <>
-      {managerMode && (
+      {isManager && (
         <>
           <h2>Gestión de la partida</h2>
           <h3>Publicar o elimnar partida</h3>

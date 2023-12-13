@@ -10,13 +10,22 @@ interface IProps {
     text: string;
   }[];
   onChange: any;
+  disabled?: boolean;
 }
 
-const Select = ({ label, name, value, options, onChange }: IProps) => {
+const Select = ({
+  label,
+  name,
+  value,
+  options,
+  onChange,
+  disabled,
+}: IProps) => {
   return (
     <label className={styles.wrapper}>
       <span className={styles.label}>{label}</span>
       <select
+        disabled={disabled}
         className={styles.select}
         name={name}
         value={value}

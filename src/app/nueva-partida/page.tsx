@@ -1,3 +1,4 @@
+import GamePage from "@/components/GamePage";
 import NewGameForm from "@/components/forms/NewGameForm";
 import React from "react";
 

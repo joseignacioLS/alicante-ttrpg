@@ -8,6 +8,7 @@ interface IProps {
   error?: boolean;
   disabled?: boolean;
   placeholder?: string;
+  naked?: boolean;
 }
 const Input = ({
   value,
@@ -17,10 +18,13 @@ const Input = ({
   placeholder,
   error,
   type = "text",
+  naked = false,
 }: IProps) => {
   return (
     <input
-      className={`${styles.input} ${error && styles.error}`}
+      className={`${styles.input} ${error && styles.error} ${
+        naked && styles.naked
+      }`}
       type={type}
       name={name}
       value={value}

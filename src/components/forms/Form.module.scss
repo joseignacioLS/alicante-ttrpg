@@ -19,10 +19,9 @@
       gap: $gap_default;
 
       img {
-        height: 100px;
+        width: 100%;
         min-width: 100px;
         background-color: white;
-        outline: 1px solid $alert;
       }
     }
   }
@@ -31,7 +30,6 @@
 @media (min-width: 800px) {
   .form {
     section {
-
       display: flex;
       flex-direction: row;
       justify-content: space-between;

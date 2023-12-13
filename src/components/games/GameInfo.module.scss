@@ -1,0 +1,32 @@
+@import "../../styles/variables";
+
+.stats {
+  width: fit-content;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, auto);
+  gap: $gap_default;
+
+  >div {
+    width: 100%;
+  }
+
+  .row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, auto);
+    gap: $gap_default;
+
+    .validXp {
+      opacity: 1;
+
+    }
+
+    .invalidXP {
+      opacity: .5;
+      text-decoration: line-through;
+      color: $alert;
+    }
+  }
+}

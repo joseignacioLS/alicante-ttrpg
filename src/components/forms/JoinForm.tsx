@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import styles from "./JoinForm.module.scss";
+import styles from "./Form.module.scss";
 import { Button } from "../blocks/Button";
 import { apiContext } from "@/context/apiContext";
 

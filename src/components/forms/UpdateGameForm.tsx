@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useContext, useState } from "react";
-import styles from "./Form.module.scss";
-import Input from "../inputs/Input";
+import React, { useContext, useEffect, useState } from "react";
+import { Button } from "../blocks/Button";
 import {
   EDuration,
   EExperience,
@@ -11,14 +10,16 @@ import {
   IGame,
 } from "@/data/constants";
 import Select from "../inputs/Select";
-import Textarea from "../inputs/Textarea";
-import { Button } from "../blocks/Button";
 import DateInput from "../inputs/DateInput";
-import { ETypes, alertContext } from "@/context/alertContext";
+import Input from "../inputs/Input";
+import Textarea from "../inputs/Textarea";
 import Image from "../blocks/Image";
+import { ETypes, alertContext } from "@/context/alertContext";
+import { apiContext } from "@/context/apiContext";
 import { useRouter } from "next/navigation";
 import { userContext } from "@/context/userContext";
-import { apiContext } from "@/context/apiContext";
+
+import styles from "./Form.module.scss";
 
 const nameCheck = (value: string): boolean => {
   return value.match(/^[a-z ]+$/i) !== null;
@@ -48,7 +49,11 @@ interface IInputs {
   startDate: Date;
 }
 
-const NewGameForm = () => {
+interface IProps {
+  id: string;
+}
+
+const UpdateGameForm = ({ id }: IProps) => {
   const [input, setInput] = useState<IInputs>({
     name: "",
     system: ESystem.DnD5e,
@@ -62,10 +67,12 @@ const NewGameForm = () => {
     frequency: EFrequency.Semanal,
     startDate: new Date(),
   });
-  const { name, token } = useContext(userContext);
+  const { name } = useContext(userContext);
+  const { getGame, updateGame } = useContext(apiContext);
+  const { updateAlert } = useContext(alertContext);
 
   const [inputCheck, setInputCheck] = useState<any>({
-    name: false,
+    name: true,
     system: true,
     image: true,
     description: true,
@@ -78,9 +85,6 @@ const NewGameForm = () => {
     frequency: true,
   });
 
-  const { updateAlert } = useContext(alertContext);
-
-  const { createGame } = useContext(apiContext);
   const router = useRouter();
 
   const handleChange = (e: any) => {
@@ -103,19 +107,38 @@ const NewGameForm = () => {
     const objectToSend = { ...input, master: name } as any;
     objectToSend.description = input.description.split("\n");
     objectToSend.information = input.information.split("\n");
-    const response = await createGame(objectToSend as IGame);
+    const response = await updateGame(id, objectToSend as IGame);
     if (response.status === 200) {
-      router.push("/partidas");
+      router.push(`/partidas/${id}`);
       setTimeout(() => {
-        updateAlert(
-          "Partida registrada correctamente, te avisaremos cuando sea publicada",
-          ETypes.inform
-        );
+        updateAlert("Partida edita correctamente", ETypes.inform);
       }, 100);
     } else {
       updateAlert("Ha habido un error con el registro", ETypes.alert);
     }
   };
+
+  const initInput = async () => {
+    const game = await getGame(id);
+    if (!game) return;
+    setInput({
+      name: game.name,
+      system: game.system,
+      wantedPlayers: game.wantedPlayers,
+      maxPlayers: game.maxPlayers,
+      image: game.image,
+      experience: game.experience,
+      description: game.description.join("\n"),
+      duration: game.duration,
+      information: game.information.join("\n"),
+      frequency: game.frequency,
+      startDate: new Date(game.startDate),
+    });
+  };
+
+  useEffect(() => {
+    initInput();
+  }, [id]);
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <h2 style={{ gridArea: "tGeneral" }}>General</h2>
@@ -267,4 +290,4 @@ const NewGameForm = () => {
   );
 };
 
-export default NewGameForm;
+export default UpdateGameForm;

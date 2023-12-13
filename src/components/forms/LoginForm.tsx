@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import styles from "./LoginForm.module.scss";
+import styles from "./Form.module.scss";
 import Input from "../inputs/Input";
 import { Button } from "../blocks/Button";
 import { apiContext } from "@/context/apiContext";

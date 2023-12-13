@@ -42,7 +42,7 @@ export interface IGame extends IItem {
   system: ESystem;
   wantedPlayers: number;
   maxPlayers: number;
-  experience: EExperience[];
+  experience: EExperience;
   description: string[];
   duration: EDuration;
   information: string[];

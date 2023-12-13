@@ -42,11 +42,7 @@ const Home = () => {
             <tr>
               <td>Admin:</td>
               <td>
-                <input
-                  type="checkbox"
-                  checked={admin as boolean}
-                  onChange={undefined}
-                />
+                <input type="checkbox" defaultChecked={admin as boolean} />
               </td>
             </tr>
           </tbody>

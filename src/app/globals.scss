@@ -126,7 +126,15 @@ select,
 textarea {
   font-size: 1rem;
   font-family: inherit;
+
+  &:disabled {
+    opacity: 1;
+    background-color: $highlight;
+    color: $background;
+    cursor: default;
+  }
 }
+
 
 input,
 select {

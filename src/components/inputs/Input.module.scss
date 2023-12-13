@@ -18,4 +18,16 @@
       opacity: .75;
     }
   }
+
+  &.naked {
+    flex-grow: 0;
+    padding: 0 $gap_default;
+    min-width: 0px;
+    width: fit-content;
+    background-color: transparent;
+    color: inherit;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid $extra;
+    border-radius: 0;
+  }
 }

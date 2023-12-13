@@ -3,8 +3,10 @@
 .wrapper {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   gap: $gap_small;
   cursor: pointer;
+  color: inherit;
 }
 
 .icon {

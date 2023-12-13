@@ -15,6 +15,7 @@ interface IOutput {
   getGames: (filter: IGameFilters) => Promise<IGame[]>;
   getGame: (id: string) => Promise<IGame>;
   createGame: (data: IGame) => Promise<IDefaultServerResponse>;
+  updateGame: (id: string, data: any) => Promise<IDefaultServerResponse>;
   joinGame: (id: string) => Promise<IDefaultServerResponse>;
   approveGame: (id: string) => Promise<IDefaultServerResponse>;
   rejectGame: (id: string) => Promise<IDefaultServerResponse>;
@@ -28,6 +29,8 @@ export const apiContext = createContext<IOutput>({
   getGames: (filter) => new Promise((resolve, reject) => resolve([])),
   getGame: (id) => new Promise((resolve, reject) => resolve({} as IGame)),
   createGame: (data) =>
+    new Promise((resolve, reject) => resolve({ status: 400 })),
+  updateGame: (id, data) =>
     new Promise((resolve, reject) => resolve({ status: 400 })),
   joinGame: (id) => new Promise((resolve, reject) => resolve({ status: 400 })),
   approveGame: (id) =>
@@ -115,6 +118,17 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
     handleInvalidToken(response);
     return response;
   };
+  const updateGame = async (
+    id: string,
+    data: IGame
+  ): Promise<IDefaultServerResponse> => {
+    const response = await request(`${apiUrl}games/${id}`, {
+      method: ERequestMethods.PUT,
+      body: { data },
+    });
+    handleInvalidToken(response);
+    return response;
+  };
 
   const joinGame = async (id: string): Promise<IDefaultServerResponse> => {
     const response = await request(`${apiUrl}games/join/${id}`, {
@@ -179,6 +193,7 @@ export const ApiProvider = ({ children }: { children: ReactElement }) => {
         getGames,
         getGame,
         createGame,
+        updateGame,
         joinGame,
         approveGame,
         rejectGame,

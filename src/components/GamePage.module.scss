@@ -24,6 +24,13 @@
     right: $gap_default;
     text-shadow: $text_shadow_all;
   }
+
+  .editBtn {
+    position: absolute;
+    top: $gap_default;
+    right: $gap_default;
+
+  }
 }
 
 .stats {

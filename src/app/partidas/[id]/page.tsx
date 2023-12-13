@@ -5,6 +5,12 @@ import { IGame } from "@/data/constants";
 
 export const generateMetadata = async ({ params }: any) => {
   const id = params.id;
+  if (!id) {
+    return {
+      title: "Alicante TTRPG",
+      icons: "/placeholder.ico",
+    };
+  }
   const response = await makeRequest(`${apiUrl}games/${id}`);
   const game = response.data as IGame;
 
@@ -16,7 +22,7 @@ export const generateMetadata = async ({ params }: any) => {
       title: game?.name,
       images: [
         {
-          url: game.image,
+          url: game?.image,
           width: 600,
           height: 600,
         },

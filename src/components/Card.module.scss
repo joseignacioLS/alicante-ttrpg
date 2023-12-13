@@ -17,10 +17,11 @@
   color: $extra;
   background-color: $background;
 
-  box-shadow: 3px 3px 0 0 $link;
+  box-shadow: 3px 3px 0 0 $extra;
 
   &.approved {
-    background-image: linear-gradient(-45deg, $link, $link 16px, transparent 16px);
+    background-image: linear-gradient(-45deg, $granted, $granted 16px, transparent 16px);
+    box-shadow: 3px 3px 0 0 $granted;
   }
 
   &.rejected {

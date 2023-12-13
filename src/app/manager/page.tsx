@@ -1,11 +1,11 @@
 "use client";
 
 import FilteredList from "@/components/FilteredList";
-import { useAdmin } from "@/hooks/useAdmin";
+import useUser from "@/hooks/useUser";
 import React from "react";
 
 const Home = () => {
-  useAdmin();
+  useUser(true);
   return (
     <>
       <h1>Manager</h1>
