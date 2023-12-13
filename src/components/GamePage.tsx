@@ -6,14 +6,14 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { IGame } from "@/data/constants";
 import { ETypes, alertContext } from "@/context/alertContext";
-import ManageGame from "./ManageGame";
+import ManageGame from "./games/ManageGame";
 import Image from "./blocks/Image";
 import Link from "next/link";
 import { Button } from "./blocks/Button";
 import { apiContext } from "@/context/apiContext";
 import { userContext } from "@/context/userContext";
-import UserJoinGame from "./UserJoinGame";
-import ManagePlayers from "./ManagePlayers";
+import UserJoinGame from "./games/UserJoinGame";
+import ManagePlayers from "./games/ManagePlayers";
 import GameInfo from "./games/GameInfo";
 import useProperty from "@/hooks/useProperty";
 
@@ -76,7 +76,7 @@ const GamePage = ({ backRoute }: IProps) => {
           <Button>Editar</Button>
         </Link>
       )}
-      {!isProperty && <UserJoinGame gameData={gameData} name={name} />}
+      {!isProperty && !admin && <UserJoinGame gameData={gameData} name={name} />}
 
       <ManagePlayers
         name={name}

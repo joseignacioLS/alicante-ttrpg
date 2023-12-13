@@ -1,24 +1,14 @@
 "use client";
 
 import React, { useContext, useState } from "react";
-import styles from "./Form.module.scss";
-import Input from "../inputs/Input";
-import {
-  EDuration,
-  EExperience,
-  EFrequency,
-  ESystem,
-  IGame,
-} from "@/data/constants";
-import Select from "../inputs/Select";
-import Textarea from "../inputs/Textarea";
 import { Button } from "../blocks/Button";
+import { EDuration, EExperience, EFrequency, ESystem } from "@/data/constants";
+import Select from "../inputs/Select";
 import DateInput from "../inputs/DateInput";
-import { ETypes, alertContext } from "@/context/alertContext";
+import Input from "../inputs/Input";
+import Textarea from "../inputs/Textarea";
 import Image from "../blocks/Image";
-import { useRouter } from "next/navigation";
 import { userContext } from "@/context/userContext";
-import { apiContext } from "@/context/apiContext";
 
 const nameCheck = (value: string): boolean => {
   return value.match(/^[a-z ]+$/i) !== null;
@@ -28,44 +18,28 @@ const textCheck = (value: string): boolean => {
   return value.match(/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9€.,!?¡¿\s\n]{0,}$/) !== null;
 };
 
+const valueCheck = (value: number): boolean => {
+  return value > 0;
+};
+
 const checkFunctions: { [key: string]: (value: any) => boolean } = {
   name: nameCheck,
   description: textCheck,
   information: textCheck,
+  maxPlayers: valueCheck,
+  wantedPlayers: valueCheck,
 };
 
-interface IInputs {
-  name: string;
-  system: ESystem;
-  wantedPlayers: number;
-  maxPlayers: number;
-  image: string;
-  experience: EExperience;
-  description: string;
-  duration: EDuration;
-  information: string;
-  frequency: EFrequency;
-  startDate: Date;
+interface IProps {
+  input: any;
+  setInput: any;
 }
 
-const NewGameForm = () => {
-  const [input, setInput] = useState<IInputs>({
-    name: "",
-    system: ESystem.DnD5e,
-    wantedPlayers: 1,
-    maxPlayers: 1,
-    image: "",
-    experience: EExperience.None,
-    description: "",
-    duration: EDuration.OneShot,
-    information: "",
-    frequency: EFrequency.Semanal,
-    startDate: new Date(),
-  });
-  const { name, token } = useContext(userContext);
+const GameForm = ({ input, setInput }: IProps) => {
+  const { name } = useContext(userContext);
 
   const [inputCheck, setInputCheck] = useState<any>({
-    name: false,
+    name: true,
     system: true,
     image: true,
     description: true,
@@ -78,15 +52,10 @@ const NewGameForm = () => {
     frequency: true,
   });
 
-  const { updateAlert } = useContext(alertContext);
-
-  const { createGame } = useContext(apiContext);
-  const router = useRouter();
-
   const handleChange = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
-    setInput((old) => {
+    setInput((old: any) => {
       return { ...old, [name]: value };
     });
 
@@ -98,26 +67,12 @@ const NewGameForm = () => {
     });
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const objectToSend = { ...input, master: name } as any;
-    objectToSend.description = input.description.split("\n");
-    objectToSend.information = input.information.split("\n");
-    const response = await createGame(objectToSend as IGame);
-    if (response.status === 200) {
-      router.push("/partidas");
-      setTimeout(() => {
-        updateAlert(
-          "Partida registrada correctamente, te avisaremos cuando sea publicada",
-          ETypes.inform
-        );
-      }, 100);
-    } else {
-      updateAlert("Ha habido un error con el registro", ETypes.alert);
-    }
-  };
+  if (!input?.name === undefined) {
+    return <p>Cargando</p>;
+  }
+
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <>
       <h2 style={{ gridArea: "tGeneral" }}>General</h2>
       <section>
         <label style={{ gridArea: "image" }}>
@@ -174,6 +129,7 @@ const NewGameForm = () => {
             value={input.maxPlayers}
             name={"maxPlayers"}
             onChange={handleChange}
+            error={!inputCheck.maxPlayers}
           />
         </label>
         <label style={{ gridArea: "maxPlayers" }}>
@@ -183,6 +139,7 @@ const NewGameForm = () => {
             value={input.wantedPlayers}
             name={"wantedPlayers"}
             onChange={handleChange}
+            error={!inputCheck.wantedPlayers}
           />
         </label>
         <label style={{ gridArea: "experience" }}>
@@ -263,8 +220,8 @@ const NewGameForm = () => {
           Guardar
         </Button>
       </div>
-    </form>
+    </>
   );
 };
 
-export default NewGameForm;
+export default GameForm;

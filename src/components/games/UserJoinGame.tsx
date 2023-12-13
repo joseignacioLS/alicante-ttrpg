@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useContext } from "react";
-import JoinForm from "./forms/JoinForm";
+import JoinForm from "../forms/JoinForm";
 import { IGame } from "@/data/constants";
-import { Button } from "./blocks/Button";
+import { Button } from "../blocks/Button";
 import { modalContext } from "@/context/modalContext";
-import LoginForm from "./forms/LoginForm";
+import LoginForm from "../forms/LoginForm";
 import useProperty from "@/hooks/useProperty";
 
 interface IProps {

@@ -1,7 +1,7 @@
 import { IGame } from "@/data/constants";
 import React, { useContext } from "react";
-import CollapsableSection from "./blocks/CollapsableSection";
-import { Button } from "./blocks/Button";
+import CollapsableSection from "../blocks/CollapsableSection";
+import { Button } from "../blocks/Button";
 import { ETypes, alertContext } from "@/context/alertContext";
 import { apiContext } from "@/context/apiContext";
 import styles from "./ManagePlayers.module.scss";

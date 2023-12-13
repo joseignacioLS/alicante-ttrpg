@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Button } from "./blocks/Button";
+import { Button } from "../blocks/Button";
 import styles from "./ManageGame.module.scss";
 import { useRouter } from "next/navigation";
 import { IGame } from "@/data/constants";

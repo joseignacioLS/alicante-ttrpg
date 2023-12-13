@@ -29,6 +29,7 @@ const Home = () => {
   return (
     <>
       <section className={styles.userInfo}>
+        <h2>Perfil</h2>
         <table>
           <tbody>
             <tr>
@@ -48,6 +49,7 @@ const Home = () => {
           </tbody>
         </table>
       </section>
+      <h2>Acciones</h2>
       <section className={styles.actions}>
         <Link href="nueva-partida">
           <Button small={true}>Crear Partida</Button>
@@ -61,13 +63,14 @@ const Home = () => {
           Logout
         </Button>
       </section>
+      <h2>Tus Partidas</h2>
       <CollapsableSection
-        title={<h2>Partidas como Master</h2>}
+        title={<h3>Como Master</h3>}
         content={<FilteredList fixedFilters={{ master: name }} />}
         defaultState={true}
       />
       <CollapsableSection
-        title={<h2>Partidas como Player</h2>}
+        title={<h3>Como Player</h3>}
         content={
           <FilteredList fixedFilters={{ player: name, approved: true }} />
         }

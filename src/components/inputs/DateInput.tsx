@@ -9,9 +9,18 @@ interface IProps {
 }
 
 const DateInput = ({ value, onChange, name, disabled }: IProps) => {
-  const dateValue = `${value.getUTCFullYear()}-${
-    value.getUTCMonth() + 1
-  }-${value.getUTCDate()}`;
+  const year = "" + value.getUTCFullYear();
+  const month = "" + value.getUTCMonth() + 1;
+  const day = "" + value.getUTCDate();
+
+  const dateValue =
+    year +
+    "-" +
+    (month.length === 1 ? "0" : "") +
+    month +
+    "-" +
+    (day.length === 1 ? "0" : "") +
+    day;
   return (
     <input
       className={styles.dateInput}
