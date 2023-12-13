@@ -17,7 +17,7 @@ export const games: IGame[] = [
       "https://cdn.openart.ai/stable_diffusion/aa8f04004a467922dac32e8922cb6c91b1eff373_2000x2000.webp",
     wantedPlayers: 6,
     maxPlayers: 6,
-    experience: [EExperience.Iniciado, EExperience.Veterano],
+    experience: EExperience.Iniciado,
     description: [
       `Un vórtice interdimensional amenaza con colapsar realidades. Mientras
           explorais tierras desconocidas y os sumergis en dimensiones paralelas,
@@ -53,7 +53,7 @@ export const games: IGame[] = [
     image: "https://blizzardwatch.com/wp-content/uploads/2020/06/cthulhu.png",
     wantedPlayers: 1,
     maxPlayers: 4,
-    experience: [EExperience.None, EExperience.Iniciado],
+    experience: EExperience.None,
     description: [
       `Cuando vuestro coche dejó de funcionar en el pequeño pueblo de Tisbay pensásteis que lo más sensato era pasar la noche allí mientras os lo reparaban.`,
       `¿Pensaréis lo mismo tras ver los horrores que la noche esconde?`,
